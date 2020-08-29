@@ -10,7 +10,7 @@ function Nav() {
              <Link className = 'w3-col  w3-pale-yellow no-td' to = "/explore">
               <p>Explore</p>
              </Link>
-             <Link className = 'w3-col w3-pale-red no-td'  to ="/">
+             <Link className = 'w3-col w3-pale-red no-td'  to ="/webapp">
                 <p>Home</p>
              </Link>
              <Link className = 'w3-col w3-pale-green no-td' to = "/quiz">
@@ -26,7 +26,7 @@ function Nav() {
              <Link className = 'w3-col  w3-pale-yellow no-td' to = "/explore">
               <p>Explore</p>
              </Link>
-             <Link className = 'w3-col w3-pale-red no-td'  to ="/">
+             <Link className = 'w3-col w3-pale-red no-td'  to ="/webapp">
                 <p>Home</p>
              </Link>
              <Link className = 'w3-col w3-pale-green no-td' to = "/quiz">
