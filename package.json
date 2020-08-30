@@ -1,5 +1,5 @@
 {
-  "homepage": "http://pktintali.github.io/",
+  "homepage": "https://students-mitra.web.app",
   "name": "project",
   "version": "0.1.0",
   "private": true,
@@ -36,6 +36,6 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.1.0"
+    
   }
 }
