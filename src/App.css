@@ -14,3 +14,70 @@ height:100%;
 width:100%;
 align:center;
 }
+.c-box{
+cursor:pointer;
+height:250px;
+width:250px;
+}
+.c-box-min{
+height:55px;
+width:100px;
+}
+.full-height{
+height:100vh;
+}
+.mr-m{
+color:green;
+margin-top:0px;
+}
+.myCol{
+background:#bf3f9f;
+}
+.mbs{
+  justify-content: center;
+}
+.mtop{
+margin-top:65px; 
+}
+.pding{
+padding:128px 16px;
+}
+.c-pad{
+padding:65px;
+}
+.outer {
+  display: flex;
+  justify-content: center;
+} 
+
+.button {
+border-radius: 50%;
+  position: relative;
+  background-color: #ffffff;
+  border: none;
+  font-size: 28px;
+  text-align: center;
+  transition-duration: 0.5s;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.button:after {
+  content: "";
+  background: #ff0000;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s;
+}

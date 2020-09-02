@@ -4,10 +4,13 @@ import Jokes from './Jokes';
 
 function Explore() {
   return (
-    <div className='bm w3-panel w3-card w3-pale-yellow'>
-    <h3 >Explore Page</h3>
+  <>
+     <div className = 'w3-hide-large w3-hide-medium w3-top w3-white w3-container w3-hide-large w3-card'>
+         <h3>Learn</h3>
+      </div>
+      <div className = 'mtop' ></div>
      <Jokes />
-    </div>
+    </>
   );
 }
 

@@ -1,39 +1,59 @@
-import React from 'react';
+import React , { useState }from 'react';
 import '../App.css';
 import {Link} from 'react-router-dom';
+import Test from './Test';
 
 function Nav() {
+	
+	const [clse, sce] = useState('w3-col  w3-pale-blue no-td')
+    const [clsd, scd] = useState('w3-col w3-teal no-td')
+    const [clsq, scq] = useState('w3-col  w3-pale-yellow no-td')
+   
+	const updateMenuE = () => {
+       sce('w3-col  w3-blue no-td')
+       scd('w3-col  w3-pale-green no-td')
+       scq('w3-col  w3-pale-yellow no-td')
+       
+    }
+    
+    const updateMenuD = () => {
+       sce('w3-col  w3-pale-blue no-td')
+       scd('w3-col  w3-teal no-td')
+       scq('w3-col  w3-pale-yellow no-td')
+       
+    }
+    
+    const updateMenuQ = () => {
+       sce('w3-col  w3-pale-blue no-td')
+       scd('w3-col  w3-pale-green no-td')
+       scq('w3-col  w3-yellow no-td')
+       
+    }
+    
   return (
      <>
-      <div class = 'w3-card w3-hide-small'>
-       <nav className = "w3-row">
-             <Link className = 'w3-col  w3-pale-yellow no-td' to = "/explore">
-              <p>Explore</p>
-             </Link>
-             <Link className = 'w3-col w3-pale-red no-td'  to ="/">
-                <p>Home</p>
-             </Link>
-             <Link className = 'w3-col w3-pale-green no-td' to = "/quiz">
-              <p>Quiz</p>
-             </Link>
-       </nav>
-       </div>
-       
-       
-       
+
+  <nav className="w3-hide-small w3-top">
+      <div className="w3-bar w3-red w3-card w3-left-align w3-large">
+        <Link to= '/' className='w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white'>Dashboard</Link>
+         <Link to= '/explore'  className='w3-bar-item w3-button w3-padding-large w3-hover-white'>Explore</Link>
+         <Link to= '/quiz'  className='w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white'>Test</Link>
+     </div>
+    </nav>
+      
        <div class = 'w3-bottom w3-hide-large w3-hide-medium w3-card'>
        <nav className = "w3-row">
-             <Link className = 'w3-col  w3-pale-yellow no-td' to = "/explore">
+             <Link onClick = {updateMenuE} className = {clse} to = "/explore">
               <p>Explore</p>
              </Link>
-             <Link className = 'w3-col w3-pale-red no-td'  to ="/">
+             <Link onClick = {updateMenuD} className = {clsd}  to ="/">
                 <p>Home</p>
              </Link>
-             <Link className = 'w3-col w3-pale-green no-td' to = "/quiz">
-              <p>Quiz</p>
+             <Link onClick = {updateMenuQ} className = {clsq} to = "/quiz">
+              <p>Test</p>
              </Link>
        </nav>
-       </div>
+       </div>   
        </>
   );
 }

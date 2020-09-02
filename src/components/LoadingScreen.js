@@ -4,31 +4,13 @@ import Jokes from './Jokes';
 
 function LoadingScreen() {
   return (
-    <div>
-    
-    <br/>
-    <br/>
-    <br/>
-     <br/>
-    <br/>
-    <br/>
-          <h1>Loading.....</h1>
-     <br/>
-    <br/>
-    <br/>
-     <br/>
-    <br/>
-    <br/>
-     <br/>
-    <br/>
-    <br/>
-     <br/>
-    <br/>
-     <br/>
-    <br/>
-    <br/>
-     <br/>
-    <br/>
+    <div className = 'full-height'>
+          <h1
+         style={{
+        position: 'absolute', left: '50%', top: '50%',
+        transform: 'translate(-50%, -50%)'
+        }}
+>Loading.....</h1>
     </div>
   );
 }
