@@ -1,16 +1,19 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import './App.css';
 import Nav from './components/Nav';
 import Explore from './components/Explore';
 import Quiz from './components/Quiz';
 import Home from './components/Home.js';
 import {BrowserRouter as Router, Switch, Route} from  'react-router-dom';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
+	
   return (
   <Router>
+   
+   <ScrollToTop />
     <div className="App">
-    
      <Nav />
       <Switch>
          <Route path = '/' exact component = {Home} />

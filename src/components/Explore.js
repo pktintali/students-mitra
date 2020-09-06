@@ -9,7 +9,6 @@ function Explore() {
          <h3>Learn</h3>
       </div>
       <div className = 'mtop' ></div>
-     <Jokes />
     </>
   );
 }
