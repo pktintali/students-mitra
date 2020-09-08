@@ -5,27 +5,27 @@ import Test from './Test';
 
 function Nav() {
 	
-	const [clse, sce] = useState('w3-col  w3-pale-blue no-td')
-    const [clsd, scd] = useState('w3-col w3-teal no-td')
-    const [clsq, scq] = useState('w3-col  w3-pale-yellow no-td')
+	const [clse, sce] = useState('w3-white w3-border-white')
+    const [clsd, scd] = useState('w3-pale-red w3-border-red')
+    const [clsq, scq] = useState('w3-white w3-border-white')
     
 	const updateMenuE = () => {
-       sce('w3-col  w3-blue no-td')
-       scd('w3-col  w3-pale-green no-td')
-       scq('w3-col  w3-pale-yellow no-td')  
+       sce('w3-pale-red  w3-border-red')
+       scd('w3-white  w3-border-white')
+       scq('w3-white  w3-border-white')  
     }
     
     const updateMenuD = () => {
-       sce('w3-col  w3-pale-blue no-td')
-       scd('w3-col  w3-teal no-td')
-       scq('w3-col  w3-pale-yellow no-td')
+       sce('w3-white w3-border-white')
+       scd('w3-pale-red w3-border-red')
+       scq('w3-white w3-border-white')
        
     }
     
     const updateMenuQ = () => {
-       sce('w3-col  w3-pale-blue no-td')
-       scd('w3-col  w3-pale-green no-td')
-       scq('w3-col  w3-yellow no-td')
+       sce('w3-white  w3-border-white')
+       scd('w3-white  w3-border-white')
+       scq('w3-pale-red  w3-border-red')
        
     }
     
@@ -54,13 +54,13 @@ function Nav() {
       
        <div class = 'w3-bottom w3-hide-large w3-hide-medium w3-card'>
        <nav className = "w3-row">
-             <Link onClick = {updateMenuE} className = {clse} to = "/explore">
+             <Link onClick = {updateMenuE} className = {`w3-col no-td  w3-bottombar  w3-hover-border-red ${clse}`}to = "/explore">
               <p>Explore</p>
              </Link>
-             <Link onClick = {updateMenuD} className = {clsd}  to ="/">
+             <Link onClick = {updateMenuD} className = {`w3-col no-td w3-bottombar w3-hover-border-red ${clsd}`}  to ="/">
                 <p>Home</p>
              </Link>
-             <Link onClick = {updateMenuQ} className = {clsq} to = "/quiz">
+             <Link onClick = {updateMenuQ} className = {`w3-col no-td w3-bottombar  w3-hover-border-red ${clsq}`} to = "/quiz">
               <p>Test</p>
              </Link>
        </nav>

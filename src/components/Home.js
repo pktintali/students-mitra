@@ -1,15 +1,19 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import '../App.css';
 import Graph from './Graph';
 import Test from './Test';
+import TopBar from './TopBar';
 
 function Home() {
 	
+	useEffect(()=>{
+          alert('Only Optmized for Mobile Devices')
+          alert('There are many things to change')
+    },[])
+
   return (
     <> 
-     <div className = 'w3-hide-large w3-hide-medium w3-top w3-white w3-container w3-hide-large w3-card'>
-         <h3>Dashboard</h3>
-      </div>
+      <TopBar txt = 'Dashboard'  bool = {false}/>
      <Graph />
     </>
   );

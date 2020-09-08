@@ -1,13 +1,12 @@
 import React from 'react';
 import '../App.css';
 import Jokes from './Jokes';
+import TopBar from './TopBar';
 
 function Explore() {
   return (
   <>
-     <div className = 'w3-hide-large w3-hide-medium w3-top w3-white w3-container w3-hide-large w3-card'>
-         <h3>Learn</h3>
-      </div>
+     <TopBar txt = 'Learn'  bool = {false}/>
       <div className = 'mtop' ></div>
     </>
   );

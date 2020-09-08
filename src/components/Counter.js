@@ -1,25 +1,22 @@
 import React, {useState,useEffect} from 'react';
 function Counter(){
 
-   const [count,setCount] = useState(0)
+   const [count,setCount] = useState(10)
  
  useEffect(()=>{
     const interval = setInterval(tick,1000)
     return ()=>{
          clearInterval(interval)
     }
- },[])
+ },[count])
   
    const tick =()=>{
-     setCount(prevCount=>prevCount+1)
+   	if(count>0){
+     setCount(count-1)
+     }
    } 
 
-
-return (
-       <div>
-             <h2>{count}</h2>  
-       </div> 
-);
+return  count;
 }
 
 export default Counter;
