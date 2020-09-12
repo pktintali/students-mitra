@@ -15,7 +15,7 @@ if(props.type==='select'){
 for(let i in subject){
  axios.get(`https://api.steinhq.com/v1/storages/5f37792b5d3cdc44fcd7d30b/${subject[i]}`)
      .then(res=>{
-       if(i===subject.length-1){setIsLoaded(true);}
+       if(i==subject.length-1){setIsLoaded(true);}
        questions.push(...res.data.slice(0,5))
      })
      .catch(error=>{
