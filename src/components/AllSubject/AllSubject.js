@@ -1,15 +1,8 @@
-import React,{useState} from 'react';
+import React from 'react';
 import './style.css';
 import TopBar from '../TopBar';
-import SubjectList from '../SubjectList';
 
 function AllSubject(props) {
-	
-	const [topbar,setTopBar]=useState(true)
-	 
-	const hidebar=()=>{
-      setTopBar(false)
-   }
    
   return (
    <>

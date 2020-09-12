@@ -1,8 +1,5 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import '../App.css';
-import MyComponent from './MyComponent.js';
-import Counter from './Counter';
-import SubjectList from './SubjectList';
 import TopBar from './TopBar';
 import SingleSubject from './SingleSubject/SingleSubject';
 import SelectSubject from './SelectSubject/SelectSubject';
@@ -60,7 +57,7 @@ function Quiz() {
 </>
   ); }else{
    
-    if(id==1){
+    if(id===1){
    return (
       <SingleSubject 
       click = {goBack}
@@ -69,7 +66,7 @@ function Quiz() {
 ); 
 }
 
-else if(id==2){
+else if(id===2){
    return (
       <SelectSubject 
       click = {goBack}

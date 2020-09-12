@@ -1,31 +1,46 @@
 import React , { useState,useEffect}from 'react';
 import '../App.css';
 import {Link} from 'react-router-dom';
-import Test from './Test';
+import { FaHome,FaBookReader,FaBong } from "react-icons/fa"
 
 function Nav() {
 	
-	const [clse, sce] = useState('w3-white w3-border-white')
-    const [clsd, scd] = useState('w3-pale-red w3-border-red')
-    const [clsq, scq] = useState('w3-white w3-border-white')
+	const [clse, sce] = useState('w3-text-grey')
+    const [clsd, scd] = useState('w3-text-grey')
+    const [clsq, scq] = useState('w3-text-grey')
+    
+    const [sizee, sete] = useState('22')
+    const [sized, setd] = useState('28')
+    const [sizeq, setq] = useState('22')
     
 	const updateMenuE = () => {
-       sce('w3-pale-red  w3-border-red')
-       scd('w3-white  w3-border-white')
-       scq('w3-white  w3-border-white')  
+       sce('w3-text-red')
+       scd('w3-text-grey')
+       scq('w3-text-grey')  
+       
+       sete('28')
+       setd('22')
+       setq('22')
     }
     
     const updateMenuD = () => {
-       sce('w3-white w3-border-white')
-       scd('w3-pale-red w3-border-red')
-       scq('w3-white w3-border-white')
+       sce('w3-text-grey')
+       scd('w3-text-red')
+       scq('w3-text-grey')
        
+       sete('22')
+       setd('28')
+       setq('22')
     }
     
     const updateMenuQ = () => {
-       sce('w3-white  w3-border-white')
-       scd('w3-white  w3-border-white')
-       scq('w3-pale-red  w3-border-red')
+       sce('w3-text-grey')
+       scd('w3-text-grey')
+       scq('w3-text-red')
+       
+       sete('22')
+       setd('22')
+       setq('28')
        
     }
     
@@ -54,14 +69,17 @@ function Nav() {
       
        <div class = 'w3-bottom w3-hide-large w3-hide-medium w3-card'>
        <nav className = "w3-row">
-             <Link onClick = {updateMenuE} className = {`w3-col no-td  w3-bottombar  w3-hover-border-red ${clse}`}to = "/explore">
-              <p>Explore</p>
+             <Link onClick = {updateMenuE} className = 'w3-col w3-white no-td  w3-border-bottom w3-hover-border-red' to = "/explore">
+              <div className = {`icon-nav ${clse}`}><FaBookReader size ={sizee} /></div>
+              <div className = 'nav-m'>Explore</div>
              </Link>
-             <Link onClick = {updateMenuD} className = {`w3-col no-td w3-bottombar w3-hover-border-red ${clsd}`}  to ="/">
-                <p>Home</p>
+             <Link onClick = {updateMenuD} className = 'w3-col w3-white no-td w3-border-bottom  w3-hover-border-red'  to ="/">
+                <div className = {`icon-nav ${clsd}`}><FaHome  size ={sized} /></div>
+                 <div className = 'nav-m'>Home</div>
              </Link>
-             <Link onClick = {updateMenuQ} className = {`w3-col no-td w3-bottombar  w3-hover-border-red ${clsq}`} to = "/quiz">
-              <p>Test</p>
+             <Link onClick = {updateMenuQ} className = 'w3-col w3-white no-td w3-border-bottom  w3-hover-border-red' to = "/quiz">
+              <div className = {`icon-nav ${clsq}`}><FaBong size ={sizeq} /></div>
+              <div className = 'nav-m'>Test</div>
              </Link>
        </nav>
        </div>   

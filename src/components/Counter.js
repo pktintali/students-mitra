@@ -1,14 +1,14 @@
-import React, {useState,useEffect} from 'react';
+import {useState,useEffect} from 'react';
 function Counter(){
 
-   const [count,setCount] = useState(10)
+const [count,setCount] = useState(15)
  
  useEffect(()=>{
     const interval = setInterval(tick,1000)
     return ()=>{
          clearInterval(interval)
     }
- },[count])
+ },)
   
    const tick =()=>{
    	if(count>0){

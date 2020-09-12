@@ -1,18 +1,18 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import './style.css';
 import TopBar from '../TopBar';
-import MultiFetch from './MultiFetch';
+import DataFetching from '../DataFetching';
+import {SubjectContext} from '../SubjectList';
 
 function Questions2() {
 	
+const subjectByContext = useContext(SubjectContext)
+	
   return (
   <>
-     <TopBar txt = 'Time Remaining 10:00'  bool = {false}/>
+     <TopBar bool = {false} txt = 'Custom Test' />
       <div className = 'mtop' ></div>
-          <MultiFetch />
-      <div className = 'w3-panel'>
-          <button className = 'w3-button w3-red'>Submit</button>
-      </div>
+      <DataFetching  type = 'select' sub = {subjectByContext} />
       <div className = 'mbot'></div>
     </>
   );
