@@ -69,7 +69,7 @@ function undo(){
    
    const startQuiz=()=>{
       if(!disabled){
-      	alert('Be Careful! You Can Select Ans only once')
+      	//alert('Be Careful! You Can Select Ans only once')
           setSel(false)
           props.hidebar()
          props.fullWidth()

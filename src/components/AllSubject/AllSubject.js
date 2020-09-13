@@ -8,7 +8,7 @@ function AllSubject(props) {
    <>
      <TopBar txt = 'Test' click = {props.click} bool = {true}/>
      <div className = 'mtop' ></div>
-      <h2 className = 'mbot'>You have selected all subjects</h2>
+      <h3 className = 'mbot'>Questions will come from all of your favourite subjects</h3>
          <button className = 'w3-round w3-button w3-red'>Start</button>
      <div className = 'mbot'></div>
 </>
