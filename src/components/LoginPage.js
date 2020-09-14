@@ -57,7 +57,7 @@ return (
 <div className = 'mtop'></div>
 <div className = 'c-box-xmin'> </div>
 
-<div className = 'w3-row w3-card-4 w3-margin w3-round-large'>
+<div className = 'w3-animate-zoom w3-row w3-card-4 w3-margin w3-round-large'>
 
 <div className = 'w3-half'>
 <div className = 'w3-text-red' style = {{marginTop:'-30px'}}><FaUserGraduate size='60'/></div>

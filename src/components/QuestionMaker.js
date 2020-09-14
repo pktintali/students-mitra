@@ -8,25 +8,55 @@ const questions = props.data
 const [q,setQ] =useState(0)
 const [marks,setMarks] = useState(0)
 const [count,setCount] = useState(327)
+const [totalLength,setTotalLength] = useState();
+const [display,setDisplay] = useState('none')
+const [notice,setNotice] =useState('block')
 const [timeColor,setTimeColor] = useState('green')
 const [opt0Color,setOpt0Color] = useState('w3-white')
 const [opt1Color,setOpt1Color] = useState('w3-white')
 const [opt2Color,setOpt2Color] = useState('w3-white')
 const [opt3Color,setOpt3Color] = useState('w3-white')
-//const [subject,setSubject] = useState(props.sub)
+const [animation,setAnimation] = useState('')
 const [userAns,setUserAns] = useState()
 const [end,setEnd] = useState(false)
 const [answered,setAnswered] = useState(false)
-//const type = (props.type==='single')?'single':'select';
-   
+
    const clearColor = ()=>{
           setOpt0Color('w3-white')
           setOpt1Color('w3-white')
           setOpt2Color('w3-white')
           setOpt3Color('w3-white')
     }
-    
-    const manageColor = () =>{
+
+  
+  const ansmodal = (
+ <div style = {{display:display}} className="w3-modal">
+    <div className="w3-modal-content w3-border w3-border-red w3-animate-top w3-padding w3-card-4">
+        <h4>You Got: {marks} Marks</h4>
+        <button onClick = {()=>setDisplay('none')}>Close</button>
+    </div>
+  </div>
+);
+
+const noticemodal = (
+ <div style = {{display:notice}} className="w3-modal">
+    <div className="w3-modal-content w3-animate-top w3-padding w3-card-4">
+       
+        <ul className = 'w3-ul'>
+              <li >  <h2>Notice⚠️</h2></li>
+              <li>Don't Refresh this page</li>
+              <li>Don't Switch Tabs During Test</li> 
+              <li>No Negative Marking</li>
+              <li>For a question, answer can be selected only once</li>
+              <li>Each Question has its own timer</li>
+              <li>If you are unable to solve a question within given time ,it will be automatically skipped</li>   
+        </ul>
+        <button onClick = {()=>setNotice('none')}>I Understand, Continue </button>
+    </div>
+  </div>
+);
+  
+  const manageColor = () =>{
            if(questions[q].ans ===userAns){
             setMarks(marks+1);
            if(userAns===questions[q].opt0){
@@ -92,60 +122,85 @@ const [answered,setAnswered] = useState(false)
          setEnd(true)
     }
        if(q<questions.length-1){
+        	setCount(327);
             setQ(q+1)
-            setCount(327);
             setTimeColor('green');
+            setAnimation('w3-animate-right');
         }
       }
   
     const submit = ()=>{
-        alert(marks)
+        setDisplay('block');
     }
  
+ useEffect(() => {
+    window.scrollTo(0, 0);
+if(questions[q].opt0!=null&&questions[q].opt1!=null&&questions[q].opt2!=null&&questions[q].opt3!=null){
+setTotalLength(
+questions[q].question.length+
+questions[q].opt0.length+
+questions[q].opt1.length+
+questions[q].opt2.length+
+questions[q].opt3.length
+);
+}else{
+setTotalLength(3*questions[q].question.length)
+ }
+}, [q]);
  
 useEffect(()=>{
-    const interval = setInterval(tick,10)
+    const interval = setInterval(tick,250)
     return ()=>{
          clearInterval(interval)
     }
- },[count])
+ },[count,notice])
 
-  
    const tick =()=>{
-   	if(count<100){
+   	  if(notice=='none'){
+   	if(count==317||count==321||count==323||count==325){
+          setAnimation('');
+       }
+   	if(count<120){
    	setTimeColor('orange')
         }
         if(count<40){
           setTimeColor('red')
         }
+        
    	if(count>0){
-     !end&&setCount(count-1)
+   	if(totalLength<100){
+     !end&&setCount(count-10)
+     }
+     else if(totalLength<160){
+     !end&&setCount(count-6)
+      }
+      else if(totalLength<250){
+       !end&&setCount(count-4)
+     }else{
+      !end&&setCount(count-2)
+     }
      }
      
-     if(count===0){
+     if(count<1){
         if(q===questions.length-1){
          setEnd(true)
        }
         !end&&goNext();
-        !end&&setCount(327);
-        setTimeColor('green');
-     }
-  } 
+    }
+  } }
   
   useEffect(()=>{
-         !end&&saveAns(); 
+    !end&&saveAns(); 
    },[userAns])
-  
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [q]);
 
 
 return (
 <>
+   {ansmodal}
+   {noticemodal}
     {questions.slice(q,q+1).map(question=>(
     <div>
-         <div id = 'top' className = 'centeredW w3-container'>
+         <div id = 'top' className = {`${animation} centeredW w3-container`}>
               
                <div className = 'w3-display-container w3-center w3-card w3-round w3-padding-large w3-container'>
                  <span className = 'pdr-xxsmall w3-small w3-display-topright'>{parseInt(q)+1}/{questions.length}</span>
@@ -156,7 +211,7 @@ return (
                 <p className = 'w3-text-gray'>Select the correct answer</p>
                
                <div className = 'c-box-xmin'></div>
-               
+              {/*<p>{totalLength}</p>*/}
                 {(question.opt0!==null)&&<div onClick = {!answered?()=>setUserAns(question.opt0):undefined}
                          className = {`w3-card w3-round opt w3-padding-large ${opt0Color}`}>{question.opt0}</div>}
                    {(question.opt1!==null)&&<div onClick = {!answered?()=>setUserAns(question.opt1):undefined} 
