@@ -75,15 +75,6 @@ function undo(){
          props.fullWidth()
       }
    }
-   
-/*const modal = (
- <div style = {{display:display}} className="w3-modal">
-    <div className="w3-modal-content w3-border w3-border-red w3-animate-top w3-padding w3-card-4">
-        <h4>{modalTxt}</h4>
-        <button onClick = {()=>setDisplay('none')}>0k Sorry</button>
-    </div>
-  </div>
-);*/
 
    if(sel){
   return (

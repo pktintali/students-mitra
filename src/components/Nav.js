@@ -12,7 +12,7 @@ function Nav() {
     const [sizee, sete] = useState('22')
     const [sized, setd] = useState('28')
     const [sizeq, setq] = useState('22')
-    
+     
 	const updateMenuE = () => {
        sce('w3-text-red')
        scd('w3-text-grey')
@@ -55,10 +55,9 @@ function Nav() {
           updateMenuD();
       }
      },[])
-    
+ 
   return (
      <>
-
   <nav className="w3-hide-small w3-top">
       <div className="w3-bar w3-red w3-card w3-left-align w3-large">
         <Link to= '/' className='w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white'>Dashboard</Link>

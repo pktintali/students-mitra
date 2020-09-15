@@ -1,7 +1,10 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect,useContext} from 'react';
 import '../App.css';
+import {NavContext} from '../App';
 
 function QuestionMaker(props){
+const navByContext = useContext(NavContext)
+
 //Skip ans goNext Buttons Functionalaty only difference is that 
 //skip goes next without saving ans and goNext goes next by saving ans
 const questions = props.data
@@ -27,13 +30,21 @@ const [answered,setAnswered] = useState(false)
           setOpt2Color('w3-white')
           setOpt3Color('w3-white')
     }
-
   
+  const closeAnsModal=()=>{
+      navByContext(true)
+      setDisplay('none')
+  }
+  
+  const closeNoticeModal=()=>{
+      navByContext(false)
+      setNotice('none')
+  }
   const ansmodal = (
  <div style = {{display:display}} className="w3-modal">
     <div className="w3-modal-content w3-border w3-border-red w3-animate-top w3-padding w3-card-4">
         <h4>You Got: {marks} Marks</h4>
-        <button onClick = {()=>setDisplay('none')}>Close</button>
+        <button onClick = {closeAnsModal}>Close</button>
     </div>
   </div>
 );
@@ -51,7 +62,7 @@ const noticemodal = (
               <li>Each Question has its own timer</li>
               <li>If you are unable to solve a question within given time ,it will be automatically skipped</li>   
         </ul>
-        <button onClick = {()=>setNotice('none')}>I Understand, Continue </button>
+        <button onClick = {closeNoticeModal}>I Understand, Continue </button>
     </div>
   </div>
 );
