@@ -16,16 +16,19 @@ function Quiz() {
       setSelector(true)
    }
     const setSingleSubject = ()=>{ 
+    	window.scrollTo(0, 0);
         setId(1)
         setSelector(false)
    }
    
    const setSelectSubject = ()=>{
+   	window.scrollTo(0, 0);
         setId(2)
         setSelector(false)
    }
     
     const setAllSubject = ()=>{
+    	window.scrollTo(0, 0);
         setId(3)
         setSelector(false)
    }

@@ -8,6 +8,12 @@ color:#ff0000;
 .opt{
 cursor:pointer;
 }
+.preventSelection {
+  -webkit-user-select: none;
+     -moz-user-select: -moz-none;
+      -ms-user-select: none;
+          user-select: none;
+}
 .nav-m{
 margin-top:-13px;
 }

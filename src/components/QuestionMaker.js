@@ -213,25 +213,25 @@ return (
     <div>
          <div id = 'top' className = {`${animation} centeredW w3-container`}>
               
-               <div className = 'w3-display-container w3-center w3-card w3-round w3-padding-large w3-container'>
+               <div className = 'preventSelection w3-display-container w3-center w3-card w3-round w3-padding-large w3-container'>
                  <span className = 'pdr-xxsmall w3-small w3-display-topright'>{parseInt(q)+1}/{questions.length}</span>
                  <h4>{question.question}</h4>
                </div>
                <div className = 'w3-round w3-card' style = {{backgroundColor:timeColor,height:3,width:count}}></div>
                 
-                <p className = 'w3-text-gray'>Select the correct answer</p>
+                <p className = 'preventSelection w3-text-gray'>Select the correct answer</p>
                
                <div className = 'c-box-xmin'></div>
               {/*<p>{totalLength}</p>*/}
                 {(question.opt0!==null)&&<div onClick = {!answered?()=>setUserAns(question.opt0):undefined}
-                         className = {`w3-card w3-round opt w3-padding-large ${opt0Color}`}>{question.opt0}</div>}
+                         className = {`preventSelection w3-card w3-round opt w3-padding-large ${opt0Color}`}>{question.opt0}</div>}
                    {(question.opt1!==null)&&<div onClick = {!answered?()=>setUserAns(question.opt1):undefined} 
-                         className = {`w3-card w3-round opt w3-panel w3-padding-large ${opt1Color}`}>{question.opt1}</div>}
+                         className = {`preventSelection w3-card w3-round opt w3-panel w3-padding-large ${opt1Color}`}>{question.opt1}</div>}
                    
                    {(question.opt2!==null)&&<div onClick = {!answered?()=>setUserAns(question.opt2):undefined} 
-                         className = {`w3-card w3-round opt w3-padding-large ${opt2Color}`}>{question.opt2}</div>}
+                         className = {`preventSelection w3-card w3-round opt w3-padding-large ${opt2Color}`}>{question.opt2}</div>}
                    { (question.opt3!==null)&&<div onClick = {!answered?()=>setUserAns(question.opt3):undefined} 
-                        className = {`w3-card w3-round opt w3-panel w3-padding-large ${opt3Color}`}>{question.opt3}</div>}
+                        className = {`preventSelection w3-card w3-round opt w3-panel w3-padding-large ${opt3Color}`}>{question.opt3}</div>}
                   
           
              <div className = 'c-box-xmin'></div>
