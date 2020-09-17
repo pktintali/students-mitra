@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import '../App.css';
-import TopBar from './TopBar';
+import '../../App.css';
+import TopBar from '../TopBar';
 import SingleSubject from './SingleSubject/SingleSubject';
 import SelectSubject from './SelectSubject/SelectSubject';
 import AllSubject from './AllSubject/AllSubject';

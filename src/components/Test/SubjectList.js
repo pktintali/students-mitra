@@ -30,10 +30,9 @@ function SubjectList(props) {
     <div className = 'w3-animate-left'> 
        
           <h2 className = 'w3-text-grey' > {props.text}</h2>
-        <ul className = 'w3-ul'>
+          <button onClick = {startQuiz} className = {`w3-hide-large w3-hide-medium w3-large w3-round w3-red w3-margin w3-button ${disabled} `}>Start</button>
                   <SubjectCard enableButton = {enable} id = {props.id} subject = {sub}/>
-        </ul> 
-           <br/><br/>
+                   <br/><br/>
            <button onClick = {startQuiz} className = {` w3-large w3-round w3-red w3-margin w3-button ${disabled} `}>Start</button>
     </div>
   );

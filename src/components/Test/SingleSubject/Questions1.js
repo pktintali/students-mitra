@@ -1,6 +1,6 @@
 import React,{useContext} from 'react';
 import './style.css';
-import TopBar from '../TopBar';
+import TopBar from '../../TopBar';
 import DataFetching from '../DataFetching';
 import {SubjectContext} from '../SubjectList';
 

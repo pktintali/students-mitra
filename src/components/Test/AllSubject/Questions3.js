@@ -1,7 +1,6 @@
 import React from 'react';
 import './style.css';
-import TopBar from '../TopBar';
-import DataFetching from '../DataFetching';
+import TopBar from '../../TopBar';
 
 function Questions3() {
   return (

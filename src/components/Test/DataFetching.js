@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
-import LoadingScreen from './LoadingScreen';
+import LoadingScreen from '../LoadingScreen';
 import QuestionMaker from './QuestionMaker';
 
 function DataFetching(props){

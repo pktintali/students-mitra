@@ -1,13 +1,11 @@
 import React,{useState,useEffect} from 'react';
-import '../App.css';
-
 function SubjectCard(props) {
 
     const [c,setC] = useState(0); 
 	const [col,setColor] = useState([''])
 	const subList = ['dbms', 'ml', 'cd', 'daa', 'da', 'coi'];
 	const subDetail = ['DataBase Management System', 'Machine Learning', 'Compiler Design', 'Design and Analysis of Algorithms', 'Data Analytics', 'Constitution of India'];
-
+	
 	const subItem= [];
 	const cardItem = [];
     
@@ -17,28 +15,31 @@ function SubjectCard(props) {
     
 	for(let i =0;i<subList.length;i=i+2){
 		  cardItem.push(
-      <div className="w3-row">
+       <div className="w3-row">
            <div className="w3-col s6">
                 <div style = {cardStyle} onClick = {()=>{
                  props.enableButton('')
+                 
                   if(props.id===1){
                   	undo();
                       col[i] = 'w3-green';
+                      props.subject[0] =subList[i]
                       setC(c+1);
                 }
-           if(props.id===2){  
+                
+              if(props.id===2){  
                col[i]  =  col[i] == 'w3-green'?'':'w3-green';
-               setC(c+1);
-            }
-                if(props.id===1){props.subject[0] =subList[i]}
-                if(props.id===2){
-                if(!props.subject.includes(subList[i]))
+                if(!props.subject.includes(subList[i])){
                    props.subject.push(subList[i])    
-              }else{
-              	  
-                }
+               }else{
+                   const index = props.subject.indexOf(subList[i])
+                   props.subject.splice(index, 1)
+                   if(!props.subject.length>0){props.enableButton('w3-disabled')}
+              } 
+              setC(c+1);
+            }
  
-              }} className = {` ${col[i]} w3-padding w3-card w3-margin w3-round-xlarge w3-card`}>
+              }} className = {` ${col[i]} cardButton w3-padding w3-card w3-margin w3-round-xlarge w3-card`}>
                     <h1>{subList[i].toUpperCase()}</h1>
                    <p className = 'w3-tiny'>{subDetail[i].toUpperCase()}</p>
               </div>
@@ -47,24 +48,27 @@ function SubjectCard(props) {
            <div className="w3-col s6">
                 <div style = {cardStyle} onClick = {()=>{
             props.enableButton('')
+            
              if(props.id===1){
               undo();
               col[i+1] = 'w3-green';
+              props.subject[0] =subList[i+1]
               setC(c+1);
-               }
+             }
+               
                if(props.id===2){  
                col[i+1]  =  col[i+1] == 'w3-green'?'':'w3-green';
+                if(!props.subject.includes(subList[i+1])){
+                    props.subject.push(subList[i+1])
+                }else{
+                   const index = props.subject.indexOf(subList[i+1])
+                   props.subject.splice(index, 1)
+                   if(!props.subject.length>0){props.enableButton('w3-disabled')}      
+                }
                   setC(c+1);
                 }
-                 if(props.id===1){props.subject[0] =subList[i+1]}
-                 if(props.id===2){
-                 if(!props.subject.includes(subList[i+1]))
-                   props.subject.push(subList[i+1])    
-                }else{
-                    
-                 }
               
-                }} className = {` ${col[i+1]} w3-card w3-padding w3-margin w3-round-xlarge w3-card`}>
+                }} className = {` ${col[i+1]} cardButton w3-card w3-padding w3-margin w3-round-xlarge w3-card`}>
                    <h1>{subList[i+1].toUpperCase()}</h1>
                    <p className = 'w3-tiny'>{subDetail[i+1].toUpperCase()}</p>
               </div>
@@ -79,9 +83,10 @@ function SubjectCard(props) {
     } 
 }
     
- useEffect(()=>{
+useEffect(()=>{
  	
 },[c])
+
   return (
     <>
     {cardItem}

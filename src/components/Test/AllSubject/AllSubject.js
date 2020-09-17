@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import TopBar from '../TopBar';
+import TopBar from '../../TopBar';
 
 function AllSubject(props) {
    

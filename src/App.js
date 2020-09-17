@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import './App.css';
 import Nav from './components/Nav';
-import Explore from './components/Explore';
-import Quiz from './components/Quiz';
-import Home from './components/Home.js';
+import Explore from './components/Explore/Explore';
+import Quiz from './components/Test/Quiz';
+import Home from './components/Home/Home.js';
 import {BrowserRouter as Router, Switch, Route} from  'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -11,7 +11,6 @@ export const NavContext = React.createContext()
 function App() {
 	
 	const[visible,setVisible] = useState(true)
-	
      const hide = (a)=>{
      setVisible(a)
      }

@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
-import signinLogo from '../signinLogo.png';
-import TopBar from './TopBar';
+import signinLogo from '../../signinLogo.png';
+import TopBar from '../TopBar';
 import {FaUserGraduate} from 'react-icons/fa';
 function LoginPage(props){
 	

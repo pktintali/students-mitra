@@ -1,6 +1,5 @@
 import React, {useState,useEffect,useContext} from 'react';
-import '../App.css';
-import {NavContext} from '../App';
+import {NavContext} from '../../App';
 
 function QuestionMaker(props){
 const navByContext = useContext(NavContext)

@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
-import '../App.css';
+import '../../App.css';
 import Graph from './Graph';
-import TopBar from './TopBar';
+import TopBar from '../TopBar';
 import LoginPage from './LoginPage';
 
 function Home() {

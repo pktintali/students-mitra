@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import './style.css';
-import TopBar from '../TopBar';
+import TopBar from '../../TopBar';
 import SubjectList from '../SubjectList';
 
 function SingleSubject(props) {
