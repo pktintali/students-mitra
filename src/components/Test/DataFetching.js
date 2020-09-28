@@ -12,18 +12,22 @@ const [isLoaded, setIsLoaded] = useState(false);
 
 //Generating 10 Unique Random No
 var arr = [];
+const get10 =()=>{
 while(arr.length < 10){
-var r=Math.floor(Math.random()*31) ; 
+var r=Math.floor(Math.random()*10) ; 
 if(arr.indexOf(r) === -1) 
 arr.push(r);
 } 
+}
+
 useEffect(()=>{
+get10();
+const r=Math.floor(Math.random()*40) ; 
 if(props.type==='select'){
 for(let i in subject){
- axios.get(`https://api.steinhq.com/v1/storages/5f37792b5d3cdc44fcd7d30b/${subject[i]}`)
+ axios.get(`https://api.steinhq.com/v1/storages/5f37792b5d3cdc44fcd7d30b/${subject[i]}?limit=10&offset=${r}`)
      .then(res=>{  
        for(let i =0;i<5;i++){
-       	   r=Math.floor(Math.random()*31); 
               questions.push(...res.data.slice(arr[i],arr[i]+1))
          }
           if(i==subject.length-1){setIsLoaded(true);}
@@ -34,7 +38,8 @@ for(let i in subject){
       console.log(error)
       })
 }}else{
-axios.get(`https://api.steinhq.com/v1/storages/5f37792b5d3cdc44fcd7d30b/${subject}`)
+//Here we are getting 10 random from 10 but we have to get 10 random from 20
+axios.get(`https://api.steinhq.com/v1/storages/5f37792b5d3cdc44fcd7d30b/${subject}?limit=10&offset=${r}`)
      .then(res=>{
        for(let i =0;i<10;i++){
           questions.push(...res.data.slice(arr[i],arr[i]+1))
@@ -60,7 +65,7 @@ axios.get(`https://api.steinhq.com/v1/storages/5f37792b5d3cdc44fcd7d30b/${subjec
      }
    return <LoadingScreen />;
    }
- 
+
 }
 
 export default DataFetching;
