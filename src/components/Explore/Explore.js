@@ -5,7 +5,7 @@ import TopBar from '../TopBar';
 function Explore() {
   return (
   <>
-     <TopBar txt = 'Learn'  bool = {false}/>
+     <TopBar txt = 'Explore'  bool = {false}/>
       <div className = 'mtop' ></div>
     </>
   );

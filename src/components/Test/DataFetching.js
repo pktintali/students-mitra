@@ -22,7 +22,7 @@ arr.push(r);
 
 useEffect(()=>{
 get10();
-const r=Math.floor(Math.random()*40) ; 
+const r=Math.floor(Math.random()*35) ; 
 if(props.type==='select'){
 for(let i in subject){
  axios.get(`https://api.steinhq.com/v1/storages/5f37792b5d3cdc44fcd7d30b/${subject[i]}?limit=10&offset=${r}`)
@@ -61,7 +61,7 @@ axios.get(`https://api.steinhq.com/v1/storages/5f37792b5d3cdc44fcd7d30b/${subjec
          return <LoadingScreen />;
      } else {
      if(questions[0]!==undefined){ 
-     return (<QuestionMaker data = {questions} type = {props.type}/>);
+     return (<QuestionMaker click = {props.click} data = {questions} type = {props.type}/>);
      }
    return <LoadingScreen />;
    }

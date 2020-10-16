@@ -13,10 +13,8 @@ function SubjectCard(props) {
       minHeight:'140px',
     } 
     
-	for(let i =0;i<subList.length;i=i+2){
-		  cardItem.push(
-       <div className="w3-row">
-           <div className="w3-col s6">
+    const unitCard = (i)=>{	
+    	return(
                 <div style = {cardStyle} onClick = {()=>{
                  props.enableButton('')
                  
@@ -42,39 +40,20 @@ function SubjectCard(props) {
               }} className = {` ${col[i]} cardButton w3-padding w3-card w3-margin w3-round-xlarge w3-card`}>
                     <h1>{subList[i].toUpperCase()}</h1>
                    <p className = 'w3-tiny'>{subDetail[i].toUpperCase()}</p>
-              </div>
-            </div>
-            
-           <div className="w3-col s6">
-                <div style = {cardStyle} onClick = {()=>{
-            props.enableButton('')
-            
-             if(props.id===1){
-              undo();
-              col[i+1] = 'w3-green';
-              props.subject[0] =subList[i+1]
-              setC(c+1);
-             }
-               
-               if(props.id===2){  
-               col[i+1]  =  col[i+1] == 'w3-green'?'':'w3-green';
-                if(!props.subject.includes(subList[i+1])){
-                    props.subject.push(subList[i+1])
-                }else{
-                   const index = props.subject.indexOf(subList[i+1])
-                   props.subject.splice(index, 1)
-                   if(!props.subject.length>0){props.enableButton('w3-disabled')}      
-                }
-                  setC(c+1);
-                }
-              
-                }} className = {` ${col[i+1]} cardButton w3-card w3-padding w3-margin w3-round-xlarge w3-card`}>
-                   <h1>{subList[i+1].toUpperCase()}</h1>
-                   <p className = 'w3-tiny'>{subDetail[i+1].toUpperCase()}</p>
-              </div>
+            </div>);
+     }
+     
+	for(let i =0;i<subList.length;i=i+2){
+		cardItem.push(
+		<div className="w3-row">
+		<div className="w3-col s6">
+             {unitCard(i)}
+        </div>
+        <div className="w3-col s6">
+            {unitCard(i+1)}
+        </div>
       </div>
-    </div>
-  );
+        );
   }
 
   function undo(){

@@ -1,9 +1,8 @@
 import React, {useState,useEffect,useContext} from 'react';
 import {NavContext} from '../../App';
-
+import ResultPage from './ResultPage';
 function QuestionMaker(props){
 const navByContext = useContext(NavContext)
-
 //Skip ans goNext Buttons Functionalaty only difference is that 
 //skip goes next without saving ans and goNext goes next by saving ans
 const questions = props.data
@@ -21,6 +20,7 @@ const [opt3Color,setOpt3Color] = useState('w3-white')
 const [animation,setAnimation] = useState('')
 const [userAns,setUserAns] = useState()
 const [end,setEnd] = useState(false)
+const [review,setReview] = useState(false)
 const [answered,setAnswered] = useState(false)
 
    const clearColor = ()=>{
@@ -39,11 +39,19 @@ const [answered,setAnswered] = useState(false)
       navByContext(false)
       setNotice('none')
   }
+  
+  const toogleReview = ()=>{
+     review==true?setReview(false):setReview(true);
+ }
+  
   const ansmodal = (
  <div style = {{display:display}} className="w3-modal">
     <div className="w3-modal-content w3-border w3-border-red w3-animate-top w3-padding w3-card-4">
         <h4>You Got: {marks} Marks</h4>
-        <button onClick = {closeAnsModal}>Close</button>
+        <div className = 'w3-bar'>
+        <button className = 'w3-left' onClick = {closeAnsModal}>Close</button>
+       <button onClick ={toogleReview}>Review</button>
+     </div>
     </div>
   </div>
 );
@@ -140,7 +148,7 @@ const noticemodal = (
       }
   
     const submit = ()=>{
-        setDisplay('block');
+    	setDisplay('block')
     }
  
  useEffect(() => {
@@ -204,9 +212,10 @@ useEffect(()=>{
    },[userAns])
 
 
+if(!review){
 return (
 <>
-   {ansmodal}
+    {ansmodal}
    {noticemodal}
     {questions.slice(q,q+1).map(question=>(
     <div>
@@ -236,6 +245,7 @@ return (
              <div className = 'c-box-xmin'></div>
            </div>
            <div className = 'c-box-xmin'></div>
+         
        {end&&<button onClick = {submit} className ='w3-border w3-green w3-round w3-button'>Submit</button>}
        {!end&&!answered&&<button onClick = {goNext} className ='w3-border w3-round w3-button'>Skip</button>}
        {!end&&answered&&<button onClick = {goNext} className = 'm-left w3-round w3-button w3-red'>Next</button>}
@@ -243,6 +253,9 @@ return (
   ))}
 </>
 );
+}else{
+return <ResultPage closeAns = {closeAnsModal} qData = {questions} click = {props.click} />;
+}
  
 }
 

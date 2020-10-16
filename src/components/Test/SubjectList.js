@@ -40,8 +40,8 @@ function SubjectList(props) {
   else{
       return (
        <SubjectContext.Provider value = {sub}>
-       {props.id===1&&  <Questions1 /> }
-       {props.id===2&&<Questions2  />}
+       {props.id===1&&  <Questions1 click = {props.click} /> }
+       {props.id===2&&<Questions2 click = {props.click} />}
       {/* {props.id ===3&&<Questions3 />}*/}
        </SubjectContext.Provider>
        );

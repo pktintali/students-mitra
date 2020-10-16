@@ -3,9 +3,9 @@ import React from 'react';
 function RoundButton(props) {
   return (
   <>
-      <div className = 'outer w3-third w3-padding'>
-           <div onClick = {props.click} className = 'button w3-hover-shadow w3-card c-box'> 
-              <h2 className = 'c-pad'>{props.txt}</h2>
+      <div className = 'w3-hover-red w3-hover-shadow w3-card w3-round'>
+           <div onClick = {props.click} className = 'w3-padding'> 
+              <h4>{props.txt}</h4>
           </div>
      </div>
     </>

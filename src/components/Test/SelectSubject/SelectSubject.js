@@ -18,7 +18,7 @@ function SelectSubject(props) {
      <div>
      {topbar&&<TopBar txt = 'Test' click = {props.click} bool = {true}/>}
      {topbar&&<div className = 'mtop' ></div>}
-      <SubjectList hidebar = {hidebar} id= {props.id} text='Select Subjects'/>      
+      <SubjectList click = {props.click} hidebar = {hidebar} id= {props.id} text='Select Subjects'/>      
      </div>
    <div className = 'mbot'></div>
 </>

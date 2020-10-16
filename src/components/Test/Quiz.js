@@ -39,23 +39,30 @@ function Quiz() {
      <TopBar txt = 'Test' bool = {false}/>
    <div className = 'mtop' ></div>
    
-    <div className = 'w3-row'>
-      <RoundButton 
-        click = {setAllSubject}
-        txt = 'All Subject'
+ <div className = 'w3-row-padding '>
+   <div style = {{width:'33.3%'}} className = 'w3-col'>
+       <RoundButton 
+        click = {setSingleSubject}
+        txt = 'Single Subject'
       />
-      
+  </div>
+   
+   <div style = {{width:'33.3%'}} className = 'w3-col'>
       <RoundButton 
         click = {setSelectSubject}
         txt = 'Select Subject'
       />
-       
+ </div> 
+ 
+ <div style = {{width:'33.3%'}} className = 'w3-col'>
       <RoundButton 
-        click = {setSingleSubject}
-        txt = 'Single Subject'
+        click = {setAllSubject}
+        txt = 'My All Subjects'
       />
-     
-     </div>
+   </div>
+   
+</div>
+
      <div className = 'c-box-min'></div>
 </>
   ); }else{

@@ -4,7 +4,7 @@ import TopBar from '../../TopBar';
 import DataFetching from '../DataFetching';
 import {SubjectContext} from '../SubjectList';
 
-function Questions2() {
+function Questions2(props) {
 	
 const subjectByContext = useContext(SubjectContext)
 	
@@ -12,7 +12,7 @@ const subjectByContext = useContext(SubjectContext)
   <>
      <TopBar bool = {false} txt = 'Custom Test' />
       <div className = 'mtop' ></div>
-      <DataFetching  type = 'select' sub = {subjectByContext} />
+      <DataFetching click = {props.click}  type = 'select' sub = {subjectByContext} />
       <div className = 'mbot'></div>
     </>
   );
