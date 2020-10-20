@@ -22,7 +22,8 @@ const [userAns,setUserAns] = useState()
 const [end,setEnd] = useState(false)
 const [review,setReview] = useState(false)
 const [answered,setAnswered] = useState(false)
-
+const [allUserAns,setAllUserAns] = useState([])
+var [timeout,setTimeOut] =useState(false)
    const clearColor = ()=>{
           setOpt0Color('w3-white')
           setOpt1Color('w3-white')
@@ -31,6 +32,7 @@ const [answered,setAnswered] = useState(false)
     }
   
   const closeAnsModal=()=>{
+  	props.click()
       navByContext(true)
       setDisplay('none')
   }
@@ -50,7 +52,7 @@ const [answered,setAnswered] = useState(false)
         <h4>You Got: {marks} Marks</h4>
         <div className = 'w3-bar'>
         <button className = 'w3-left' onClick = {closeAnsModal}>Close</button>
-       <button onClick ={toogleReview}>Review</button>
+       <button className ='w3-right' onClick ={toogleReview}>Review</button>
      </div>
     </div>
   </div>
@@ -129,12 +131,16 @@ const noticemodal = (
     	if(q===questions.length-1){
          setEnd(true)
     }
+    }  
+    
+    const skip =()=>{
+     setUserAns(' ')
+     goNext();
     }
-    
-    
-    
     const goNext = ()=>{
+
     	clearColor();
+        
     	setAnswered(false)
     	if(q===questions.length-1){
          setEnd(true)
@@ -142,16 +148,22 @@ const noticemodal = (
        if(q<questions.length-1){
         	setCount(327);
             setQ(q+1)
+            setTimeOut(false)
             setTimeColor('green');
-            setAnimation('w3-animate-right');
+            setAnimation('w3-animate-right')
         }
       }
   
     const submit = ()=>{
+    	//!timeout&&userAns!=undefined&&alert(userAns)
+    	!timeout&&userAns!=undefined&&allUserAns.push(userAns)
+       window.scrollTo(0, 0);
     	setDisplay('block')
     }
  
  useEffect(() => {
+   // !timeout&&userAns!=undefined&&alert(userAns)
+    !timeout&&userAns!=undefined&&allUserAns.push(userAns)
     window.scrollTo(0, 0);
 if(questions[q].opt0!=null&&questions[q].opt1!=null&&questions[q].opt2!=null&&questions[q].opt3!=null){
 setTotalLength(
@@ -167,7 +179,7 @@ setTotalLength(3*questions[q].question.length)
 }, [q]);
  
 useEffect(()=>{
-    const interval = setInterval(tick,250)
+    const interval = setInterval(tick,80)//300
     return ()=>{
          clearInterval(interval)
     }
@@ -200,15 +212,19 @@ useEffect(()=>{
      }
      
      if(count<1){
+     	//count>-10&&!answered&&alert('timeout')
+         count>-10&&!answered&&allUserAns.push('timeout')
+         count>-10&&!answered&&setTimeOut(true)
         if(q===questions.length-1){
          setEnd(true)
+         setCount(-10)
        }
-        !end&&goNext();
+       !end&&goNext()
     }
   } }
   
   useEffect(()=>{
-    !end&&saveAns(); 
+    userAns!=' '&&!end&&saveAns(); 
    },[userAns])
 
 
@@ -247,14 +263,14 @@ return (
            <div className = 'c-box-xmin'></div>
          
        {end&&<button onClick = {submit} className ='w3-border w3-green w3-round w3-button'>Submit</button>}
-       {!end&&!answered&&<button onClick = {goNext} className ='w3-border w3-round w3-button'>Skip</button>}
+       {!end&&!answered&&<button onClick = {skip} className ='w3-border w3-round w3-button'>Skip</button>}
        {!end&&answered&&<button onClick = {goNext} className = 'm-left w3-round w3-button w3-red'>Next</button>}
     </div>
   ))}
 </>
 );
 }else{
-return <ResultPage closeAns = {closeAnsModal} qData = {questions} click = {props.click} />;
+return <ResultPage userAns = {allUserAns} closeAns = {closeAnsModal} qData = {questions} click = {props.click} />;
 }
  
 }

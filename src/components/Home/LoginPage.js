@@ -63,15 +63,15 @@ return (
 <div className = 'w3-text-red' style = {{marginTop:'-30px'}}><FaUserGraduate size='60'/></div>
 <form onSubmit = {submit} className = 'w3-container'>
 <p>
-<label className = 'w3-left'><b>आपका शुभ नाम</b></label><br></br>
+<label className = 'w3-left'><b>Enter Your Name</b></label><br></br>
 <input className = 'w3-input w3-border' type = 'text' placeholder = 'Name'value = {userName} onChange = {(e)=>setUserName(e.target.value)}></input>
 </p>
 <p>
-<label className = 'w3-left'><b>आपका अद्वितीय ई-मेल</b></label>
+<label className = 'w3-left'><b>Enter Your Email</b></label>
 <input className = 'w3-border w3-input' type = 'email' placeholder = 'Email' value = {userEmail} onChange = {(e)=>setUserEmail(e.target.value)}></input>
 </p>
 <p>
-<label className = 'w3-left'><b>आपका गुप्त पासवर्ड</b></label>
+<label className = 'w3-left'><b>Enter Your Password</b></label>
 <input className = 'w3-input w3-border' type = 'password' placeholder = 'Password' value = {password} onChange = {(e)=>setPassword(e.target.value)}></input>
 <a onClick = {newUser} href = '' className = 'w3-padding-small w3-text-blue w3-small w3-left' style ={{textDecoration:'none'}}>New User SignUP</a>
 <a onClick = {forgotPassword} href = '' className = 'w3-padding-small w3-text-blue w3-small w3-right' style ={{textDecoration:'none'}}>Forgot Password ?</a>
