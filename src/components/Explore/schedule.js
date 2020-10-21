@@ -17,7 +17,7 @@ const daa = 'https://chat.whatsapp.com/'
 const da = 'http://moodleglbitm.live:9091/course/view.php?id=209'
 const ml = 'http://moodleglbitm.live:9091/course/view.php?id=215'
 const ttc1 ='https://meet.google.com/hee-mrfc-ewb'
-const ttc2 = 'meet.google.com/jxo-wwxw-zej'
+const ttc2 = 'https://meet.google.com/jxo-wwxw-zej'
 const pdp = 'http://lms.glbitm.org:9099/moodle/course/view.php?id=50#section-0'
 const daaquiz = 'http://moodleglbitm.live:9091/course/view.php?id=192'
 

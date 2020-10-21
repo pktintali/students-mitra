@@ -61,7 +61,7 @@ axios.get(`https://api.steinhq.com/v1/storages/5f37792b5d3cdc44fcd7d30b/${subjec
          return <LoadingScreen />;
      } else {
      if(questions[0]!==undefined){ 
-     return (<QuestionMaker click = {props.click} data = {questions} type = {props.type}/>);
+     return (<QuestionMaker sub = {subject} click = {props.click} data = {questions} type = {props.type}/>);
      }
    return <LoadingScreen />;
    }

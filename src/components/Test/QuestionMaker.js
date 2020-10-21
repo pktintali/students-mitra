@@ -1,6 +1,8 @@
 import React, {useState,useEffect,useContext} from 'react';
 import {NavContext} from '../../App';
 import ResultPage from './ResultPage';
+import SaveResult from './SaveResult'
+
 function QuestionMaker(props){
 const navByContext = useContext(NavContext)
 //Skip ans goNext Buttons Functionalaty only difference is that 
@@ -134,6 +136,7 @@ const noticemodal = (
     }  
     
     const skip =()=>{
+  
      setUserAns(' ')
      goNext();
     }
@@ -154,7 +157,8 @@ const noticemodal = (
         }
       }
   
-    const submit = ()=>{
+    const submit = ()=>{	
+    	SaveResult([marks,props.sub,props.type])
     	//!timeout&&userAns!=undefined&&alert(userAns)
     	!timeout&&userAns!=undefined&&allUserAns.push(userAns)
        window.scrollTo(0, 0);
