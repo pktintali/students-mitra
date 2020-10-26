@@ -246,11 +246,11 @@ return (
 }
 
 else if(day===6){
-return <h1>Lunch Saturday</h1>;
+return <h1>Enjoy Saturday</h1>;
 }
 
-else if(day===7){
-return <h1>Lunch Sunday</h1>;
+else if(day===0){
+return <h1>Enjoy Sunday</h1>;
 }
 
 }

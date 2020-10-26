@@ -2,9 +2,15 @@ import React, {useState,useEffect,useContext} from 'react';
 import {NavContext} from '../../App';
 import ResultPage from './ResultPage';
 import SaveResult from './SaveResult'
+import SaveGameResult from './SingleSubject/Game/SaveGameResult'
+import LeaderBoard from './SingleSubject/Game/LeaderBoard';
+import AddRoom from './SingleSubject/Game/AddRoom';
 
 function QuestionMaker(props){
 const navByContext = useContext(NavContext)
+
+var id = window.sessionStorage.getItem("id");
+var user = window.sessionStorage.getItem("userName");
 //Skip ans goNext Buttons Functionalaty only difference is that 
 //skip goes next without saving ans and goNext goes next by saving ans
 const questions = props.data
@@ -53,8 +59,8 @@ var [timeout,setTimeOut] =useState(false)
     <div className="w3-modal-content w3-border w3-border-red w3-animate-top w3-padding w3-card-4">
         <h4>You Got: {marks} Marks</h4>
         <div className = 'w3-bar'>
-        <button className = 'w3-left' onClick = {closeAnsModal}>Close</button>
-       <button className ='w3-right' onClick ={toogleReview}>Review</button>
+        {!props.game&&<button className = 'w3-left' onClick = {closeAnsModal}>Close</button>}
+       <button className ='w3-right' onClick ={toogleReview}>{props.game?'View Leaderboard':'Review'}</button>
      </div>
     </div>
   </div>
@@ -157,8 +163,9 @@ const noticemodal = (
         }
       }
   
-    const submit = ()=>{	
-    	SaveResult([marks,props.sub,props.type])
+    async function submit(){	
+    	!props.game&&SaveResult([marks,props.sub,props.type])
+         props.game&&await AddRoom(id,marks,'marks',user);
     	//!timeout&&userAns!=undefined&&alert(userAns)
     	!timeout&&userAns!=undefined&&allUserAns.push(userAns)
        window.scrollTo(0, 0);
@@ -274,7 +281,12 @@ return (
 </>
 );
 }else{
+if(!props.game){
 return <ResultPage userAns = {allUserAns} closeAns = {closeAnsModal} qData = {questions} click = {props.click} />;
+}
+else{
+return <LeaderBoard closeAns = {closeAnsModal} click = {props.click} />;
+}
 }
  
 }

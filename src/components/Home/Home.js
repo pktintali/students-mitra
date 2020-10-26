@@ -3,6 +3,13 @@ import '../../App.css';
 import Graph from './Graph';
 import TopBar from '../TopBar';
 import LoginPage from './LoginPage';
+//mport firebase from './firebase'
+
+
+//firebase.firestore().collection('games').add({
+//name: 'Pradeep',
+//sec: 'D'
+//})
 
 function Home() {
 
