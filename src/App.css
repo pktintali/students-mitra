@@ -121,8 +121,9 @@ padding:65px;
 }
 
 
-
-
+.touch{
+cursor:pointer,
+}
 #top{
   margin: auto;
   width: 100%;

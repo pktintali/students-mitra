@@ -20,10 +20,15 @@ const modal = (
 );
 
 const submit = (e)=>{
+if(userName){
 window.sessionStorage.setItem("userName", userName);
 window.sessionStorage.setItem("loggedin", true);
 e.preventDefault();
 props.doLogin();
+}else{
+alert('Invalid User Name');
+e.preventDefault();
+}
 }
 
 const forgotPassword = (e)=>{

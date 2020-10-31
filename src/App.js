@@ -7,6 +7,7 @@ import Home from './components/Home/Home';
 import {BrowserRouter as Router, Switch, Route} from  'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import ResultPage from './components/Test/ResultPage';
+import FetchRoom from './components/Test/SingleSubject/Game/FetchRoom';
 export const NavContext = React.createContext()
 function App() {
 	
@@ -25,7 +26,7 @@ function App() {
          <Route path = '/' exact component = {Home} />
          <Route path = '/explore' component = {Explore} />
          <Route path = '/quiz' component = {Quiz} />
-         <Route path = '/review' component = {ResultPage} />
+         <Route path = '/play' component = {FetchRoom} />
       </Switch>
     </NavContext.Provider>
     </div>

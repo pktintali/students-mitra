@@ -8,6 +8,7 @@ import FirebaseRead from './Game/FirebaseRead';
 import FirebaseSearch from './Game/FirebaseSearch';
 import checkFull from './Game/CheckFull';
 import AddRoom from './Game/AddRoom';
+import {Link} from 'react-router-dom';
 
 export const GameSubContext = React.createContext()
 
@@ -24,7 +25,7 @@ function SingleSubject(props) {
     const [game,setGame] = useState(false)
    var c = 0
    var userName = window.sessionStorage.getItem("userName");
- 
+   
    var players =0
    const hidebar=()=>{
       setTopBar(false)
@@ -128,7 +129,9 @@ if(!play){
     <GameSubContext.Provider value = {sub}>
       <SubjectList s = {sub} i = {k} gameid = {id} host = {host} game = {game} click = {props.click} hidebar = {hidebar} id= {props.id} text='Select any one'/>
     </GameSubContext.Provider>
-      {topbar&&!game&&<button onClick ={playMode}>Play with Friends</button>}
+    <br></br><p></p>
+      {userName!=undefined&&topbar&&!game&&<button className = 'w3-button w3-green w3-tiny w3-round' onClick ={playMode}>Play with Friends</button>}
+      <p></p><br></br>
      <div className = 'mbot'></div>
  </div>
 </>

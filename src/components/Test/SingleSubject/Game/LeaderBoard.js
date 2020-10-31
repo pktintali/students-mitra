@@ -34,10 +34,9 @@ const games = UseGame(id)
 
 async function deleteDoc(){
 await firebase.firestore().collection('games').doc(id).delete();
-}
-
 if(games.length===0){
 alert('Deleted')
+}
 }
 
 const handleProps = ()=>{
