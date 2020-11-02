@@ -1,10 +1,9 @@
-import React,{useState} from 'react';
-import '../../App.css';
-import Graph from './Graph';
-import TopBar from '../TopBar';
-import LoginPage from './LoginPage';
+import React, { useState } from "react";
+import "../../App.css";
+import Graph from "./Graph";
+import TopBar from "../TopBar";
+import LoginPage from "./LoginPage";
 //mport firebase from './firebase'
-
 
 //firebase.firestore().collection('games').add({
 //name: 'Pradeep',
@@ -12,20 +11,19 @@ import LoginPage from './LoginPage';
 //})
 
 function Home() {
+  var userName = window.sessionStorage.getItem("userName");
+  var status = window.sessionStorage.getItem("loggedin");
 
-var userName = window.sessionStorage.getItem("userName");
-var status = window.sessionStorage.getItem("loggedin");
+  const [loggedin, setLoggedIn] = useState(status);
 
-const [loggedin,setLoggedIn] = useState(status)
- 
- const isLoggedIn = ()=>{
-     setLoggedIn(true)
- }
- 
+  const isLoggedIn = () => {
+    setLoggedIn(true);
+  };
+
   return (
-    <> 
-      {loggedin&&<TopBar txt = {loggedin?'Welcome '+userName:'Login'}/>}
-    {loggedin?<Graph />:<LoginPage  doLogin = {isLoggedIn}/>}  
+    <>
+      {loggedin && <TopBar txt={loggedin ? "Welcome " + userName : "Login"} />}
+      {loggedin ? <Graph /> : <LoginPage doLogin={isLoggedIn} />}
     </>
   );
 }
