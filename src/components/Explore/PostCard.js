@@ -19,10 +19,11 @@ openDetail(true)
                 <b className = 'w3'>TDevelopers</b>
                 <i className = 'w3-small w3-right'>1 Hour Ago</i>
               </div>
+              <br></br>
+              <p></p>
               <div className = 'touch' onClick = {openCardDetail}>
-                 <br></br>
                  <p className = 'w3-left-align'>Studay Analyzer is the best tool for students. Specially for those students  who are confused about what to study.</p>
-                 <img style = {{width:'100%'}} className = ''src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTRP5pe1nBk5FwcOrvfIgwJUgIbQ7TpemUilg&usqp=CAU' a/>
+                 <img style = {{width:'100%',maxwidth:'300px'}} className = ''src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTRP5pe1nBk5FwcOrvfIgwJUgIbQ7TpemUilg&usqp=CAU' a/>
               </div><br></br>
               <div className = 'w3-text-grey w3-margin w3-display-container w3-padding'>
                      <div style ={{width:'33.3%'}} className = 'w3-display-left w3-button'><FaRegThumbsUp size ={'25px'} /><br></br><span>5M</span></div>

@@ -7,7 +7,7 @@ function Questions3() {
   <>
      <TopBar txt = 'Time Remaining 10:00'  bool = {false}/>
       <div className = 'mtop' ></div>
-      <DataFetching />
+      {/* <DataFetching /> */}
       <div className = 'w3-panel'>
           <button className = 'w3-button w3-red'>Submit</button>
       </div>

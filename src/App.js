@@ -6,7 +6,6 @@ import Quiz from './components/Test/Quiz';
 import Home from './components/Home/Home';
 import {BrowserRouter as Router, Switch, Route} from  'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
-import ResultPage from './components/Test/ResultPage';
 import FetchRoom from './components/Test/SingleSubject/Game/FetchRoom';
 export const NavContext = React.createContext()
 function App() {

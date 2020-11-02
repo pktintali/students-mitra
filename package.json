@@ -11,13 +11,13 @@
     "chart.js": "^2.9.3",
     "firebase": "^7.24.0",
     "google-spreadsheet": "^3.0.13",
-    "googleapis": "^39.2.0",
+    "googleapis": "^62.0.0",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.10.0",
     "react-dom": "^16.13.1",
     "react-icons": "^3.11.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
+    "react-scripts": "^4.0.0",
     "stein-js-client": "0.0.2"
   },
   "scripts": {

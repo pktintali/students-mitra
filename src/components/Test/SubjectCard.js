@@ -37,7 +37,7 @@ function SubjectCard(props) {
               setC(c+1);
             }
  
-              }} className = {` ${col[i]} cardButton w3-padding w3-card w3-margin w3-round-xlarge w3-card`}>
+              }} className = {` ${col[i]} pointer cardButton w3-padding w3-card w3-margin w3-round-xlarge w3-card`}>
                     <h1>{subList[i].toUpperCase()}</h1>
                    <p className = 'w3-tiny'>{subDetail[i].toUpperCase()}</p>
             </div>);
