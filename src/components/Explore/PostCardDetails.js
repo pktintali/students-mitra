@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../../App.css";
-import TopBar from "../TopBar";
 import { FaRegThumbsUp, FaRegComment, FaShare } from "react-icons/fa";
 function PostCard() {
   const openCardDetail = () => {

@@ -1,29 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../App.css";
 import Graph from "./Graph";
+import firebase from "../firebase";
 import TopBar from "../TopBar";
-import LoginPage from "./LoginPage";
-//mport firebase from './firebase'
 
-//firebase.firestore().collection('games').add({
-//name: 'Pradeep',
-//sec: 'D'
-//})
-
-function Home() {
-  var userName = window.sessionStorage.getItem("userName");
-  var status = window.sessionStorage.getItem("loggedin");
-
-  const [loggedin, setLoggedIn] = useState(status);
-
-  const isLoggedIn = () => {
-    setLoggedIn(true);
-  };
-
+function Home(props) {
+  if(!firebase.getCurrentUsername()) {
+		// not logged in
+		//alert('Please login first')
+		props.history.replace('/login')
+		return null
+  }
   return (
     <>
-      {loggedin && <TopBar txt={loggedin ? "Welcome " + userName : "Login"} />}
-      {loggedin ? <Graph /> : <LoginPage doLogin={isLoggedIn} />}
+    <TopBar txt={"Welcome "+firebase.getCurrentUsername()}/>
+        <Graph/>    
     </>
   );
 }

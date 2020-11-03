@@ -3,10 +3,9 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import { FaHome, FaBookReader, FaBong } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
+import firebase from "./firebase";
 
 function Nav() {
-  var userName = window.sessionStorage.getItem("userName");
-  var loggedIn = window.sessionStorage.getItem("loggedin");
 
   const { pathname } = useLocation();
 
@@ -64,6 +63,11 @@ function Nav() {
     setSelectedHome("w3-red");
   };
 
+  async function doSignOut() {
+    await firebase.logout();
+    updateMenuD();
+  }
+
   useEffect(() => {
     if (window.location.href.match("/explore")) {
       updateMenuE();
@@ -99,9 +103,18 @@ function Nav() {
           >
             Test
           </Link>
-          {loggedIn && <div className='w3-right w3-bar-item'>Welcome {userName}</div>}
+
+          {firebase.getCurrentUsername() && (
+            <div className=" w3-center w3-bar-item">Welcome {firebase.getCurrentUsername()}</div>
+          )}
+         {firebase.getCurrentUsername()&&<Link
+            onClick={doSignOut}
+            to="/login"
+            className={`w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white`}
+          >
+            LogOut
+          </Link>}
         </div>
-        
       </nav>
 
       <div class="w3-bottom w3-hide-large w3-hide-medium w3-card">

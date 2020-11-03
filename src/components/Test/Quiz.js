@@ -5,10 +5,19 @@ import SingleSubject from "./SingleSubject/SingleSubject";
 import SelectSubject from "./SelectSubject/SelectSubject";
 import AllSubject from "./AllSubject/AllSubject";
 import RoundButton from "./RoundButton";
+import firebase from '../firebase'
 
-function Quiz() {
+function Quiz(props) {
+
   const [id, setId] = useState(0);
   const [selector, setSelector] = useState(true);
+
+  if(!firebase.getCurrentUsername()) {
+		// not logged in
+		alert('You need to be logged in')
+		props.history.replace('/login')
+		return null
+  }
 
   const goBack = () => {
     setId(0);
