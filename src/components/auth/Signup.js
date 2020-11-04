@@ -12,21 +12,31 @@ function SignupPage(props) {
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
 
-  
-
   async function signup(e) {
     setLoading(true);
     e.preventDefault();
     try {
       await firebase.register(userName, userEmail, password);
-      
+      await firebase.updateProfile({
+        name: userName,
+        sec: "",
+        branch: "",
+        college: "",
+        mobile: "",
+        email: userEmail,
+        dob: "",
+        address: "",
+        state: "",
+        country: "",
+      });
+      await firebase.addField({tempi:0,i:0})
       setLoading(false);
-      props.history.replace("/")
+      props.history.replace("/");
     } catch (e) {
       alert(e.message);
       setLoading(false);
     }
-  
+
     if (userName) {
       window.sessionStorage.setItem("userName", userName);
       window.sessionStorage.setItem("loggedin", true);
@@ -45,7 +55,7 @@ function SignupPage(props) {
     backgroundColor: "#ffffff",
   };
 
-  return !loading?(
+  return !loading ? (
     <>
       <div style={myFormStyle}>
         <TopBar txt="Login" />
@@ -132,7 +142,9 @@ function SignupPage(props) {
         </div>
       </div>
     </>
-  ):<LoadingScreen/>
+  ) : (
+    <LoadingScreen />
+  );
 }
 
 export default SignupPage;

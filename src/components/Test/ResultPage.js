@@ -56,8 +56,9 @@ function ResultPage(props) {
   return (
     <>
       <Doughnut
+      
         data={ansData}
-        width={100}
+        width={80}
         height={60}
         options={{
           maintainAspectRatio: true,

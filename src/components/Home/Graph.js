@@ -31,13 +31,19 @@ const dataLine = {
 };
 
 function Graph() {
-  const [profile, setProfile] = useState();
+  
   const [marks, setMarks] = useState();
+  const[index,setIndex] = useState('0')
+
+  async function getIndex(){
+   setIndex(await firebase.getField('tempi'));
+  }
 
   useEffect(() => {
+    getIndex()
     //firebase.getProfile().then(setProfile);
-    firebase.getmarks().then(setMarks);
-  }, []);
+    firebase.getmarks(`${index}`).then(setMarks);
+  }, [index]);
 
   const dataBar = {
     labels: [" DAA", " CD", " DBMS", " ML", " DA", " COI"],
@@ -50,6 +56,7 @@ function Graph() {
         hoverBackgroundColor: "rgba(255,99,132,0.4)",
         hoverBorderColor: "rgba(255,99,132,1)",
         data: [
+          
           marks ? marks.get("daa") : 0,
           marks ? marks.get("cd") : 0,
           marks ? marks.get("dbms") : 0,
@@ -57,6 +64,7 @@ function Graph() {
           marks ? marks.get("da") : 0,
           marks ? marks.get("coi") : 0,
           0,
+          10
         ],
       },
     ],

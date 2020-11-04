@@ -276,43 +276,43 @@ function QuestionMaker(props) {
 
               <div className="c-box-xmin"></div>
               {/*<p>{totalLength}</p>*/}
-              {question[2] !== null && (
+              {question[2] && (
                 <div
                   onClick={
                     !answered ? () => setUserAns(question[2]) : undefined
                   }
-                  className={`preventSelection w3-card w3-round opt w3-padding-large ${opt0Color}`}
+                  className={`pointer preventSelection w3-card w3-round opt w3-padding-large ${opt0Color}`}
                 >
                   {question[2]}
                 </div>
               )}
-              {question[3] !== null && (
+              {question[3]&& (
                 <div
                   onClick={
                     !answered ? () => setUserAns(question[3]) : undefined
                   }
-                  className={`preventSelection w3-card w3-round opt w3-panel w3-padding-large ${opt1Color}`}
+                  className={`pointer preventSelection w3-card w3-round opt w3-panel w3-padding-large ${opt1Color}`}
                 >
                   {question[3]}
                 </div>
               )}
 
-              {question[4] !== null && (
+              {question[4]&& (
                 <div
                   onClick={
                     !answered ? () => setUserAns(question[4]) : undefined
                   }
-                  className={`preventSelection w3-card w3-round opt w3-padding-large ${opt2Color}`}
+                  className={`pointer preventSelection w3-card w3-round opt w3-padding-large ${opt2Color}`}
                 >
                   {question[4]}
                 </div>
               )}
-              {question[5] !== null && (
+              {question[5]&& (
                 <div
                   onClick={
                     !answered ? () => setUserAns(question[5]) : undefined
                   }
-                  className={`preventSelection w3-card w3-round opt w3-panel w3-padding-large ${opt3Color}`}
+                  className={`pointer preventSelection w3-card w3-round opt w3-panel w3-padding-large ${opt3Color}`}
                 >
                   {question[5]}
                 </div>

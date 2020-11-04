@@ -74,21 +74,30 @@ class Firebase {
 		return quote.get('profile')
   }
 
-  updateMarks(profile) {
+  updateMarks(data,index) {
     //TODO Update Marks Correctly
 		if(!this.auth.currentUser) {
 			return alert('Not authorized')
 		}
-		return this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).collection('marks').doc('0').set({
-			profile
-		},{ merge: true })
+		return this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).collection('marks').doc(index).set(data,{ merge: true })
   }
 
-  async getmarks() {
-		const marks = await this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).collection('marks').doc('1').get()
+  async getmarks(index) {
+		const marks = await this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).collection('marks').doc(index).get()
 		return marks;
   }
   
+  addField(data) {
+		if(!this.auth.currentUser) {
+			return alert('Not authorized')
+		}
+		return this.db.doc(`usersData/${this.auth.currentUser.email}`).set(data,{ merge: true })
+  }
+
+  async getField(name) {
+		const marks = await this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).get()
+		return marks.get(name);
+  }
   
 }
 export default new Firebase();

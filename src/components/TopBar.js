@@ -29,6 +29,7 @@ function TopBar(props) {
         <h3 className="w3-left">{props.txt}</h3>
         {!props.profile&&firebase.getCurrentUsername()&& (
           <Link
+            style={{marginRight:'-15px'}} 
             to="./profile"
             className="w3-right w3-hover-white w3-button w3-circle w3-padding-large"
           >

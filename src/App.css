@@ -51,7 +51,7 @@ max-height:250px;
 .small{
 height:100%;
 width:100%;
-align:center;
+align-items:center;
 }
 .c-box-min{
 height:55px;
@@ -129,6 +129,15 @@ cursor:pointer,
   width: 100%;
   border: 0px solid white;
    max-width:500px;
+}
+
+.vl {
+  border-left: 4px solid black;
+  height: 500px;
+  position: absolute;
+  left: 50%;
+  margin-left: -5px;
+  top: 0;
 }
 
 @media (min-width:480px)  { /* smartphones, Android phones, landscape iPhone */ 
