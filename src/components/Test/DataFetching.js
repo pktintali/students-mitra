@@ -25,11 +25,11 @@ function DataFetching(props) {
       for (let i in subject) {
         axios
           .get(
-            `https://api.steinhq.com/v1/storages/5f37792b5d3cdc44fcd7d30b/${subject[i]}?limit=10&offset=${r}`
+            `https://sheets.googleapis.com/v4/spreadsheets/1nKZxQH1nAVPPhpSLH1tPlYcW31-ZRM9qi7KoGvpLroc/values/${subject[i]}!A${r+1}:H${r+10}?key=AIzaSyBHa8gIZFiDDGmSUKiDPBn6I-aDt6e0IHc`
           )
           .then((res) => {
             for (let i = 0; i < 5; i++) {
-              questions.push(...res.data.slice(arr[i], arr[i] + 1));
+              questions.push(...res.data.values.slice(arr[i], arr[i] + 1));
             }
             if (i == subject.length - 1) {
               setIsLoaded(true);
@@ -45,12 +45,13 @@ function DataFetching(props) {
       //Here we are getting 10 random from 10 but we have to get 10 random from 20
       axios
         .get(
-          `https://api.steinhq.com/v1/storages/5f37792b5d3cdc44fcd7d30b/${subject}?limit=10&offset=${r}`
+          `https://sheets.googleapis.com/v4/spreadsheets/1nKZxQH1nAVPPhpSLH1tPlYcW31-ZRM9qi7KoGvpLroc/values/${subject}!A${r+1}:H${r+10}?key=AIzaSyBHa8gIZFiDDGmSUKiDPBn6I-aDt6e0IHc`
         )
         .then((res) => {
           for (let i = 0; i < 10; i++) {
-            questions.push(...res.data.slice(arr[i], arr[i] + 1));
+            questions.push(...res.data.values.slice(arr[i], arr[i] + 1));
           }
+          
           setIsLoaded(true);
         })
         .catch((error) => {

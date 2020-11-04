@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
+import firebase from "../firebase";
 
 const dataLine = {
   labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -24,58 +25,77 @@ const dataLine = {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [30, 38, 35, 40, 42, 62, 70],
+      data: [0, 0, 0,0, 0, 0, 0],
     },
   ],
 };
 
-const dataBar = {
-  labels: [" DAA", " CD", " DBMS", " ML", " DA", " COI"],
-  datasets: [
-    {
-      label: "My Average Marks",
-      backgroundColor: "rgba(255,99,132,0.2)",
-      borderColor: "rgba(255,99,132,1)",
-      borderWidth: 1,
-      hoverBackgroundColor: "rgba(255,99,132,0.4)",
-      hoverBorderColor: "rgba(255,99,132,1)",
-      data: [55, 60, 70, 80, 70, 55, 40],
-    },
-  ],
-};
+function Graph() {
+  const [profile, setProfile] = useState();
+  const [marks, setMarks] = useState();
 
-class Graph extends React.Component {
-  render() {
-    return (
-      <div className="mtop">
-        <div className="w3-row">
-          <div className="w3-half">
-            <h3 className="w3-text-grey">Subjects Analysis</h3>
-            <Bar
-              data={dataBar}
-              width={100}
-              height={60}
-              options={{
-                maintainAspectRatio: true,
-              }}
-            />
-          </div>
-          <div className="w3-half">
-            <h3 className="w3-text-grey">Monthly Progress</h3>
-            <Line
-              data={dataLine}
-              width={100}
-              height={60}
-              options={{
-                maintainAspectRatio: true,
-              }}
-            />
-          </div>
+  useEffect(() => {
+    //firebase.getProfile().then(setProfile);
+    firebase.getmarks().then(setMarks);
+  }, []);
+
+  const dataBar = {
+    labels: [" DAA", " CD", " DBMS", " ML", " DA", " COI"],
+    datasets: [
+      {
+        label: "My Average Marks",
+        backgroundColor: "rgba(255,99,132,0.2)",
+        borderColor: "rgba(255,99,132,1)",
+        borderWidth: 1,
+        hoverBackgroundColor: "rgba(255,99,132,0.4)",
+        hoverBorderColor: "rgba(255,99,132,1)",
+        data: [
+          marks ? marks.get("daa") : 0,
+          marks ? marks.get("cd") : 0,
+          marks ? marks.get("dbms") : 0,
+          marks ? marks.get("ml") : 0,
+          marks ? marks.get("da") : 0,
+          marks ? marks.get("coi") : 0,
+          0,
+        ],
+      },
+    ],
+  };
+
+  return (
+    <div className="mtop">
+      <div className="w3-row">
+        <div className="w3-half">
+          <h3 className="w3-text-grey">Subjects Analysis</h3>
+          {/* {profile && profile.name}
+          {profile && profile.fatherName}
+          {profile && profile.state}
+          {profile && profile.country}
+          {profile && profile.pin} */}
+          <Bar
+            data={dataBar}
+            width={100}
+            height={60}
+            options={{
+              maintainAspectRatio: true,
+            }}
+          />
         </div>
-        <div className="c-box-min"></div>
+        <div className="w3-half">
+          <h3 className="w3-text-grey">Monthly Progress</h3>
+          <Line
+            data={dataLine}
+            width={100}
+            height={60}
+            options={{
+              maintainAspectRatio: true,
+            }}
+          />
+        </div>
       </div>
-    );
-  }
+      <div className="c-box-min"></div>
+    </div>
+  );
 }
 
 export default Graph;

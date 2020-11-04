@@ -5,7 +5,7 @@ function UseGame(id) {
   const [game, setGames] = useState([]);
   useEffect(() => {
     const unsubscribe = firebase
-      .firestore()
+      .db
       .collection("games")
       .where("roomid", "==", id)
       .onSnapshot((snapshot) => {
@@ -44,22 +44,22 @@ function FirebaseSearch(props) {
               <th>Joined Players</th>
             </tr>
             <tr>
-              <td className={`${user == game.p1 ? "w3-text-red" : ""}`}>
+              <td className={`${firebase.getCurrentUsername() == game.p1 ? "w3-text-red" : ""}`}>
                 {game.p1} {game.host == game.p1 && "(Host)"}
               </td>
             </tr>
             <tr>
-              <td className={`${user == game.p2 ? "w3-text-red" : ""}`}>
+              <td className={`${firebase.getCurrentUsername() == game.p2 ? "w3-text-red" : ""}`}>
                 {game.p2} {game.host == game.p2 && "(Host)"}
               </td>
             </tr>
             <tr>
-              <td className={`${user == game.p3 ? "w3-text-red" : ""}`}>
+              <td className={`${firebase.getCurrentUsername() == game.p3 ? "w3-text-red" : ""}`}>
                 {game.p3} {game.host == game.p3 && "(Host)"}
               </td>
             </tr>
             <tr>
-              <td className={`${user == game.p4 ? "w3-text-red" : ""}`}>
+              <td className={`${firebase.getCurrentUsername() == game.p4 ? "w3-text-red" : ""}`}>
                 {game.p4} {game.host == game.p4 && "(Host)"}
               </td>
             </tr>
@@ -70,7 +70,7 @@ function FirebaseSearch(props) {
           <br></br>
           <p></p>
           <div className="w3-panel w3-padding">
-            {game.host == user && (
+            {game.host == firebase.getCurrentUsername() && (
               <button
                 className="w3-right w3-button w3-green"
                 onClick={props.start}

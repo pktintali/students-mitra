@@ -7,7 +7,7 @@ function FirebaseWrite() {
   const onSubmit = (e) => {
     e.preventDefault();
     firebase
-      .firestore()
+      .db
       .collection("games")
       .add({
         roomid: id,

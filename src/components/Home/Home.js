@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../../App.css";
 import Graph from "./Graph";
-import firebase from "../firebase";
 import TopBar from "../TopBar";
+import firebase from "../firebase";
 
 function Home(props) {
+
   if(!firebase.getCurrentUsername()) {
 		// not logged in
 		//alert('Please login first')

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import "../../App.css";
 import TopBar from "../TopBar";
 import SingleSubject from "./SingleSubject/SingleSubject";
 import SelectSubject from "./SelectSubject/SelectSubject";
 import AllSubject from "./AllSubject/AllSubject";
 import RoundButton from "./RoundButton";
-import firebase from '../firebase'
+import firebase from "../firebase";
 
 function Quiz(props) {
 

@@ -2,7 +2,7 @@ import firebase from "../../../firebase";
 
 async function checkFull(id, type) {
   var val = 0;
-  const citiesRef = firebase.firestore().collection("games");
+  const citiesRef = firebase.db.collection("games");
   const snapshot = await citiesRef.where("roomid", "==", id).get();
 
   if (snapshot.empty) {

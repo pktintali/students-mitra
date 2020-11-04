@@ -44,6 +44,51 @@ class Firebase {
 		return new Promise(resolve => {
 			this.auth.onAuthStateChanged(resolve)
 		})
-	}
+  }
+  
+  addQuote(quote) {
+		if(!this.auth.currentUser) {
+			return alert('Not authorized')
+		}
+		return this.db.doc(`usersData/${this.auth.currentUser.uid}`).set({
+			quote
+		})
+  }
+  
+  async getCurrentUserQuote() {
+		const quote = await this.db.doc(`usersData/${this.auth.currentUser.uid}`).get()
+		return quote.get('quote').country
+  }
+  
+  updateProfile(profile) {
+		if(!this.auth.currentUser) {
+			return alert('Not authorized')
+		}
+		return this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).set({
+			profile
+		},{ merge: true })
+  }
+
+  async getProfile() {
+		const quote = await this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).get()
+		return quote.get('profile')
+  }
+
+  updateMarks(profile) {
+    //TODO Update Marks Correctly
+		if(!this.auth.currentUser) {
+			return alert('Not authorized')
+		}
+		return this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).collection('marks').doc('0').set({
+			profile
+		},{ merge: true })
+  }
+
+  async getmarks() {
+		const marks = await this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).collection('marks').doc('1').get()
+		return marks;
+  }
+  
+  
 }
 export default new Firebase();

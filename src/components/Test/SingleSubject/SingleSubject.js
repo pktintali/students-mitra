@@ -5,6 +5,7 @@ import SubjectList from "../SubjectList";
 import FetchRoom from "./Game/FetchRoom";
 import checkFull from "./Game/CheckFull";
 import AddRoom from "./Game/AddRoom";
+import firebase from "../../firebase";
 
 export const GameSubContext = React.createContext();
 
@@ -19,10 +20,7 @@ function SingleSubject(props) {
   const [host, setHost] = useState(false);
   const [loading, setLoading] = useState(false);
   const [game, setGame] = useState(false);
-  var c = 0;
-  var userName = window.sessionStorage.getItem("userName");
 
-  var players = 0;
   const hidebar = () => {
     setTopBar(false);
   };
@@ -62,7 +60,7 @@ function SingleSubject(props) {
   );
 
   async function doEntry() {
-    await AddRoom(id, userName, "p");
+    await AddRoom(id, firebase.getCurrentUsername(), "p");
   }
 
   async function checkRoom(creation) {
@@ -87,7 +85,7 @@ function SingleSubject(props) {
         setCreate(false);
         setJoin(true);
       } else {
-        AddRoom(id, userName, "create");
+        AddRoom(id, firebase.getCurrentUsername(), "create");
         setLoading(false);
         setCreate(true);
       }
@@ -130,7 +128,7 @@ function SingleSubject(props) {
           </GameSubContext.Provider>
           <br></br>
           <p></p>
-          {userName != undefined && topbar && !game && (
+          {firebase.getCurrentUsername() && topbar && !game && (
             <button
               className="w3-button w3-green w3-tiny w3-round"
               onClick={playMode}

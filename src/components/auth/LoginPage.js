@@ -4,31 +4,40 @@ import TopBar from "../TopBar";
 import { Link } from "react-router-dom";
 import { FaUserGraduate } from "react-icons/fa";
 import firebase from "../firebase";
-import LoadingScreen from "../LoadingScreen"
+import LoadingScreen from "../LoadingScreen";
 
 function LoginPage(props) {
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [userEmail, setUserEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  async function login(e){
+  const profileData = {
+    name: "Test Kumar",
+    state: "Uttar Pradesh",
+    country: "India",
+    //fatherName: 'Kis LAL',
+    //pin: 231216
+  };
+
+  async function login(e) {
     setLoading(true);
     e.preventDefault();
-try{
-    await firebase.login(userEmail,password)
-    setLoading(false);
-    props.history.replace("/")
-}catch(e){
-  alert(e.message)
-  setLoading(false);
-}
+    try {
+      await firebase.login(userEmail, password);
+      //await firebase.updateProfile(profileData)
+      setLoading(false);
+      props.history.replace("/");
+    } catch (e) {
+      alert(e.message);
+      setLoading(false);
+    }
 
     if (userName) {
       window.sessionStorage.setItem("userName", userName);
       window.sessionStorage.setItem("loggedin", true);
-    } 
-  };
+    }
+  }
 
   const myFormStyle = {
     //color:'#F8EFFB',
@@ -41,7 +50,7 @@ try{
     backgroundColor: "#ffffff",
   };
 
-  return !loading?(
+  return !loading ? (
     <>
       <div style={myFormStyle}>
         <TopBar txt="Login" />
@@ -117,7 +126,14 @@ try{
         </div>
       </div>
     </>
-  ):<LoadingScreen />
+  ) : (
+    <>
+      <div className="w3-container w3-large w3-padding-large w3-red">
+        Please Wait
+      </div>
+      <LoadingScreen />
+    </>
+  );
 }
 
 export default LoginPage;

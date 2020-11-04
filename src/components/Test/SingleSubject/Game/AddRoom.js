@@ -2,9 +2,9 @@
 import firebase from "../../../firebase";
 
 async function AddRoom(id, userName, type, user) {
-  const citiesRef = firebase.firestore().collection("games");
+  const citiesRef = firebase.db.collection("games");
   const snapshot = await citiesRef.where("roomid", "==", id).get();
-  const gameRef = firebase.firestore().collection("games").doc(id);
+  const gameRef = firebase.db.collection("games").doc(id);
 
   if (type === "marks") {
     snapshot.forEach((doc) => {

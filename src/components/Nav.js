@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
-import { FaHome, FaBookReader, FaBong } from "react-icons/fa";
+import { FaHome, FaBookReader, FaBong, FaUser } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import firebase from "./firebase";
 
 function Nav() {
-
   const { pathname } = useLocation();
 
   const [clse, sce] = useState("w3-text-grey");
@@ -85,35 +84,49 @@ function Nav() {
           <Link
             onClick={updateMenuD}
             to="/"
-            className={` ${selectedHome} w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white`}
+            className={` ${selectedHome}  w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white`}
           >
             Dashboard
           </Link>
           <Link
             onClick={updateMenuE}
             to="/explore"
-            className={` ${selectedExplore} w3-bar-item w3-button w3-padding-large w3-hover-white`}
+            className={` ${selectedExplore}  w3-bar-item w3-button w3-padding-large w3-hover-white`}
           >
             Explore
           </Link>
           <Link
             onClick={updateMenuQ}
             to="/test"
-            className={` ${selectedTest} w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white`}
+            className={` ${selectedTest}  w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white`}
           >
             Test
           </Link>
-
+          <div className="w3-bar-item" style={{ width: "250px" }}></div>
           {firebase.getCurrentUsername() && (
-            <div className=" w3-center w3-bar-item">Welcome {firebase.getCurrentUsername()}</div>
+            <div className="w3-padding-large w3-bar-item">
+              Welcome {firebase.getCurrentUsername()}
+            </div>
           )}
-         {firebase.getCurrentUsername()&&<Link
-            onClick={doSignOut}
-            to="/login"
-            className={`w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white`}
-          >
-            LogOut
-          </Link>}
+
+          
+          {firebase.getCurrentUsername() && (
+            <Link
+              onClick={doSignOut}
+              to="/login"
+              className={`w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white`}
+            >
+              LogOut
+            </Link>
+          )}
+          {firebase.getCurrentUsername() && (
+            <Link
+              to="./profile"
+              className="w3-right w3-bar-item w3-hover-white w3-button w3-circle w3-padding-large"
+            >
+              <FaUser size={20} />
+            </Link>
+          )}
         </div>
       </nav>
 

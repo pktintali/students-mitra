@@ -12,7 +12,7 @@ function ResultPage(props) {
 
   for (let q in userAnswers) {
     //alert(userAnswers[q])
-    if (questions[q].ans === userAnswers[q]) {
+    if (questions[q][6] === userAnswers[q]) {
       c++;
     } else if (userAnswers[q] === " ") {
       na++;
@@ -42,7 +42,7 @@ function ResultPage(props) {
   var j = 0;
 
   for (let i in questions) {
-    if (questions[i].ans === userAnswers[i]) {
+    if (questions[i][6] === userAnswers[i]) {
       tOrNot.push("correct");
     } else if (userAnswers[i] === " ") {
       tOrNot.push("skip");
@@ -75,7 +75,7 @@ function ResultPage(props) {
           >
             <h4 className="w3-left-align">
               <b>{++i}- </b>
-              {q.question}
+              {q[1]}
             </h4>
             {tOrNot[j] === "skip" && (
               <h5 className="w3-left-align">
@@ -95,12 +95,12 @@ function ResultPage(props) {
             )}
             <h5 className="w3-left-align">
               <b>Correct Ans - </b>
-              {q.ans}
+              {q[6]}
             </h5>
-            {q.references && (
+            {q[7] && (
               <a
                 className="w3-text-blue w3-btn"
-                href={q.references}
+                href={q[7]}
                 target="blank"
               >
                 Learn more about this topic. 📋

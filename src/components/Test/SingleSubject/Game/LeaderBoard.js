@@ -5,7 +5,7 @@ function UseGame(id) {
   const [game, setGames] = useState([]);
   useEffect(() => {
     const unsubscribe = firebase
-      .firestore()
+      .db
       .collection("games")
       .where("roomid", "==", id)
       .onSnapshot((snapshot) => {
@@ -28,7 +28,6 @@ function LeaderBoard(props) {
   var id = window.sessionStorage.getItem("id");
   var host = window.sessionStorage.getItem("host");
 
-  const [sub, setSub] = useState();
   const games = UseGame(id);
 
   async function deleteDoc() {

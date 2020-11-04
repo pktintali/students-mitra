@@ -12,12 +12,14 @@ function SignupPage(props) {
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
 
+  
 
   async function signup(e) {
     setLoading(true);
     e.preventDefault();
     try {
       await firebase.register(userName, userEmail, password);
+      
       setLoading(false);
       props.history.replace("/")
     } catch (e) {

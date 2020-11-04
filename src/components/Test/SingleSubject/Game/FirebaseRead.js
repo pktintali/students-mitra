@@ -6,7 +6,7 @@ function UseGame() {
 
   useEffect(() => {
     const unsubscribe = firebase
-      .firestore()
+      .db
       .collection("games")
       .onSnapshot((snapshot) => {
         const newItems = snapshot.docs.map((doc) => ({
@@ -25,7 +25,6 @@ function UseGame() {
 
 function FirebaseRead(props) {
   const games = UseGame();
-  var user = window.sessionStorage.getItem("userName");
 
   return (
     <>
@@ -60,7 +59,7 @@ function FirebaseRead(props) {
           <br></br>
           <p></p>
           <div className="w3-panel w3-padding">
-            {game.host == user && (
+            {game.host == firebase.getCurrentUsername() && (
               <button
                 className="w3-right w3-button w3-green"
                 onClick={props.start}

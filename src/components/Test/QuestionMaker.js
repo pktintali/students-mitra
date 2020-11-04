@@ -71,7 +71,6 @@ function QuestionMaker(props) {
       </div>
     </div>
   );
-
   const noticemodal = (
     <div style={{ display: notice }} className="w3-modal">
       <div className="w3-modal-content w3-animate-top w3-padding w3-card-4">
@@ -96,46 +95,46 @@ function QuestionMaker(props) {
   );
 
   const manageColor = () => {
-    if (questions[q].ans === userAns) {
+    if (questions[q][6] === userAns) {
       setMarks(marks + 1);
-      if (userAns === questions[q].opt0) {
+      if (userAns === questions[q][2]) {
         setOpt0Color("w3-green");
       }
-      if (userAns === questions[q].opt1) {
+      if (userAns === questions[q][3]) {
         setOpt1Color("w3-green");
       }
-      if (userAns === questions[q].opt2) {
+      if (userAns === questions[q][4]) {
         setOpt2Color("w3-green");
       }
-      if (userAns === questions[q].opt3) {
+      if (userAns === questions[q][5]) {
         setOpt3Color("w3-green");
       }
     } else {
-      if (userAns === questions[q].opt0) {
+      if (userAns === questions[q][2]) {
         setOpt0Color("w3-red");
       }
-      if (userAns === questions[q].opt1) {
+      if (userAns === questions[q][3]) {
         setOpt1Color("w3-red");
       }
-      if (userAns === questions[q].opt2) {
+      if (userAns === questions[q][4]) {
         setOpt2Color("w3-red");
       }
-      if (userAns === questions[q].opt3) {
+      if (userAns === questions[q][5]) {
         setOpt3Color("w3-red");
       }
 
       //Showing Correct Answers
       if (userAns) {
-        if (questions[q].opt0 === questions[q].ans) {
+        if (questions[q][2] === questions[q][6]) {
           setOpt0Color("w3-green");
         }
-        if (questions[q].opt1 === questions[q].ans) {
+        if (questions[q][3] === questions[q][6]) {
           setOpt1Color("w3-green");
         }
-        if (questions[q].opt2 === questions[q].ans) {
+        if (questions[q][4] === questions[q][6]) {
           setOpt2Color("w3-green");
         }
-        if (questions[q].opt3 === questions[q].ans) {
+        if (questions[q][5] === questions[q][6]) {
           setOpt3Color("w3-green");
         }
       }
@@ -187,20 +186,20 @@ function QuestionMaker(props) {
     !timeout && userAns != undefined && allUserAns.push(userAns);
     window.scrollTo(0, 0);
     if (
-      questions[q].opt0 != null &&
-      questions[q].opt1 != null &&
-      questions[q].opt2 != null &&
-      questions[q].opt3 != null
+      questions[q][2] != null &&
+      questions[q][3] != null &&
+      questions[q][4] != null &&
+      questions[q][5] != null
     ) {
       setTotalLength(
-        questions[q].question.length +
-          questions[q].opt0.length +
-          questions[q].opt1.length +
-          questions[q].opt2.length +
-          questions[q].opt3.length
+        questions[q][1].length +
+          questions[q][2].length +
+          questions[q][3].length +
+          questions[q][4].length +
+          questions[q][5].length
       );
     } else {
-      setTotalLength(3 * questions[q].question.length);
+      setTotalLength(3 * questions[q][1].length);
     }
   }, [q]);
 
@@ -264,7 +263,7 @@ function QuestionMaker(props) {
                 <span className="pdr-xxsmall w3-small w3-display-topright">
                   {parseInt(q) + 1}/{questions.length}
                 </span>
-                <h4>{question.question}</h4>
+                <h4>{question[1]}</h4>
               </div>
               <div
                 className="w3-round w3-card"
@@ -277,45 +276,45 @@ function QuestionMaker(props) {
 
               <div className="c-box-xmin"></div>
               {/*<p>{totalLength}</p>*/}
-              {question.opt0 !== null && (
+              {question[2] !== null && (
                 <div
                   onClick={
-                    !answered ? () => setUserAns(question.opt0) : undefined
+                    !answered ? () => setUserAns(question[2]) : undefined
                   }
                   className={`preventSelection w3-card w3-round opt w3-padding-large ${opt0Color}`}
                 >
-                  {question.opt0}
+                  {question[2]}
                 </div>
               )}
-              {question.opt1 !== null && (
+              {question[3] !== null && (
                 <div
                   onClick={
-                    !answered ? () => setUserAns(question.opt1) : undefined
+                    !answered ? () => setUserAns(question[3]) : undefined
                   }
                   className={`preventSelection w3-card w3-round opt w3-panel w3-padding-large ${opt1Color}`}
                 >
-                  {question.opt1}
+                  {question[3]}
                 </div>
               )}
 
-              {question.opt2 !== null && (
+              {question[4] !== null && (
                 <div
                   onClick={
-                    !answered ? () => setUserAns(question.opt2) : undefined
+                    !answered ? () => setUserAns(question[4]) : undefined
                   }
                   className={`preventSelection w3-card w3-round opt w3-padding-large ${opt2Color}`}
                 >
-                  {question.opt2}
+                  {question[4]}
                 </div>
               )}
-              {question.opt3 !== null && (
+              {question[5] !== null && (
                 <div
                   onClick={
-                    !answered ? () => setUserAns(question.opt3) : undefined
+                    !answered ? () => setUserAns(question[5]) : undefined
                   }
                   className={`preventSelection w3-card w3-round opt w3-panel w3-padding-large ${opt3Color}`}
                 >
-                  {question.opt3}
+                  {question[5]}
                 </div>
               )}
 
