@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import "../../App.css";
 import TopBar from "../TopBar";
 import SingleSubject from "./SingleSubject/SingleSubject";
@@ -8,15 +8,14 @@ import RoundButton from "./RoundButton";
 import firebase from "../firebase";
 
 function Quiz(props) {
-
   const [id, setId] = useState(0);
   const [selector, setSelector] = useState(true);
 
-  if(!firebase.getCurrentUsername()) {
-		// not logged in
-		alert('You need to be logged in')
-		props.history.replace('/login')
-		return null
+  if (!firebase.getCurrentUsername()) {
+    // not logged in
+    alert("You need to be logged in");
+    props.history.replace("/login");
+    return null;
   }
 
   const goBack = () => {

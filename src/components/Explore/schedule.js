@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../../App.css";
-import TopBar from "../TopBar";
 
 function Schedule() {
   var d = new Date();

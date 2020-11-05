@@ -89,7 +89,7 @@ function QuestionMaker(props) {
             automatically skipped
           </li>
         </ul>
-        <button onClick={closeNoticeModal}>I Understand, Continue </button>
+        <button className='w3-button w3-border' onClick={closeNoticeModal}>I Understand, Continue </button>
       </div>
     </div>
   );

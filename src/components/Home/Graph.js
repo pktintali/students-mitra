@@ -25,46 +25,44 @@ const dataLine = {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [0, 0, 0,0, 0, 0, 0],
+      data: [0, 0, 0, 0, 0, 0, 0],
     },
   ],
 };
 
 function Graph() {
-  
   const [marks, setMarks] = useState();
-  const[index,setIndex] = useState('0')
+  const [index, setIndex] = useState();
 
-  async function getIndex(){
-   setIndex(await firebase.getField('tempi'));
+  async function getIndex() {
+    setIndex(await firebase.getField("tempi"));
   }
 
   useEffect(() => {
-    getIndex()
+    getIndex();
     //firebase.getProfile().then(setProfile);
-    firebase.getmarks(`${index}`).then(setMarks);
+    index && firebase.getmarks(`${index}`).then(setMarks);
   }, [index]);
 
   const dataBar = {
     labels: [" DAA", " CD", " DBMS", " ML", " DA", " COI"],
     datasets: [
       {
-        label: "My Average Marks",
+        label: "Average Marks in %",
         backgroundColor: "rgba(255,99,132,0.2)",
         borderColor: "rgba(255,99,132,1)",
         borderWidth: 1,
         hoverBackgroundColor: "rgba(255,99,132,0.4)",
         hoverBorderColor: "rgba(255,99,132,1)",
         data: [
-          
-          marks ? marks.get("daa") : 0,
-          marks ? marks.get("cd") : 0,
-          marks ? marks.get("dbms") : 0,
-          marks ? marks.get("ml") : 0,
-          marks ? marks.get("da") : 0,
-          marks ? marks.get("coi") : 0,
+          marks ? marks.get("daa")*10 : 0,
+          marks ? marks.get("cd")*10 : 0,
+          marks ? marks.get("dbms")*10 : 0,
+          marks ? marks.get("ml") *10: 0,
+          marks ? marks.get("da")*10 : 0,
+          marks ? marks.get("coi")*10 : 0,
           0,
-          10
+          100,
         ],
       },
     ],
@@ -75,11 +73,7 @@ function Graph() {
       <div className="w3-row">
         <div className="w3-half">
           <h3 className="w3-text-grey">Subjects Analysis</h3>
-          {/* {profile && profile.name}
-          {profile && profile.fatherName}
-          {profile && profile.state}
-          {profile && profile.country}
-          {profile && profile.pin} */}
+
           <Bar
             data={dataBar}
             width={100}

@@ -112,8 +112,9 @@ function LoginPage(props) {
               </Link>
               <p></p>
             </form>
+            
           </div>
-
+          <div className="c-box-min"></div>
           <div className="w3-half w3-hide-small">
             <div className="w3-center">
               <img
@@ -124,7 +125,11 @@ function LoginPage(props) {
             </div>
           </div>
         </div>
+        <div className="c-box-min"></div>
+        
       </div>
+      <div className="c-box-min"></div>
+      
     </>
   ) : (
     <>

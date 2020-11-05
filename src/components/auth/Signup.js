@@ -29,7 +29,7 @@ function SignupPage(props) {
         state: "",
         country: "",
       });
-      await firebase.addField({tempi:0,i:0})
+      await firebase.addField({ tempi: 0, i: 0 });
       setLoading(false);
       props.history.replace("/");
     } catch (e) {
@@ -129,7 +129,7 @@ function SignupPage(props) {
               <p></p>
             </form>
           </div>
-
+          <div className="c-box-min"></div>
           <div className="w3-half w3-hide-small">
             <div className="w3-center">
               <img
@@ -140,7 +140,9 @@ function SignupPage(props) {
             </div>
           </div>
         </div>
+        <div className="c-box-min"></div>
       </div>
+      <div className="c-box-min"></div>
     </>
   ) : (
     <LoadingScreen />

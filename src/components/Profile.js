@@ -115,7 +115,7 @@ const Profile = (props) => {
               </tr>
               <tr className="w3-border">
                 <td>
-                  <b>Sec</b>
+                  <b>Section</b>
                 </td>
                 {<td>{profileInfo.sec}</td>}
               </tr>
@@ -213,7 +213,7 @@ const Profile = (props) => {
               </tr>
               <tr className="w3-border">
                 <td>
-                  <b>Sec</b>
+                  <b>Section</b>
                 </td>
                 {
                   <td>

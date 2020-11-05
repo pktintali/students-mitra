@@ -39,7 +39,6 @@ async function SaveResult(props) {
       const data ={
         coi:props[0]
        }
-       alert('got work')
        firebase.updateMarks(data,`${tempi}`)
     }
     if(props[1]==='da'){
