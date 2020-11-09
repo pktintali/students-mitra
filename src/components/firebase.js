@@ -36,68 +36,101 @@ class Firebase {
     });
   }
 
+  async sendPasswordResetEmail(email) {
+    return this.auth.sendPasswordResetEmail(email);
+  }
+
   getCurrentUsername() {
-		return this.auth.currentUser && this.auth.currentUser.displayName
+    return this.auth.currentUser && this.auth.currentUser.displayName;
   }
-  
+
+  getCurrentUserEmail() {
+    return this.auth.currentUser && this.auth.currentUser.email;
+  }
+
   isInitialized() {
-		return new Promise(resolve => {
-			this.auth.onAuthStateChanged(resolve)
-		})
+    return new Promise((resolve) => {
+      this.auth.onAuthStateChanged(resolve);
+    });
   }
-  
+
   addQuote(quote) {
-		if(!this.auth.currentUser) {
-			return alert('Not authorized')
-		}
-		return this.db.doc(`usersData/${this.auth.currentUser.uid}`).set({
-			quote
-		})
+    if (!this.auth.currentUser) {
+      return alert("Not authorized");
+    }
+    return this.db.doc(`usersData/${this.auth.currentUser.uid}`).set({
+      quote,
+    });
   }
-  
+
   async getCurrentUserQuote() {
-		const quote = await this.db.doc(`usersData/${this.auth.currentUser.uid}`).get()
-		return quote.get('quote').country
+    const quote = await this.db
+      .doc(`usersData/${this.auth.currentUser.uid}`)
+      .get();
+    return quote.get("quote").country;
   }
-  
+
   updateProfile(profile) {
-		if(!this.auth.currentUser) {
-			return alert('Not authorized')
-		}
-		return this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).set({
-			profile
-		},{ merge: true })
+    if (!this.auth.currentUser) {
+      return alert("Not authorized");
+    }
+    return this.db
+      .collection("usersData")
+      .doc(`${this.auth.currentUser.email}`)
+      .set(
+        {
+          profile,
+        },
+        { merge: true }
+      );
   }
 
   async getProfile() {
-		const quote = await this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).get()
-		return quote.get('profile')
+    const quote = await this.db
+      .collection("usersData")
+      .doc(`${this.auth.currentUser.email}`)
+      .get();
+    return quote.get("profile");
   }
 
-  updateMarks(data,index) {
+  updateMarks(data, type) {
     //TODO Update Marks Correctly
-		if(!this.auth.currentUser) {
-			return alert('Not authorized')
-		}
-		return this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).collection('marks').doc(index).set(data,{ merge: true })
+    if (!this.auth.currentUser) {
+      return alert("Not authorized");
+    }
+    return this.db
+      .collection("usersData")
+      .doc(`${this.auth.currentUser.email}`)
+      .collection("marks")
+      .doc(type)
+      .set(data, { merge: true });
   }
 
-  async getmarks(index) {
-		const marks = await this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).collection('marks').doc(index).get()
-		return marks;
+  async getmarks(type) {
+    const marks = await this.db
+      .collection("usersData")
+      .doc(`${this.auth.currentUser.email}`)
+      .collection("marks")
+      .doc(type)
+      .get();
+    return marks;
   }
-  
+
   addField(data) {
-		if(!this.auth.currentUser) {
-			return alert('Not authorized')
-		}
-		return this.db.doc(`usersData/${this.auth.currentUser.email}`).set(data,{ merge: true })
+    if (!this.auth.currentUser) {
+      return alert("Not authorized");
+    }
+    return this.db
+      .doc(`usersData/${this.auth.currentUser.email}`)
+      .set(data, { merge: true });
   }
 
   async getField(name) {
-		const marks = await this.db.collection('usersData').doc(`${this.auth.currentUser.email}`).get()
-		return marks.get(name);
+    const marks = await this.db
+      .collection("usersData")
+      .doc(`${this.auth.currentUser.email}`)
+      .get();
+    return marks.get(name);
   }
-  
 }
 export default new Firebase();

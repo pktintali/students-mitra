@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
-import firebase from "../firebase";
+import GetAvgMarks from "./GetAvgMarks";
 
 const dataLine = {
   labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -31,21 +31,19 @@ const dataLine = {
 };
 
 function Graph() {
-  const [marks, setMarks] = useState();
-  const [index, setIndex] = useState();
 
-  async function getIndex() {
-    setIndex(await firebase.getField("tempi"));
+  const [marks,setMarks] = useState();
+
+  async function getAvgMarks(){
+    await setMarks(await GetAvgMarks());
   }
-
+  
   useEffect(() => {
-    getIndex();
-    //firebase.getProfile().then(setProfile);
-    index && firebase.getmarks(`${index}`).then(setMarks);
-  }, [index]);
+    getAvgMarks()
+  }, []);
 
   const dataBar = {
-    labels: [" DAA", " CD", " DBMS", " ML", " DA", " COI"],
+    labels: [" COI", " ML", " DA", " DAA", " CD", " DBMS"],
     datasets: [
       {
         label: "Average Marks in %",
@@ -55,12 +53,13 @@ function Graph() {
         hoverBackgroundColor: "rgba(255,99,132,0.4)",
         hoverBorderColor: "rgba(255,99,132,1)",
         data: [
-          marks ? marks.get("daa")*10 : 0,
-          marks ? marks.get("cd")*10 : 0,
-          marks ? marks.get("dbms")*10 : 0,
-          marks ? marks.get("ml") *10: 0,
-          marks ? marks.get("da")*10 : 0,
-          marks ? marks.get("coi")*10 : 0,
+          marks?marks[0]:0,
+          marks?marks[1]:0,
+          marks?marks[2]:0,
+          marks?marks[3]:0,
+          marks?marks[4]:0,
+          marks?marks[5]:0,
+          marks?marks[6]:0,
           0,
           100,
         ],

@@ -5,12 +5,12 @@ import SaveResult from "./SaveResult";
 import SaveGameResult from "./SingleSubject/Game/SaveGameResult";
 import LeaderBoard from "./SingleSubject/Game/LeaderBoard";
 import AddRoom from "./SingleSubject/Game/AddRoom";
+import firebase from "../firebase";
 
 function QuestionMaker(props) {
   const navByContext = useContext(NavContext);
 
   var id = window.sessionStorage.getItem("id");
-  var user = window.sessionStorage.getItem("userName");
   //Skip ans goNext Buttons Functionalaty only difference is that
   //skip goes next without saving ans and goNext goes next by saving ans
   const questions = props.data;
@@ -56,15 +56,15 @@ function QuestionMaker(props) {
 
   const ansmodal = (
     <div style={{ display: display }} className="w3-modal">
-      <div className="w3-modal-content w3-border w3-border-red w3-animate-top w3-padding w3-card-4">
+      <div style = {{maxWidth:'500px'}} className="w3-modal-content w3-padding-large w3-border w3-border-red w3-animate-top w3-padding w3-card-4">
         <h4>You Got: {marks} Marks</h4>
         <div className="w3-bar">
           {!props.game && (
-            <button className="w3-left" onClick={closeAnsModal}>
+            <button className="w3-left w3-button w3-red" onClick={closeAnsModal}>
               Close
             </button>
           )}
-          <button className="w3-right" onClick={toogleReview}>
+          <button className="w3-right w3-button w3-green" onClick={toogleReview}>
             {props.game ? "View Leaderboard" : "Review"}
           </button>
         </div>
@@ -174,7 +174,7 @@ function QuestionMaker(props) {
 
   async function submit() {
     !props.game && SaveResult([marks, props.sub, props.type]);
-    props.game && (await AddRoom(id, marks, "marks", user));
+    props.game && (await AddRoom(id, firebase.getCurrentUserEmail(),"marks",marks));
     //!timeout&&userAns!=undefined&&alert(userAns)
     !timeout && userAns != undefined && allUserAns.push(userAns);
     window.scrollTo(0, 0);
@@ -204,7 +204,7 @@ function QuestionMaker(props) {
   }, [q]);
 
   useEffect(() => {
-    const interval = setInterval(tick, 80); //300
+    const interval = setInterval(tick, 300); //300
     return () => {
       clearInterval(interval);
     };
@@ -218,7 +218,7 @@ function QuestionMaker(props) {
       if (count < 120) {
         setTimeColor("orange");
       }
-      if (count < 40) {
+      if (count < 55) {
         setTimeColor("red");
       }
 
@@ -258,7 +258,7 @@ function QuestionMaker(props) {
         {noticemodal}
         {questions.slice(q, q + 1).map((question) => (
           <div>
-            <div id="top" className={`${animation} centeredW w3-container`}>
+            <div style = {{maxWidth:'355px'}} id="top" className={`${animation} centeredW w3-container`}>
               <div className="preventSelection w3-display-container w3-center w3-card w3-round w3-padding-large w3-container">
                 <span className="pdr-xxsmall w3-small w3-display-topright">
                   {parseInt(q) + 1}/{questions.length}

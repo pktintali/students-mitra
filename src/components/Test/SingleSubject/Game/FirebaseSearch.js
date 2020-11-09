@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../../../firebase";
+import { BsChatDots,BsFillChatDotsFill } from "react-icons/bs";
+import ChatScreen from "./ChatScreen";
+import UsePlayers from "./UsePlayers";
 
 function UseGame(id) {
   const [game, setGames] = useState([]);
   useEffect(() => {
-    const unsubscribe = firebase
-      .db
+    const unsubscribe = firebase.db
       .collection("games")
       .where("roomid", "==", id)
       .onSnapshot((snapshot) => {
@@ -25,76 +27,95 @@ function UseGame(id) {
 
 function FirebaseSearch(props) {
   const [sub, setSub] = useState();
+  const [chat, setChat] = useState(false);
   const games = UseGame(props.id);
+  const players = UsePlayers(props.id);
+  console.log(players);
   if (games[0] != undefined && games[0].subject != undefined) {
     props.userReady();
   }
-  var user = window.sessionStorage.getItem("userName");
-
+  var user = firebase.getCurrentUserEmail();
   function autoStart() {
     //props.userReady();
   }
 
+  const toogleChat = () => {
+    chat ? setChat(false) : setChat(true);
+    window.scrollTo(0, document.body.scrollHeight);
+  };
+
   return (
     <>
-      {games.map((game) => (
-        <div>
-          <table className="w3-table w3-striped">
+      <div className="w3-third">
+        <p></p>
+      </div>
+      <div className="w3-third">
+        <table className="w3-table w3-striped w3-border">
+          <tr className="w3-pale-green">
+            <th>
+              <h2>
+                <center>Joined Players</center>
+              </h2>
+            </th>
+          </tr>
+
+          {players.map((p) => (
             <tr>
-              <th>Joined Players</th>
+              {games[0]&&<td className={`${games[0].host === p.id ? "w3-text-red" : ""}`}>
+                <h4>
+                  {p.name}
+                  {user === p.id && " (You)"}{" "}
+                  {games[0].host === p.id && "[Host]"}
+                </h4>
+              </td>}
             </tr>
-            <tr>
-              <td className={`${firebase.getCurrentUsername() == game.p1 ? "w3-text-red" : ""}`}>
-                {game.p1} {game.host == game.p1 && "(Host)"}
-              </td>
-            </tr>
-            <tr>
-              <td className={`${firebase.getCurrentUsername() == game.p2 ? "w3-text-red" : ""}`}>
-                {game.p2} {game.host == game.p2 && "(Host)"}
-              </td>
-            </tr>
-            <tr>
-              <td className={`${firebase.getCurrentUsername() == game.p3 ? "w3-text-red" : ""}`}>
-                {game.p3} {game.host == game.p3 && "(Host)"}
-              </td>
-            </tr>
-            <tr>
-              <td className={`${firebase.getCurrentUsername() == game.p4 ? "w3-text-red" : ""}`}>
-                {game.p4} {game.host == game.p4 && "(Host)"}
-              </td>
-            </tr>
-            <tr>
-              <td>{game.subject}</td>
-            </tr>
-          </table>
-          <br></br>
-          <p></p>
-          <div className="w3-panel w3-padding">
-            {game.host == firebase.getCurrentUsername() && (
-              <button
-                className="w3-right w3-button w3-green"
-                onClick={props.start}
-              >
-                Start
-              </button>
-            )}
-            {sub != undefined && (
-              <button
-                className="w3-center w3-button w3-green"
-                onClick={autoStart()}
-              >
-                Ready
-              </button>
-            )}
+          ))}
+
+          <tr>{games[0] && <td>{games[0].subject}</td>}</tr>
+        </table>
+        <br></br>
+        <p></p>
+        <div className="w3-panel w3-padding">
+          {games[0] && games[0].host == user && (
             <button
-              className="w3-left w3-button w3-red"
-              onClick={props.leaveGame}
+              className="w3-right w3-button w3-green"
+              onClick={props.start}
             >
-              Leave
+              Start
             </button>
-          </div>
+          )}
+          <div onClick={toogleChat} className=" w3-hide-large w3-button w3-circle w3-text-green">
+          {!chat&&<BsChatDots size={30} />}
+          {chat&&<BsFillChatDotsFill size = {30}/>}
         </div>
-      ))}
+          {sub != undefined && (
+            <button
+              className="w3-center w3-button w3-green"
+              onClick={autoStart()}
+            >
+              Ready
+            </button>
+          )}
+          <button
+            className="w3-left w3-button w3-red"
+            onClick={props.leaveGame}
+          >
+            Leave
+          </button>
+          
+        </div>
+        
+      </div>
+
+      <div className="w3-third">
+        <div onClick={toogleChat} className="w3-hide-small w3-button w3-circle w3-text-green">
+          {!chat&&<BsChatDots size={30} />}
+          {chat&&<BsFillChatDotsFill size = {30}/>}
+        </div>
+        {chat && <ChatScreen id = {props.id} />}
+        <div className="c-box-min"></div>
+      </div>
+      <div className="c-box-min"></div>
     </>
   );
 }

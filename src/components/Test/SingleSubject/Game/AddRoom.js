@@ -1,108 +1,60 @@
-//import React,{useState} from 'react';
 import firebase from "../../../firebase";
 
-async function AddRoom(id, userName, type, user) {
-  const citiesRef = firebase.db.collection("games");
-  const snapshot = await citiesRef.where("roomid", "==", id).get();
+async function AddRoom(id, userEmail, type, user) {
+  // const snapshot = await citiesRef.where("roomid", "==", id).get();
   const gameRef = firebase.db.collection("games").doc(id);
 
   if (type === "marks") {
-    snapshot.forEach((doc) => {
-      if (doc.data().p1 === user) {
-        gameRef.set(
-          {
-            p1m: userName,
-          },
-          { merge: true }
-        );
-      } else if (doc.data().p2 === user) {
-        gameRef.set(
-          {
-            p2m: userName,
-          },
-          { merge: true }
-        );
-      } else if (doc.data().p3 === user) {
-        gameRef.set(
-          {
-            p3m: userName,
-          },
-          { merge: true }
-        );
-      } else if (doc.data().p4 === user) {
-        gameRef.set(
-          {
-            p4: userName,
-          },
-          { merge: true }
-        );
-      } else {
-        alert("Something is Wrong");
-      }
-    });
+
+    gameRef.collection("players").doc(userEmail).set(
+      {
+        marks: user,
+      },
+      { merge: true }
+    );
   }
 
   if (type === "create") {
-    const res = gameRef.set(
+    gameRef.set(
       {
-        host: userName,
+        host: userEmail,
         roomid: id,
       },
       { merge: true }
     );
-    //firebase
-    // .firestore()
-    // .collection('games')
-    //.add({
-    //      roomid:id,
-    //    host:userName
+  }
 
-    //  })
+  if(type ==="delete"){
+    await gameRef.collection('players').doc(userEmail).delete();
   }
 
   if (type === "addSub") {
     gameRef.set(
       {
-        subject: userName,
+        subject: userEmail,
       },
       { merge: true }
     );
   }
 
   if (type === "p") {
-    snapshot.forEach((doc) => {
-      if (doc.data().p1 === undefined) {
-        gameRef.set(
-          {
-            p1: userName,
-          },
-          { merge: true }
-        );
-      } else if (doc.data().p2 === undefined) {
-        gameRef.set(
-          {
-            p2: userName,
-          },
-          { merge: true }
-        );
-      } else if (doc.data().p3 === undefined) {
-        gameRef.set(
-          {
-            p3: userName,
-          },
-          { merge: true }
-        );
-      } else if (doc.data().p4 === undefined) {
-        gameRef.set(
-          {
-            p4: userName,
-          },
-          { merge: true }
-        );
-      } else {
-        alert("Something is Wrong");
-      }
-    });
+    gameRef.collection("players").doc(userEmail).set(
+      {
+        name: user,
+        id: userEmail,
+      },
+      { merge: true }
+    );
+  }
+
+  if(type==="chat"){
+    gameRef.collection("chats").doc().set(
+      {
+        name: user,
+        msg: userEmail,
+      },
+      { merge: true }
+    );
   }
 
   if (type === "marks") {

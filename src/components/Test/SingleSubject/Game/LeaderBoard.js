@@ -1,86 +1,88 @@
-import React, { useState, useEffect } from "react";
+import React,{useState} from "react";
 import firebase from "../../../firebase";
-
-function UseGame(id) {
-  const [game, setGames] = useState([]);
-  useEffect(() => {
-    const unsubscribe = firebase
-      .db
-      .collection("games")
-      .where("roomid", "==", id)
-      .onSnapshot((snapshot) => {
-        const newItems = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        setGames(newItems);
-      });
-
-    return () => unsubscribe();
-  }, []);
-
-  return game;
-}
+import UsePlayers from "./UsePlayers";
+import checkFull from "./CheckFull";
 
 function LeaderBoard(props) {
-  var user = window.sessionStorage.getItem("userName");
+
+  const [loading,setLoading] = useState(false)
+  var user = firebase.getCurrentUserEmail()
   var id = window.sessionStorage.getItem("id");
-  var host = window.sessionStorage.getItem("host");
+  const players = UsePlayers(id);
 
-  const games = UseGame(id);
-
-  async function deleteDoc() {
-    await firebase.firestore().collection("games").doc(id).delete();
-    if (games.length === 0) {
-      alert("Deleted");
-    }
-  }
-
-  const handleProps = () => {
-    host && deleteDoc();
+  async function handleProps() {
+    setLoading(true)
+    //Deleted in checkFull
+    await checkFull(id, "delete",firebase.getCurrentUserEmail());
+    setLoading(false)
+    //alert(full)
     props.closeAns();
     props.click();
   };
 
-  return (
+  const loader = (
+    <div style={{ display: "block" }} className="w3-modal">
+      <div
+        style={{ maxWidth: "350px" }}
+        className="w3-modal-content w3-padding w3-border w3-border-red w3-animate-zoom w3-padding w3-card-4"
+      >
+        <div style={{ height: "30px" }}></div>
+        <h4>Please Wait...</h4>
+        <div style={{ height: "30px" }}></div>
+      </div>
+    </div>
+  );
+
+  return players? (
     <>
-      {games.map((game) => (
-        <div>
-          <table className="w3-table w3-striped">
+    {loading&&loader}
+      <div className="w3-third">
+        <p></p>
+      </div>
+      <div className="w3-third">
+        <table className="w3-table w3-striped w3-border">
+          <tr className="w3-pale-green">
+            <th>
+              <h2>
+                <center>Leaderboard</center>
+              </h2>
+            </th>
+          </tr>
+
+          {players.map((p) => (
             <tr>
-              <th>LeaderBoard</th>
-            </tr>
-            <tr>
-              <td className={`${user == game.p1 ? "w3-text-red" : ""}`}>
-                {game.p1} {game.p1m} {user == game.p1 && "(Your Marks)"}
+              <td className={`${user === p.id? "w3-text-red" : ""}`}>
+                <h4>
+                  {p.name}
+                  {user === p.id && " (You)"}{"  "}
+                  <span className='w3-text-blue'><b>{p.marks}</b></span>
+                   Points
+                </h4>
               </td>
             </tr>
-            <tr>
-              <td className={`${user == game.p2 ? "w3-text-red" : ""}`}>
-                {game.p2} {game.p2m} {user == game.p2 && "(Your Marks)"}
-              </td>
-            </tr>
-            <tr>
-              <td className={`${user == game.p3 ? "w3-text-red" : ""}`}>
-                {game.p3} {game.p3m} {user == game.p3 && "(Your Marks)"}
-              </td>
-            </tr>
-            <tr>
-              <td className={`${user == game.p4 ? "w3-text-red" : ""}`}>
-                {game.p4} {game.p4m} {user == game.p4 && "(Your Marks)"}
-              </td>
-            </tr>
-          </table>
-          <br></br>
-          <p></p>
-          <button className="w3-button w3-red" onClick={handleProps}>
+          ))}
+
+        </table>
+        <br></br>
+        <p></p>
+        <div className="w3-panel w3-padding">
+          <button
+            className="w3-button w3-red"
+            onClick={handleProps}
+          >
             Close
           </button>
+          
         </div>
-      ))}
+        
+      </div>
+
+      <div className="w3-third">
+        <div className="c-box-min"></div>
+      </div>
+      <div className="c-box-min"></div>
     </>
-  );
+  ):<h3>Loading...</h3>;
 }
 
 export default LeaderBoard;

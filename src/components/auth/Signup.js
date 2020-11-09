@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,} from "react";
 import signinLogo from "../../signinLogo.png";
 import TopBar from "../TopBar";
 import { FaUserGraduate } from "react-icons/fa";
@@ -29,7 +29,6 @@ function SignupPage(props) {
         state: "",
         country: "",
       });
-      await firebase.addField({ tempi: 0, i: 0 });
       setLoading(false);
       props.history.replace("/");
     } catch (e) {

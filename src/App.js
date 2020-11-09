@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Nav from "./components/Nav";
-import Explore from "./components/Explore/Explore";
-import Quiz from "./components/Test/Quiz";
-import Home from "./components/Home/Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ScrollToTop from "./components/ScrollToTop";
-import FetchRoom from "./components/Test/SingleSubject/Game/FetchRoom";
-import Signup from "./components/auth/Signup";
-import LoginPage from "./components/auth/LoginPage";
-import firebase from "./components/firebase";
-import LoadingScreen from "./components/LoadingScreen";
-import Profile from "./components/Profile";
+import {
+  Game,
+  Profile,
+  firebase,
+  LoginPage,
+  Signup,
+  ScrollToTop,
+  Home,
+  Quiz,
+  Explore,
+  Nav,
+  LoadingScreen,
+} from "./components/index";
+import SingleSubject from "./components/Test/SingleSubject/SingleSubject";
 
 export const NavContext = React.createContext();
 
@@ -33,19 +36,17 @@ function App() {
     <Router>
       <ScrollToTop />
       <div className="App">
-
-          <NavContext.Provider value={hide}>
-            {visible && <Nav />}
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/explore" component={Explore} />
-              <Route path="/test" component={Quiz} />
-              <Route path="/play" component={FetchRoom} />
-              <Route path="/login" component={LoginPage} />
-              <Route path="/signup" component={Signup} />
-              <Route path="/profile" component={Profile} />
-            </Switch>
-          </NavContext.Provider>
+        <NavContext.Provider value={hide}>
+          {visible && <Nav />}
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/explore" component={Explore} />
+            <Route path="/test" exact component={Quiz} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/profile" component={Profile} />
+          </Switch>
+        </NavContext.Provider>
       </div>
     </Router>
   ) : (

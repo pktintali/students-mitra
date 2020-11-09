@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./style.css";
 import TopBar from "../../TopBar";
 import SubjectList from "../SubjectList";
@@ -10,12 +10,11 @@ import firebase from "../../firebase";
 export const GameSubContext = React.createContext();
 
 function SingleSubject(props) {
-  const [play, setPlay] = useState(false);
+  //const [play, setPlay] = useState();
   const [topbar, setTopBar] = useState(true);
   const [join, setJoin] = useState(false);
   const [create, setCreate] = useState(false);
   const [id, setID] = useState("");
-  const [k, setK] = useState(0);
   const [sub, setSub] = useState("");
   const [host, setHost] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -25,10 +24,16 @@ function SingleSubject(props) {
     setTopBar(false);
   };
 
-  const leave = () => {
+  async function leave(){
     setGame(false);
-    setPlay(false);
+    //setPlay(false);
     props.click();
+    await AddRoom(
+      id,
+      firebase.getCurrentUserEmail(),
+      "delete",
+    );
+    
   };
 
   const setCloudSub = (s) => {
@@ -37,21 +42,19 @@ function SingleSubject(props) {
 
   const setMeHost = () => {
     setHost(true);
-    window.sessionStorage.setItem("host", host);
   };
 
   const startGame = () => {
     setGame(true);
-    setPlay(false);
-  };
-
-  const playMode = () => {
-    setPlay(true);
+    //setPlay(false);
   };
 
   const loader = (
     <div style={{ display: "block" }} className="w3-modal">
-      <div className="w3-modal-content w3-padding w3-border w3-border-red w3-animate-zoom w3-padding w3-card-4">
+      <div
+        style={{ maxWidth: "350px" }}
+        className="w3-modal-content w3-padding w3-border w3-border-red w3-animate-zoom w3-padding w3-card-4"
+      >
         <div style={{ height: "30px" }}></div>
         <h4>Checking Room Info....</h4>
         <div style={{ height: "30px" }}></div>
@@ -60,20 +63,27 @@ function SingleSubject(props) {
   );
 
   async function doEntry() {
-    await AddRoom(id, firebase.getCurrentUsername(), "p");
+    await AddRoom(
+      id,
+      firebase.getCurrentUserEmail(),
+      "p",
+      firebase.getCurrentUsername()
+    );
   }
 
   async function checkRoom(creation) {
-    //alert(await CheckFull(id,'already'))
+   // alert(await checkFull(id, "full"));
     if ((await checkFull(id, "invalid")) === 1 && !creation) {
       setLoading(false);
       alert("Invalid Room ID");
       return;
-    } else if ((await checkFull(id, "full")) === 0 && !creation) {
+    } 
+    else if ((await checkFull(id, "full")) > 3 && !creation) {
       setLoading(false);
       alert("Room is Full");
       return;
-    } else if ((await checkFull(id, "already")) === 1 && creation) {
+    } 
+    else if ((await checkFull(id, "already")) === 1 && creation) {
       setLoading(false);
       alert("Already Exist");
       return;
@@ -85,28 +95,41 @@ function SingleSubject(props) {
         setCreate(false);
         setJoin(true);
       } else {
-        AddRoom(id, firebase.getCurrentUsername(), "create");
+        AddRoom(id, firebase.getCurrentUserEmail(), "create");
         setLoading(false);
         setCreate(true);
+        // handleJoin();
       }
     }
   }
 
   const handleJoin = () => {
+    if(id){
     setLoading(true);
-    checkRoom(false);
+    checkRoom(false);}else{
+      alert('Invalid Id')
+    }
   };
 
-  const createRoom = () => {
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async function createRoom() {
+    if(id){
     setLoading(true);
-    checkRoom(true);
-  };
+    await checkRoom(true);
+    await sleep(2000);}else{
+      alert('Invalid Id')
+    }
+    //checkRoom(false)
+  }
 
   const back = () => {
     setJoin(false);
   };
 
-  if (!play) {
+  if (!props.game || game) {
     return (
       <>
         <div className="mtop"></div>
@@ -116,7 +139,6 @@ function SingleSubject(props) {
           <GameSubContext.Provider value={sub}>
             <SubjectList
               s={sub}
-              i={k}
               gameid={id}
               host={host}
               game={game}
@@ -128,14 +150,7 @@ function SingleSubject(props) {
           </GameSubContext.Provider>
           <br></br>
           <p></p>
-          {firebase.getCurrentUsername() && topbar && !game && (
-            <button
-              className="w3-button w3-green w3-tiny w3-round"
-              onClick={playMode}
-            >
-              Play with Friends
-            </button>
-          )}
+         
           <p></p>
           <br></br>
           <div className="mbot"></div>
@@ -146,12 +161,12 @@ function SingleSubject(props) {
     return (
       <>
         <div className="mtop"></div>
-        <div>
+        <div className = 'w3-animate-left'>
           {loading && loader}
           {topbar && <TopBar txt="Test" click={props.click} bool={true} />}
           {topbar && <div className="mtop"></div>}
-          <h2>Play Mode</h2>
-          {!join && <p>Enter Room ID</p>}
+          {!join&&<h2>Play Mode</h2>}
+          {!join && <p>Join/Create Room</p>}
           {!join && (
             <input
               type="text"
@@ -176,7 +191,7 @@ function SingleSubject(props) {
           )}
           {create && (
             <div className="w3-panel w3-pale-green">
-              <b>Room Creted Successfully</b>
+              <b>Room Created Successfully</b>
             </div>
           )}
           {create && <h3>Room ID = {id}</h3>}

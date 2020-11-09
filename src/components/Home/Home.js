@@ -5,15 +5,15 @@ import TopBar from "../TopBar";
 import firebase from "../firebase";
 
 function Home(props) {
-
-  if(!firebase.getCurrentUsername()) {
-		props.history.replace('/login')
-		return null
+  if (!firebase.getCurrentUsername()) {
+    props.history.replace("/login");
+    return null;
   }
+
   return (
     <>
-    <TopBar txt={"Welcome"}/>
-        <Graph/>    
+      <TopBar txt={"Welcome"} />
+      <Graph />
     </>
   );
 }

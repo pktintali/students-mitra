@@ -10,7 +10,7 @@ import firebase from "../firebase";
 function Quiz(props) {
   const [id, setId] = useState(0);
   const [selector, setSelector] = useState(true);
-
+  const [game,setGame] = useState(false)
   if (!firebase.getCurrentUsername()) {
     // not logged in
     alert("You need to be logged in");
@@ -20,9 +20,17 @@ function Quiz(props) {
 
   const goBack = () => {
     setId(0);
+    setGame(false)
     setSelector(true);
   };
   const setSingleSubject = () => {
+    window.scrollTo(0, 0);
+    setId(1);
+    setSelector(false);
+  };
+
+  const setSingleSubjectWithGame = () => {
+    setGame(true)
     window.scrollTo(0, 0);
     setId(1);
     setSelector(false);
@@ -59,13 +67,17 @@ function Quiz(props) {
             <RoundButton click={setAllSubject} txt="My All Subjects" />
           </div>
         </div>
-
+        <div style = {{height:'10px'}}></div>
+        <div style={{marginLeft:'33%',marginRight:'33%'}} className="w3-padding">
+            <RoundButton tag = {true} click={setSingleSubjectWithGame} txt="Play With Friends" />
+    
+        </div>
         <div className="c-box-min"></div>
       </>
     );
   } else {
     if (id === 1) {
-      return <SingleSubject click={goBack} id={1} />;
+      return <SingleSubject game = {game} click={goBack} id={1} />;
     } else if (id === 2) {
       return <SelectSubject click={goBack} id={2} />;
     } else {

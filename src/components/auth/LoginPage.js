@@ -8,17 +8,11 @@ import LoadingScreen from "../LoadingScreen";
 
 function LoginPage(props) {
   const [loading, setLoading] = useState(false);
+  const [reset, setRest] = useState(false);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const profileData = {
-    name: "Test Kumar",
-    state: "Uttar Pradesh",
-    country: "India",
-    //fatherName: 'Kis LAL',
-    //pin: 231216
-  };
+  const [resetSend, setResetSend] = useState(false);
 
   async function login(e) {
     setLoading(true);
@@ -34,10 +28,62 @@ function LoginPage(props) {
     }
 
     if (userName) {
-      window.sessionStorage.setItem("userName", userName);
-      window.sessionStorage.setItem("loggedin", true);
+      // window.sessionStorage.setItem("userName", userName);
+      // window.sessionStorage.setItem("loggedin", true);
     }
   }
+
+  async function sendResetMail() {
+    try{
+    await firebase.sendPasswordResetEmail(userEmail);
+    setResetSend(true)
+    }catch(e){
+      setUserEmail('')
+      alert(e)
+    }
+  }
+
+  const resetPopUP=()=>{
+    setRest(false)
+    setResetSend(false)
+  }
+  const resetModal = (
+    <div style={{ display: "block" }} className="w3-modal">
+      <div
+        style={{ maxWidth: "350px" }}
+        className="w3-modal-content w3-padding w3-border w3-border-red w3-animate-zoom w3-padding w3-card-4"
+      >
+        <h4>Reset Your Password</h4>
+        {!resetSend && (
+          <p>
+            <label className="w3-left">
+              <b>Enter Your Email</b>
+            </label>
+            <input
+              className="w3-border w3-input"
+              type="email"
+              placeholder="Email"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+            ></input>
+          </p>
+        )}
+        {resetSend && <p>Pssword Reset Link Send To <b>{userEmail}</b></p>}
+        {!resetSend && (
+          <button onClick={sendResetMail} className="w3-block w3-button w3-red">
+            Reset Password
+          </button>
+        )}
+        <br></br>
+        <button
+          onClick={resetPopUP}
+          className="w3-block w3-button w3-red"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  );
 
   const myFormStyle = {
     //color:'#F8EFFB',
@@ -52,6 +98,7 @@ function LoginPage(props) {
 
   return !loading ? (
     <>
+      {reset && resetModal}
       <div style={myFormStyle}>
         <TopBar txt="Login" />
         <div className="mtop"></div>
@@ -99,7 +146,11 @@ function LoginPage(props) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 ></input>
+                <span onClick={() => setRest(true)} className="w3-right w3-btn">
+                  Forgot Password ?
+                </span>
               </p>
+
               <br></br>
               <button onClick={login} className="w3-block w3-button w3-red">
                 Login
@@ -112,7 +163,6 @@ function LoginPage(props) {
               </Link>
               <p></p>
             </form>
-            
           </div>
           <div className="c-box-min"></div>
           <div className="w3-half w3-hide-small">
@@ -126,10 +176,8 @@ function LoginPage(props) {
           </div>
         </div>
         <div className="c-box-min"></div>
-        
       </div>
       <div className="c-box-min"></div>
-      
     </>
   ) : (
     <>

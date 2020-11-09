@@ -28,7 +28,6 @@ function SubjectList(props) {
   if (!sel && props.game && props.host) {
     pushSub();
   }
-
   if (sel) {
     if ((props.game && props.host) || !props.game) {
       return (

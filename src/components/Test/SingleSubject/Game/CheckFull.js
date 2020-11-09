@@ -1,6 +1,5 @@
 import firebase from "../../../firebase";
-
-async function checkFull(id, type) {
+async function checkFull(id, type,mail) {
   var val = 0;
   const citiesRef = firebase.db.collection("games");
   const snapshot = await citiesRef.where("roomid", "==", id).get();
@@ -9,19 +8,40 @@ async function checkFull(id, type) {
     if (type === "invalid") return 1;
     else return 0;
   }
+  if (type == "already") {
+    if (snapshot.empty) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+
+  if (type === "full") {
+  //   citiesRef.doc(id).collection('players').get().then(snap => {
+  //     val = snap.size
+  //     alert(val)
+  //     return val; // will return the collection size
+  //  });
+  }
+
+  if (type === "delete") {
+    citiesRef
+      .doc(id)
+      .collection("players")
+      .onSnapshot((msnapshot) => {
+        if(msnapshot.size==1){
+          citiesRef.doc(id).delete();
+        }else{
+      citiesRef
+      .doc(id)
+      .collection("players").doc(mail).delete();
+        }
+        
+      });
+  }
 
   snapshot.forEach((doc) => {
-    if (type === "full") {
-      if (doc.data().p2 === undefined) {
-        val = 1;
-      } else if (doc.data().p1 === undefined) val = 2;
-      else if (doc.data().p3 === undefined) val = 3;
-      else if (doc.data().p4 === undefined) val = 4;
-      else val = 0;
-    }
-    if (type === "already") {
-      val = 1;
-    }
+
 
     if (type == "getHost") {
       val = doc.data().host;
