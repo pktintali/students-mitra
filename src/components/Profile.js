@@ -7,6 +7,8 @@ import LoadingScreen from "./LoadingScreen";
 
 const Profile = (props) => {
   const [profileInfo, setProfileInfo] = useState();
+  const [activeSubjects,setActiveSubjects] = useState();
+  const [ac,setAc] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
@@ -47,8 +49,10 @@ const Profile = (props) => {
   }
 
   useEffect(() => {
+    firebase.getField('activeSubject').then(setActiveSubjects);
     firebase.getProfile().then(setProfileInfo);
-
+   
+    
     
     if (profileInfo) {
       setName(profileInfo.name);
@@ -61,6 +65,9 @@ const Profile = (props) => {
       setBranch(profileInfo.branch);
       setCollege(profileInfo.college);
       setSec(profileInfo.sec)
+    }
+    if(activeSubjects){
+      setAc(activeSubjects);
     }
   }, [editMode]);
 
@@ -104,6 +111,13 @@ const Profile = (props) => {
             >
               Edit Profile
             </button>
+            <h2>Active Subjects</h2>
+          
+            <ul className='w3-ul'>
+              {activeSubjects&&activeSubjects.map((ac)=>{
+                return <li>{ac}</li>
+              })}
+            </ul>
           </div>
           <div className="w3-half">
             <table style={{ maxWidth: "500px" }} className="w3-table">
@@ -170,6 +184,8 @@ const Profile = (props) => {
             </table>
             <div className="c-box-min"></div>
           </div>
+
+          
         </div>
       ) : (
         <LoadingScreen />

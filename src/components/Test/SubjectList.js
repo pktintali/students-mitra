@@ -4,6 +4,7 @@ import Questions2 from "./SelectSubject/Questions2";
 import SubjectCard from "./SubjectCard";
 import "./SingleSubject/style.css";
 import AddRoom from "./SingleSubject/Game/AddRoom";
+import { FaRegClosedCaptioning } from "react-icons/fa";
 
 export const SubjectContext = React.createContext();
 
@@ -33,18 +34,39 @@ function SubjectList(props) {
       return (
         <div className="w3-animate-left">
           <h2 className="w3-text-grey"> {props.text}</h2>
+         
+          <br></br>
           {props.game && <h4>You Are in Game Mode</h4>}
           <button
             onClick={startQuiz}
-            className={`w3-hide-large w3-hide-medium w3-large w3-round w3-red w3-margin w3-button ${disabled} `}
+            className={`w3-large w3-round w3-red w3-margin w3-button ${disabled} `}
           >
             Start
           </button>
+          <h1>Your Active Subects</h1>
+          {props.id==1&&<i className='w3-text-red'>You Can Edit Your Active Subjects in Your Profile</i>}
           <SubjectCard
             game={props.game}
             enableButton={enable}
             id={props.id}
             subject={sub}
+            active = {true}
+          />
+          <button
+            onClick={startQuiz}
+            className={`w3-large w3-round w3-red w3-margin w3-button ${disabled} `}
+          >
+            Start
+          </button>
+          <div className="c-box-min"></div>
+          <h1>Other Subjects</h1>
+          {props.id==1&&<i className='w3-text-red'>Double Click To Mark a Subject Active</i>}
+          <SubjectCard
+            game={props.game}
+            enableButton={enable}
+            id={props.id}
+            subject={sub}
+            active = {false}
           />
           <br />
           <br />

@@ -80,6 +80,8 @@ class Firebase {
       .set(
         {
           profile,
+          userId:`${this.auth.currentUser.email}`
+          
         },
         { merge: true }
       );
@@ -91,6 +93,18 @@ class Firebase {
       .doc(`${this.auth.currentUser.email}`)
       .get();
     return quote.get("profile");
+  }
+
+  updateActiveSubjects(sub) {
+    if (!this.auth.currentUser) {
+      return alert("Not authorized");
+    }
+    return this.db
+      .collection("usersData")
+      .doc(`${this.auth.currentUser.email}`)
+      .update({
+        activeSubject:sub
+      });
   }
 
   updateMarks(data, type) {

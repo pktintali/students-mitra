@@ -71,7 +71,7 @@ function Graph() {
     <div className="mtop">
       <div className="w3-row">
         <div className="w3-half">
-          <h3 className="w3-text-grey">Subjects Analysis</h3>
+          <h3 className="w3-text-grey">Active Subjects Analysis</h3>
 
           <Bar
             data={dataBar}
