@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Questions1 from "./SingleSubject/Questions1";
 import Questions2 from "./SelectSubject/Questions2";
 import SubjectCard from "./SubjectCard";
 import "./SingleSubject/style.css";
 import AddRoom from "./SingleSubject/Game/AddRoom";
-import { FaRegClosedCaptioning } from "react-icons/fa";
 
 export const SubjectContext = React.createContext();
 
@@ -12,10 +11,11 @@ function SubjectList(props) {
   const [sub, setSub] = useState([]);
   const [sel, setSel] = useState(true);
   const [disabled, enable] = useState("w3-disabled");
-
+ const [typeConfig,setTypeConfig] = useState()
   const back = () => {
     setSel(true);
   };
+
   const startQuiz = () => {
     if (!disabled) {
       setSel(false);
@@ -51,6 +51,7 @@ function SubjectList(props) {
             id={props.id}
             subject={sub}
             active = {true}
+            config = {setTypeConfig}
           />
           <button
             onClick={startQuiz}
@@ -59,14 +60,15 @@ function SubjectList(props) {
             Start
           </button>
           <div className="c-box-min"></div>
-          <h1>Other Subjects</h1>
-          {props.id==1&&<i className='w3-text-red'>Double Click To Mark a Subject Active</i>}
+          <h1>All Subjects</h1>
+          {/* {props.id==1&&<i className='w3-text-red'>Double Click To Mark a Subject Active</i>} */}
           <SubjectCard
             game={props.game}
             enableButton={enable}
             id={props.id}
             subject={sub}
             active = {false}
+           config = {setTypeConfig}
           />
           <br />
           <br />
@@ -94,9 +96,9 @@ function SubjectList(props) {
     return (
       <SubjectContext.Provider value={sub}>
         {props.id === 1 && (
-          <Questions1 host={props.host} game={props.game} click={props.click} />
+          <Questions1 leval={props.leval} config = {typeConfig} host={props.host} game={props.game} click={props.click} />
         )}
-        {props.id === 2 && <Questions2 click={props.click} />}
+        {props.id === 2 && <Questions2 config = {typeConfig} click={props.click} />}
         {/* {props.id ===3&&<Questions3 />}*/}
       </SubjectContext.Provider>
     );

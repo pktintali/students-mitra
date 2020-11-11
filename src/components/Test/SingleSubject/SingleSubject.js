@@ -19,7 +19,7 @@ function SingleSubject(props) {
   const [host, setHost] = useState(false);
   const [loading, setLoading] = useState(false);
   const [game, setGame] = useState(false);
-
+  const [leval,setLeval] = useState()
   const hidebar = () => {
     setTopBar(false);
   };
@@ -35,10 +35,14 @@ function SingleSubject(props) {
     );
     
   };
-
+  
   const setCloudSub = (s) => {
     setSub(s);
   };
+
+  function setTheLeval(leval){
+    setLeval(leval);
+  }
 
   const setMeHost = () => {
     setHost(true);
@@ -146,6 +150,7 @@ function SingleSubject(props) {
               hidebar={hidebar}
               id={props.id}
               text="Select any one"
+              leval={leval}
             />
           </GameSubContext.Provider>
           <br></br>
@@ -187,6 +192,7 @@ function SingleSubject(props) {
               start={startGame}
               id={id}
               back={back}
+              setLevel = {setTheLeval}
             />
           )}
           {create && (

@@ -25,6 +25,8 @@ function Questions1(props) {
           click={props.click}
           type="single"
           sub={subject}
+          config={props.config}
+          leval={props.leval}
         />
         <div className="mbot"></div>
       </>

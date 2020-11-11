@@ -52,6 +52,7 @@ function FetchRoom(props) {
             id={props.id}
             start={props.start}
             leaveGame={leaveGame}
+            setLeval = {props.setLevel}
           />
         </>
       );

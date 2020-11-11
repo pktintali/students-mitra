@@ -79,7 +79,7 @@ function Nav() {
 
   return (
     <>
-      <nav className="w3-hide-small w3-top">
+      <nav style = {{zIndex:999}} className="w3-hide-small w3-top">
         <div className="w3-bar w3-red w3-card w3-left-align w3-large">
           <Link
             onClick={updateMenuD}

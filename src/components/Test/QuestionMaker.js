@@ -56,15 +56,24 @@ function QuestionMaker(props) {
 
   const ansmodal = (
     <div style={{ display: display }} className="w3-modal">
-      <div style = {{maxWidth:'500px'}} className="w3-modal-content w3-padding-large w3-border w3-border-red w3-animate-top w3-padding w3-card-4">
+      <div
+        style={{ maxWidth: "500px" }}
+        className="w3-modal-content w3-padding-large w3-border w3-border-red w3-animate-top w3-padding w3-card-4"
+      >
         <h4>You Got: {marks} Marks</h4>
         <div className="w3-bar">
           {!props.game && (
-            <button className="w3-left w3-button w3-red" onClick={closeAnsModal}>
+            <button
+              className="w3-left w3-button w3-red"
+              onClick={closeAnsModal}
+            >
               Close
             </button>
           )}
-          <button className="w3-right w3-button w3-green" onClick={toogleReview}>
+          <button
+            className="w3-right w3-button w3-green"
+            onClick={toogleReview}
+          >
             {props.game ? "View Leaderboard" : "Review"}
           </button>
         </div>
@@ -89,7 +98,9 @@ function QuestionMaker(props) {
             automatically skipped
           </li>
         </ul>
-        <button className='w3-button w3-border' onClick={closeNoticeModal}>I Understand, Continue </button>
+        <button className="w3-button w3-border" onClick={closeNoticeModal}>
+          I Understand, Continue{" "}
+        </button>
       </div>
     </div>
   );
@@ -174,7 +185,8 @@ function QuestionMaker(props) {
 
   async function submit() {
     !props.game && SaveResult([marks, props.sub, props.type]);
-    props.game && (await AddRoom(id, firebase.getCurrentUserEmail(),"marks",marks));
+    props.game &&
+      (await AddRoom(id, firebase.getCurrentUserEmail(), "marks", marks));
     //!timeout&&userAns!=undefined&&alert(userAns)
     !timeout && userAns != undefined && allUserAns.push(userAns);
     window.scrollTo(0, 0);
@@ -223,14 +235,63 @@ function QuestionMaker(props) {
       }
 
       if (count > 0) {
-        if (totalLength < 100) {
-          !end && setCount(count - 10);
-        } else if (totalLength < 160) {
-          !end && setCount(count - 6);
-        } else if (totalLength < 250) {
-          !end && setCount(count - 4);
+        if (props.game) {
+          switch (props.leval) {
+            case "Easy": {
+              if (totalLength < 100) {
+                !end && setCount(count - 5);
+              } else if (totalLength < 160) {
+                !end && setCount(count - 4);
+              } else if (totalLength < 250) {
+                !end && setCount(count - 2);
+              } else {
+                !end && setCount(count - 1);
+              }
+            }
+            case "Normal": {
+              if (totalLength < 100) {
+                !end && setCount(count - 10);
+              } else if (totalLength < 160) {
+                !end && setCount(count - 6);
+              } else if (totalLength < 250) {
+                !end && setCount(count - 4);
+              } else {
+                !end && setCount(count - 2);
+              }
+            }
+            case "Hard": {
+              if (totalLength < 100) {
+                !end && setCount(count - 30);
+              } else if (totalLength < 160) {
+                !end && setCount(count - 25);
+              } else if (totalLength < 250) {
+                !end && setCount(count - 18);
+              } else {
+                !end && setCount(count - 14);
+              }
+            }
+            default: {
+              if (totalLength < 100) {
+                !end && setCount(count - 10);
+              } else if (totalLength < 160) {
+                !end && setCount(count - 6);
+              } else if (totalLength < 250) {
+                !end && setCount(count - 4);
+              } else {
+                !end && setCount(count - 2);
+              }
+            }
+          }
         } else {
-          !end && setCount(count - 2);
+          if (totalLength < 100) {
+            !end && setCount(count - 10);
+          } else if (totalLength < 160) {
+            !end && setCount(count - 6);
+          } else if (totalLength < 250) {
+            !end && setCount(count - 4);
+          } else {
+            !end && setCount(count - 2);
+          }
         }
       }
 
@@ -258,7 +319,11 @@ function QuestionMaker(props) {
         {noticemodal}
         {questions.slice(q, q + 1).map((question) => (
           <div>
-            <div style = {{maxWidth:'355px'}} id="top" className={`${animation} centeredW w3-container`}>
+            <div
+              style={{ maxWidth: "355px" }}
+              id="top"
+              className={`${animation} centeredW w3-container`}
+            >
               <div className="preventSelection w3-display-container w3-center w3-card w3-round w3-padding-large w3-container">
                 <span className="pdr-xxsmall w3-small w3-display-topright">
                   {parseInt(q) + 1}/{questions.length}
@@ -286,7 +351,7 @@ function QuestionMaker(props) {
                   {question[2]}
                 </div>
               )}
-              {question[3]&& (
+              {question[3] && (
                 <div
                   onClick={
                     !answered ? () => setUserAns(question[3]) : undefined
@@ -297,7 +362,7 @@ function QuestionMaker(props) {
                 </div>
               )}
 
-              {question[4]&& (
+              {question[4] && (
                 <div
                   onClick={
                     !answered ? () => setUserAns(question[4]) : undefined
@@ -307,7 +372,7 @@ function QuestionMaker(props) {
                   {question[4]}
                 </div>
               )}
-              {question[5]&& (
+              {question[5] && (
                 <div
                   onClick={
                     !answered ? () => setUserAns(question[5]) : undefined

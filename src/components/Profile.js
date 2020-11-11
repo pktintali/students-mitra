@@ -8,8 +8,9 @@ import LoadingScreen from "./LoadingScreen";
 const Profile = (props) => {
   const [profileInfo, setProfileInfo] = useState();
   const [activeSubjects,setActiveSubjects] = useState();
-  const [ac,setAc] = useState([]);
+  // const [ac,setAc] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const [c,setC] = useState(0)
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
   const [dob, setDob] = useState('');
@@ -51,8 +52,6 @@ const Profile = (props) => {
   useEffect(() => {
     firebase.getField('activeSubject').then(setActiveSubjects);
     firebase.getProfile().then(setProfileInfo);
-   
-    
     
     if (profileInfo) {
       setName(profileInfo.name);
@@ -66,10 +65,10 @@ const Profile = (props) => {
       setCollege(profileInfo.college);
       setSec(profileInfo.sec)
     }
-    if(activeSubjects){
-      setAc(activeSubjects);
-    }
-  }, [editMode]);
+    // if(activeSubjects){
+    //   setAc(activeSubjects);
+    // }
+  }, [editMode,c]);
 
   if (!firebase.getCurrentUsername()) {
     // not logged in
@@ -82,6 +81,14 @@ const Profile = (props) => {
     // alert(await firebase.getField('i'))
     editMode ? setEditMode(false) : setEditMode(true);
   };
+
+ async function removeSubject(sub){
+    //await firebase.getField("activeSubject").then(setActiveSubjects);
+    const index = activeSubjects.indexOf(sub)
+    activeSubjects.splice(index, 1);
+    await firebase.updateActiveSubjects(activeSubjects);
+    setC(c+1)
+  }
 
   return !editMode ? (
     <>
@@ -111,13 +118,7 @@ const Profile = (props) => {
             >
               Edit Profile
             </button>
-            <h2>Active Subjects</h2>
-          
-            <ul className='w3-ul'>
-              {activeSubjects&&activeSubjects.map((ac)=>{
-                return <li>{ac}</li>
-              })}
-            </ul>
+            
           </div>
           <div className="w3-half">
             <table style={{ maxWidth: "500px" }} className="w3-table">
@@ -184,8 +185,14 @@ const Profile = (props) => {
             </table>
             <div className="c-box-min"></div>
           </div>
-
+          <h2>Active Subjects</h2>
           
+            <ul className='w3-ul'>
+              {activeSubjects&&activeSubjects.map((ac)=>{
+                return <li>{ac}<span style = {{marginLeft:'50%'}} onClick={()=>removeSubject(ac)} className='w3-btn'>Remove</span></li>
+              })}
+            </ul>
+            <div className="c-box-min"></div>
         </div>
       ) : (
         <LoadingScreen />

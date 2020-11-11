@@ -20,12 +20,12 @@ function DataFetching(props) {
 
   useEffect(() => {
     get10();
-    const r = Math.floor(Math.random() * 35);
+    const r = props.config?Math.floor(Math.random() * props.config.randLimit):Math.floor(Math.random() * 25);
     if (props.type === "select") {
       for (let i in subject) {
         axios
           .get(
-            `https://sheets.googleapis.com/v4/spreadsheets/1nKZxQH1nAVPPhpSLH1tPlYcW31-ZRM9qi7KoGvpLroc/values/${subject[i]}!A${r+2}:H${r+11}?key=<API>`
+            `https://sheets.googleapis.com/v4/spreadsheets/1nKZxQH1nAVPPhpSLH1tPlYcW31-ZRM9qi7KoGvpLroc/values/${subject[i]}!A${r+2}:H${r+11}?key=AIzaSyBHa8gIZFiDDGmSUKiDPBn6I-aDt6e0IHc`
           )
           .then((res) => {
             for (let i = 0; i < 5; i++) {
@@ -45,11 +45,11 @@ function DataFetching(props) {
       //Here we are getting 10 random from 10 but we have to get 10 random from 20
       axios
         .get(
-          `https://sheets.googleapis.com/v4/spreadsheets/1nKZxQH1nAVPPhpSLH1tPlYcW31-ZRM9qi7KoGvpLroc/values/${subject}!A${r+2}:H${r+11}?key=<API>`
+          `https://sheets.googleapis.com/v4/spreadsheets/1nKZxQH1nAVPPhpSLH1tPlYcW31-ZRM9qi7KoGvpLroc/values/${subject}!A${r+2}:H${r+11}?key=AIzaSyBHa8gIZFiDDGmSUKiDPBn6I-aDt6e0IHc`
         )
         .then((res) => {
           for (let i = 0; i < 10; i++) {
-            questions.push(...res.data.values.slice(arr[i], arr[i] + 1));
+            res.data.values&&questions.push(...res.data.values.slice(arr[i], arr[i] + 1));
           }
           
           setIsLoaded(true);
@@ -75,6 +75,7 @@ function DataFetching(props) {
           click={props.click}
           data={questions}
           type={props.type}
+          leval={props.leval}
         />
       );
     }

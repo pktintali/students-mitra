@@ -11,7 +11,7 @@ function Questions2(props) {
     <>
       <TopBar bool={false} txt="Custom Test" />
       <div className="mtop"></div>
-      <DataFetching click={props.click} type="select" sub={subjectByContext} />
+      <DataFetching config = {props.config} click={props.click} type="select" sub={subjectByContext} />
       <div className="mbot"></div>
     </>
   );
