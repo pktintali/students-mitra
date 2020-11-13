@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { NavContext } from "../../App";
 import ResultPage from "./ResultPage";
 import SaveResult from "./SaveResult";
-import SaveGameResult from "./SingleSubject/Game/SaveGameResult";
 import LeaderBoard from "./SingleSubject/Game/LeaderBoard";
 import AddRoom from "./SingleSubject/Game/AddRoom";
 import firebase from "../firebase";
@@ -31,6 +30,7 @@ function QuestionMaker(props) {
   const [review, setReview] = useState(false);
   const [answered, setAnswered] = useState(false);
   const [allUserAns, setAllUserAns] = useState([]);
+  const [loader,setLoader] = useState(false);
   var [timeout, setTimeOut] = useState(false);
   const clearColor = () => {
     setOpt0Color("w3-white");
@@ -53,6 +53,19 @@ function QuestionMaker(props) {
   const toogleReview = () => {
     review == true ? setReview(false) : setReview(true);
   };
+
+  const submitWaitModal = (
+    <div style={{ display: "block" }} className="w3-modal">
+      <div
+        style={{ maxWidth: "350px" }}
+        className="w3-modal-content w3-padding w3-border w3-border-red w3-animate-zoom w3-padding w3-card-4"
+      >
+        <div style={{ height: "30px" }}></div>
+        <h4>Submitting Your Answers...</h4>
+        <div style={{ height: "30px" }}></div>
+      </div>
+    </div>
+  );
 
   const ansmodal = (
     <div style={{ display: display }} className="w3-modal">
@@ -184,11 +197,13 @@ function QuestionMaker(props) {
   };
 
   async function submit() {
-    !props.game && SaveResult([marks, props.sub, props.type]);
+    setLoader(true)
+    !props.game && SaveResult({mark:marks,sub:props.sub,type:props.type});
     props.game &&
       (await AddRoom(id, firebase.getCurrentUserEmail(), "marks", marks));
     //!timeout&&userAns!=undefined&&alert(userAns)
     !timeout && userAns != undefined && allUserAns.push(userAns);
+    setLoader(false)
     window.scrollTo(0, 0);
     setDisplay("block");
   }
@@ -238,6 +253,7 @@ function QuestionMaker(props) {
         if (props.game) {
           switch (props.leval) {
             case "Easy": {
+              
               if (totalLength < 100) {
                 !end && setCount(count - 5);
               } else if (totalLength < 160) {
@@ -247,8 +263,10 @@ function QuestionMaker(props) {
               } else {
                 !end && setCount(count - 1);
               }
+              break
             }
             case "Normal": {
+              
               if (totalLength < 100) {
                 !end && setCount(count - 10);
               } else if (totalLength < 160) {
@@ -258,8 +276,10 @@ function QuestionMaker(props) {
               } else {
                 !end && setCount(count - 2);
               }
+              break
             }
             case "Hard": {
+              
               if (totalLength < 100) {
                 !end && setCount(count - 30);
               } else if (totalLength < 160) {
@@ -269,6 +289,7 @@ function QuestionMaker(props) {
               } else {
                 !end && setCount(count - 14);
               }
+              break
             }
             default: {
               if (totalLength < 100) {
@@ -316,6 +337,7 @@ function QuestionMaker(props) {
     return (
       <>
         {ansmodal}
+        {loader&&submitWaitModal}
         {noticemodal}
         {questions.slice(q, q + 1).map((question) => (
           <div>

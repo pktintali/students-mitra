@@ -130,7 +130,7 @@ function Nav() {
         </div>
       </nav>
 
-      <div class="w3-bottom w3-hide-large w3-hide-medium w3-card">
+      <div style = {{zIndex:999}} class="w3-bottom w3-hide-large w3-hide-medium w3-card">
         <nav className="w3-row">
           <Link
             onClick={updateMenuE}

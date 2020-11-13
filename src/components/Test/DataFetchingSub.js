@@ -10,7 +10,6 @@ function DataFetchingSub() {
   useEffect(() => {
     axios
       .get(
-        `https://sheets.googleapis.com/v4/spreadsheets/1sQhy4Ex1XztFzMU3_nvpc-9par8AcIIwsksm9vhlM_E/values/subject?key=AIzaSyBHa8gIZFiDDGmSUKiDPBn6I-aDt6e0IHc`
       )
       .then((res) => {
         questions.push(...res.data.values);

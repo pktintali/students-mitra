@@ -3,6 +3,7 @@ import firebase from "../../../firebase";
 import { BsChatDots, BsFillChatDotsFill } from "react-icons/bs";
 import ChatScreen from "./ChatScreen";
 import UsePlayers from "./UsePlayers";
+import AddRoom from "./AddRoom";
 
 function UseGame(id) {
   const [game, setGames] = useState([]);
@@ -39,7 +40,8 @@ function FirebaseSearch(props) {
     //props.userReady();
   }
 
-  const setLeval =(leval)=>{
+  async function setLeval(leval){
+    await AddRoom(props.id, leval, "leval");
     props.setLeval(leval)
   }
 
@@ -52,7 +54,7 @@ function FirebaseSearch(props) {
     <>
       <div className="w3-third">
         <div className="w3-hide-small">
-          <form className="w3-container">
+          {games[0] && games[0].host == user&&<form className="w3-container">
             <h2>Select Game Leval</h2>
             <p>
               <input
@@ -85,10 +87,12 @@ function FirebaseSearch(props) {
               />
               <label>Hard</label>
             </p>
-          </form>
+          </form>}
+          <p></p>
         </div>
       </div>
       <div className="w3-third">
+  <h3>Room id = <i>{props.id}</i></h3>
         <table className="w3-table w3-striped w3-border">
           <tr className="w3-pale-green">
             <th>
@@ -162,6 +166,43 @@ function FirebaseSearch(props) {
         {chat && <ChatScreen id={props.id} />}
         <div className="c-box-min"></div>
       </div>
+      <div className="w3-hide-large w3-hide-medium">
+          {games[0] && games[0].host == user&&<form className="w3-container">
+            <h2>Select Game Leval</h2>
+            <p>
+              <input
+                className="w3-radio"
+                type="radio"
+                name="leval"
+                value="Easy"
+                onChange= {(e)=>setLeval(e.target.value)}
+              />
+              <label>Easy</label>
+            </p>
+            <p>
+              <input
+                className="w3-radio"
+                type="radio"
+                name="leval"
+                value="Normal"
+                
+                onChange= {(e)=>setLeval(e.target.value)}
+              />
+              <label>Normal</label>
+            </p>
+            <p>
+              <input
+                className="w3-radio"
+                type="radio"
+                name="leval"
+                value="Hard"
+                onChange= {(e)=>setLeval(e.target.value)}
+              />
+              <label>Hard</label>
+            </p>
+          </form>}
+          <p></p>
+        </div>
       <div className="c-box-min"></div>
     </>
   );

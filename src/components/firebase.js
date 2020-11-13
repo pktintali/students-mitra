@@ -107,7 +107,7 @@ class Firebase {
       });
   }
 
-  updateMarks(data, type) {
+  updateMarks(data, sub) {
     //TODO Update Marks Correctly
     if (!this.auth.currentUser) {
       return alert("Not authorized");
@@ -116,16 +116,16 @@ class Firebase {
       .collection("usersData")
       .doc(`${this.auth.currentUser.email}`)
       .collection("marks")
-      .doc(type)
+      .doc(sub)
       .set(data, { merge: true });
   }
 
-  async getmarks(type) {
+  async getmarks(sub) {
     const marks = await this.db
       .collection("usersData")
       .doc(`${this.auth.currentUser.email}`)
       .collection("marks")
-      .doc(type)
+      .doc(sub)
       .get();
     return marks;
   }

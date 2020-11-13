@@ -95,15 +95,15 @@ function SubjectCard(props) {
         }}
         className={` ${col[i]} pointer cardButton w3-padding w3-card w3-margin w3-round-xlarge w3-card`}
       >
-        {!active&&activeSub[0]&&activeSub[0].activeSubject&&<span style = {{zIndex:3}} onClick = {()=> MarkActive(subList[i][2])} className='w3-display-topleft w3-tooltip w3-right w3-small w3-button'>{!active&&(activeSub[0].activeSubject.includes(subList[i][2])?<FaStar color= {'red'} size ={25}/>:<FaRegStar  size ={25}/>)}</span>}
-        {!activeSub[0].activeSubject&&<span style = {{zIndex:3}} onClick = {()=> MarkActive(subList[i][2])} className='w3-display-topleft w3-tooltip w3-right w3-small w3-button'>{!active&&<FaRegStar  size ={25}/>}</span>}
+        {!active&&activeSub[0]&&activeSub[0].activeSubject&&<span style = {{zIndex:3}} onClick = {()=> MarkActive(subList[i][2])} className='w3-display-topleft w3-tiny w3-button'>{!active&&(activeSub[0].activeSubject.includes(subList[i][2])?<FaStar color= {'red'} size ={18}/>:<FaRegStar  size ={18}/>)}</span>}
+        {!activeSub[0].activeSubject&&<span style = {{zIndex:3}} onClick = {()=> MarkActive(subList[i][2])} className='w3-display-topleft w3-tiny w3-button'>{!active&&<FaRegStar  size ={18}/>}</span>}
         {!active && subList[i][3] && (
           <span className="w3-display-topright w3-padding-small w3-green w3-small">
             New!
           </span>
         )}
        
-        <h1>
+        <h1 style={{marginTop:20}}>
           {!active
             ? subList[i][2].toUpperCase()
             : activeSub[0].activeSubject[i].toUpperCase()}

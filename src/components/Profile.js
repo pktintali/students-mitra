@@ -290,20 +290,7 @@ const Profile = (props) => {
                   </td>
                 }
               </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>Email</b>
-                </td>
-                {
-                  <td>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </td>
-                }
-              </tr>
+              
               <tr className="w3-border">
                 <td>
                   <b>DOB</b>

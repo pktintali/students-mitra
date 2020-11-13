@@ -25,19 +25,19 @@ async function checkFull(id, type,mail) {
   }
 
   if (type === "delete") {
-    citiesRef
-      .doc(id)
-      .collection("players")
-      .onSnapshot((msnapshot) => {
-        if(msnapshot.size==1){
-          citiesRef.doc(id).delete();
-        }else{
+    // citiesRef
+    //   .doc(id)
+    //   .collection("players")
+    //   .onSnapshot((msnapshot) => {
+    //     if(msnapshot.size==1){
+    //       citiesRef.doc(id).delete();
+    //     }else{
       citiesRef
       .doc(id)
       .collection("players").doc(mail).delete();
-        }
+      //  }
         
-      });
+      //});
   }
 
   snapshot.forEach((doc) => {
@@ -46,7 +46,9 @@ async function checkFull(id, type,mail) {
     if (type == "getHost") {
       val = doc.data().host;
     }
-
+    if(type=="leval"){
+      val = doc.data().leval;
+    }
     if (type == "getSub") {
       val = doc.data().subject;
     }

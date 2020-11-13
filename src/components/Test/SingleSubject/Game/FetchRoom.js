@@ -2,29 +2,26 @@ import React, { useState, useEffect } from "react";
 import checkFull from "./CheckFull";
 import FirebaseSearch from "./FirebaseSearch";
 import firebase from "../../../firebase";
-import LoadingScreen from "../../../LoadingScreen";
 function FetchRoom(props) {
   window.sessionStorage.setItem("id", props.id);
   const [host, setHost] = useState("");
   const [sub, setSub] = useState();
-  const [loading, setLoading] = useState(true);
-
+  const [leval,setLeval] = useState()
   async function getData() {
     setHost(await checkFull(props.id, "getHost"));
-    //setSub(rows[i].sub)
+
     setSub(await checkFull(props.id, "getSub"));
-    //alert(await checkFull(props.id,'getSub'))
+
+    setLeval(await checkFull(props.id, "leval"))
     props.setSub(sub);
-    //alert('Fetching sub')
-    setLoading(false);
+    props.setLeval(leval);
   }
 
   useEffect(() => {
-    getData();
+   getData();
   }, []);
 
-  if (sub !== 0&&sub!=undefined) {
-    //alert('starting')
+  if (sub !== 0&&sub!=undefined&&leval!=undefined) {
     props.start();
   }
 
@@ -37,14 +34,10 @@ function FetchRoom(props) {
   };
 
   const getStatus = () => {
-    
-    if (loading) {
-      return <LoadingScreen/>;
-    } else {
       if (host == firebase.getCurrentUserEmail()) {
         props.setHost();
+      // }
       }
-
       return (
         <>
           <FirebaseSearch
@@ -52,11 +45,11 @@ function FetchRoom(props) {
             id={props.id}
             start={props.start}
             leaveGame={leaveGame}
-            setLeval = {props.setLevel}
+            setLeval = {props.setLeval}
           />
         </>
       );
-    }
+    
   };
   return getStatus();
 }

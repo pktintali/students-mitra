@@ -1,12 +1,12 @@
 import firebase from "../../../firebase";
 
-async function AddRoom(id, userEmail, type, user) {
+async function AddRoom(id, value, type, user) {
   // const snapshot = await citiesRef.where("roomid", "==", id).get();
   const gameRef = firebase.db.collection("games").doc(id);
 
   if (type === "marks") {
 
-    gameRef.collection("players").doc(userEmail).set(
+    gameRef.collection("players").doc(value).set(
       {
         marks: user,
       },
@@ -17,7 +17,7 @@ async function AddRoom(id, userEmail, type, user) {
   if (type === "create") {
     gameRef.set(
       {
-        host: userEmail,
+        host: value,
         roomid: id,
       },
       { merge: true }
@@ -25,23 +25,32 @@ async function AddRoom(id, userEmail, type, user) {
   }
 
   if(type ==="delete"){
-    await gameRef.collection('players').doc(userEmail).delete();
+    await gameRef.collection('players').doc(value).delete();
   }
 
   if (type === "addSub") {
     gameRef.set(
       {
-        subject: userEmail,
+        subject: value,
+      },
+      { merge: true }
+    );
+  }
+
+  if (type === "leval") {
+    gameRef.set(
+      {
+        leval: value,
       },
       { merge: true }
     );
   }
 
   if (type === "p") {
-    gameRef.collection("players").doc(userEmail).set(
+    gameRef.collection("players").doc(value).set(
       {
         name: user,
-        id: userEmail,
+        id: value,
       },
       { merge: true }
     );
@@ -51,7 +60,7 @@ async function AddRoom(id, userEmail, type, user) {
     gameRef.collection("chats").doc().set(
       {
         name: user,
-        msg: userEmail,
+        msg: value,
       },
       { merge: true }
     );

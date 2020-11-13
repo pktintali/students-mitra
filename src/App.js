@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
-  Game,
   Profile,
   firebase,
   LoginPage,
@@ -14,7 +13,6 @@ import {
   Nav,
   LoadingScreen,
 } from "./components/index";
-import SingleSubject from "./components/Test/SingleSubject/SingleSubject";
 
 export const NavContext = React.createContext();
 

@@ -40,9 +40,9 @@ function SingleSubject(props) {
     setSub(s);
   };
 
-  function setTheLeval(leval){
+  const setTheLeval=(leval)=>{
     setLeval(leval);
-  }
+  };
 
   const setMeHost = () => {
     setHost(true);
@@ -165,7 +165,6 @@ function SingleSubject(props) {
   } else {
     return (
       <>
-        <div className="mtop"></div>
         <div className = 'w3-animate-left'>
           {loading && loader}
           {topbar && <TopBar txt="Test" click={props.click} bool={true} />}
@@ -192,7 +191,7 @@ function SingleSubject(props) {
               start={startGame}
               id={id}
               back={back}
-              setLevel = {setTheLeval}
+              setLeval = {setTheLeval}
             />
           )}
           {create && (

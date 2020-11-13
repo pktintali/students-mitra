@@ -43,7 +43,7 @@ function SubjectList(props) {
           >
             Start
           </button>
-          <h1>Your Active Subects</h1>
+          <h1>Your Active Subjects</h1>
           {props.id==1&&<i className='w3-text-red'>You Can Edit Your Active Subjects in Your Profile</i>}
           <SubjectCard
             game={props.game}
@@ -88,6 +88,7 @@ function SubjectList(props) {
             host={props.host}
             game={props.game}
             click={props.click}
+            leval={props.leval}
           />
         </>
       );
