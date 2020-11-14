@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../../App.css";
-import TopBar from "../TopBar";
 import PostCardDetail from "./PostCardDetails";
 import { FaRegThumbsUp, FaRegComment, FaShare } from "react-icons/fa";
 function PostCard() {
@@ -16,6 +15,7 @@ function PostCard() {
           <div className="w3-padding  w3-panel w3-card w3-pale-blue">
             <div>
               <img
+                alt = 'user logo'
                 className="w3-left"
                 style={{ borderRadius: "50%", width: "10%" }}
                 src="https://pktintali.github.io/tdevelopersindia/images/logomain.jpg"
@@ -31,6 +31,7 @@ function PostCard() {
                 those students who are confused about what to study.
               </p>
               <img
+                alt = 'post image'
                 style={{ width: "100%", maxwidth: "300px" }}
                 className=""
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTRP5pe1nBk5FwcOrvfIgwJUgIbQ7TpemUilg&usqp=CAU"

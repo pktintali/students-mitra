@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import { Line } from "react-chartjs-2";
-import LoadingScreen from "../LoadingScreen";
 import GetAvgMarks from "./GetAvgMarks";
+import LoadingScreen from "../LoadingScreen";
+import FeaturedLearning from "./FeaturedLearning";
 
 const dataLine2 = {
   labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -92,7 +93,7 @@ function Graph() {
           <div className="w3-half">
             <h3 className="w3-text-grey">Active Subjects Analysis</h3>
 
-            <div className="w3-padding">
+            <div style={{padding:10}}>
               <Bar
                 data={dataBar}
                 width={100}
@@ -105,7 +106,7 @@ function Graph() {
           </div>
           <div className="w3-half">
             <h3 className="w3-text-grey">Monthly Progress</h3>
-            <div className="w3-padding">
+            <div style={{padding:10}}>
               <Line
                 data={dataLine2}
                 width={100}
@@ -122,8 +123,8 @@ function Graph() {
               return (
                 <div>
                   <div className="w3-half">
-                    <div className="w3-padding">
-                      <h3>{sub.sub} Progress</h3>
+                    <div style={{padding:10}}>
+                      <h3 className="w3-text-grey">{sub.sub} Progress</h3>
                       <Line
                         data={dataLine(sub.len, sub.marks)}
                         width={100}
@@ -137,9 +138,10 @@ function Graph() {
                 </div>
               );
             })}
+            <FeaturedLearning sub = {activeMarks.weakSubject}/>
         </div>
       ) : (
-        <LoadingScreen />
+        <LoadingScreen/>
       )}
       <div className="c-box-min"></div>
     </div>

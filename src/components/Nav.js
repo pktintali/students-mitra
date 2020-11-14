@@ -79,12 +79,12 @@ function Nav() {
 
   return (
     <>
-      <nav style = {{zIndex:999}} className="w3-hide-small w3-top">
+      <nav style = {{zIndex:999}} className="w3-hide-small w3-hide-medium w3-top">
         <div className="w3-bar w3-red w3-card w3-left-align w3-large">
           <Link
             onClick={updateMenuD}
             to="/"
-            className={` ${selectedHome}  w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white`}
+            className={` ${selectedHome}  w3-bar-item w3-button w3-hide-medium w3-hide-small w3-padding-large w3-hover-white`}
           >
             Dashboard
           </Link>
@@ -98,7 +98,7 @@ function Nav() {
           <Link
             onClick={updateMenuQ}
             to="/test"
-            className={` ${selectedTest}  w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white`}
+            className={` ${selectedTest}  w3-bar-item w3-button w3-hide-small w3-hide-medium w3-padding-large w3-hover-white`}
           >
             Test
           </Link>
@@ -114,7 +114,7 @@ function Nav() {
             <Link
               onClick={doSignOut}
               to="/login"
-              className={`w3-right w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white`}
+              className={`w3-right w3-bar-item w3-button w3-hide-small w3-hide-medium w3-padding-large w3-hover-white`}
             >
               LogOut
             </Link>
@@ -130,7 +130,7 @@ function Nav() {
         </div>
       </nav>
 
-      <div style = {{zIndex:999}} class="w3-bottom w3-hide-large w3-hide-medium w3-card">
+      <div style = {{zIndex:999}} class="w3-bottom w3-hide-large w3-card">
         <nav className="w3-row">
           <Link
             onClick={updateMenuE}

@@ -158,7 +158,7 @@ function FirebaseSearch(props) {
       <div className="w3-third">
         <div
           onClick={toogleChat}
-          className="w3-hide-small w3-button w3-circle w3-text-green"
+          className="w3-hide-small w3-hide-medium w3-button w3-circle w3-text-green"
         >
           {!chat && <BsChatDots size={30} />}
           {chat && <BsFillChatDotsFill size={30} />}

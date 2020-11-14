@@ -3,6 +3,8 @@ async function GetAvgMarks() {
   const activeSub = await firebase.getField("activeSubject");
   var individualData = [];
   var avgMarks = [];
+  var min = 9999;
+  var minSub='';
   for (let i in activeSub) {
     const submarks = await (await firebase.getmarks(activeSub[i])).get("marks");
     var avg = 0;
@@ -23,6 +25,10 @@ async function GetAvgMarks() {
       var num = (avg / submarks.length) * 10;
       avgMarks.push(Math.round((num + Number.EPSILON) * 100) / 100);
       individualData.push({ len: len, marks: mark10, sub: activeSub[i] });
+      if(num<min){
+        min=num;
+        minSub = activeSub[i];
+      }
     }
     else{
       avgMarks.push(0)
@@ -35,6 +41,7 @@ async function GetAvgMarks() {
     activeSubjects: activeSub,
     individualData: individualData,
     avgActiveSubMarks: avgMarks,
+    weakSubject:minSub
   };
 }
 export default GetAvgMarks;

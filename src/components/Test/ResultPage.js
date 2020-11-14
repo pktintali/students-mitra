@@ -108,7 +108,7 @@ function ResultPage(props) {
                 href={q[7]}
                 target="blank"
               >
-                Learn more about this topic. 📋
+                Learn more about this 📋
               </a>
             )}
           </div>
