@@ -64,7 +64,7 @@ function Quiz(props) {
           </div>
 
           <div style={{ width: "33.3%" }} className="w3-col">
-            <RoundButton click={setAllSubject} txt="My All Subjects" />
+            <RoundButton click={setAllSubject} txt="Active Subjects" />
           </div>
         </div>
         <div style = {{height:'10px'}}></div>

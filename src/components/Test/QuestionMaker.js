@@ -55,7 +55,7 @@ function QuestionMaker(props) {
   };
 
   const submitWaitModal = (
-    <div style={{ display: "block" }} className="w3-modal">
+    <div style={{ display: "block" ,zIndex:999999}} className="w3-modal">
       <div
         style={{ maxWidth: "350px" }}
         className="w3-modal-content w3-padding w3-border w3-border-red w3-animate-zoom w3-padding w3-card-4"
@@ -68,7 +68,7 @@ function QuestionMaker(props) {
   );
 
   const ansmodal = (
-    <div style={{ display: display }} className="w3-modal">
+    <div style={{ display: display,zIndex:9999999 }} className="w3-modal">
       <div
         style={{ maxWidth: "500px" }}
         className="w3-modal-content w3-padding-large w3-border w3-border-red w3-animate-top w3-padding w3-card-4"
@@ -94,7 +94,7 @@ function QuestionMaker(props) {
     </div>
   );
   const noticemodal = (
-    <div style={{ display: notice }} className="w3-modal">
+    <div style={{ display: notice,zIndex:999999 }} className="w3-modal">
       <div className="w3-modal-content w3-animate-top w3-padding w3-card-4">
         <ul className="w3-ul">
           <li>

@@ -1,10 +1,19 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "../App.css";
 import { FaArrowLeft, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import firebase from "./firebase";
 
 function TopBar(props) {
+
+  const [userminidp,setUserMiniDP] = useState();
+  const usermini = window.sessionStorage.getItem("dpmin");
+  useEffect(() => {
+    if(usermini===null){
+      firebase.getCurrentUsername()&&firebase.getDpImage().then(setUserMiniDP)
+   userminidp&&window.sessionStorage.setItem("dpmin",userminidp);
+    }
+  }, [userminidp]);
 
   const doClick = () => {
     if (props.profile) {
@@ -28,12 +37,14 @@ function TopBar(props) {
         <div></div>
         <h3 className="w3-left">{props.txt}</h3>
         {!props.profile&&firebase.getCurrentUsername()&& (
+          
           <Link
             style={{marginRight:'-15px'}} 
             to="./profile"
-            className="w3-right w3-hover-white w3-button w3-circle w3-padding-large"
+            className={usermini?"w3-right w3-hover-white w3-button w3-circle w3-padding":"w3-right w3-hover-white w3-button w3-circle w3-padding-large"}
           >
-            <FaUser size={25} />
+            {!usermini&&<FaUser size={25} />}
+            {usermini&&<img src ={usermini} className='mini-dpcircle'/>}
           </Link>
         )}
       </div>

@@ -26,11 +26,6 @@ function LoginPage(props) {
       alert(e.message);
       setLoading(false);
     }
-
-    if (userName) {
-      // window.sessionStorage.setItem("userName", userName);
-      // window.sessionStorage.setItem("loggedin", true);
-    }
   }
 
   async function sendResetMail() {

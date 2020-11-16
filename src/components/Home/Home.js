@@ -1,10 +1,11 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "../../App.css";
 import Graph from "./Graph";
 import TopBar from "../TopBar";
 import firebase from "../firebase";
 
 function Home(props) {
+
   if (!firebase.getCurrentUsername()) {
     props.history.replace("/login");
     return null;

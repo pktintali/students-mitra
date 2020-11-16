@@ -1,26 +1,65 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import TopBar from "./TopBar";
 import firebase from "./firebase";
 import { Link } from "react-router-dom";
 import LoadingScreen from "./LoadingScreen";
-
+import cameraPlaceholder from "../camera-placeholder.png";
 const Profile = (props) => {
   const [profileInfo, setProfileInfo] = useState();
-  const [activeSubjects,setActiveSubjects] = useState();
-  // const [ac,setAc] = useState([]);
+  const [activeSubjects, setActiveSubjects] = useState();
+  const [image, setImage] = useState(null);
+  const [dpImage, setDpImage] = useState();
   const [editMode, setEditMode] = useState(false);
-  const [c,setC] = useState(0)
-  const [name, setName] = useState('');
-  const [mobile, setMobile] = useState('');
-  const [dob, setDob] = useState('');
-  const [state, setState] = useState('');
-  const [address, setAddress] = useState('');
-  const [country, setCountry] = useState('');
-  const [email, setEmail] = useState('');
-  const [sec,setSec] =useState('')
-  const [branch,setBranch] = useState('')
-  const [college,setCollege]=useState('')
+  const [c, setC] = useState(0);
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [dob, setDob] = useState("");
+  const [state, setState] = useState("");
+  const [address, setAddress] = useState("");
+  const [country, setCountry] = useState("");
+  const [email, setEmail] = useState("");
+  const [sec, setSec] = useState("");
+  const [branch, setBranch] = useState("");
+  const [college, setCollege] = useState("");
+  const uploadedImage = useRef(null);
+  const imageUploader = useRef(null);
+
+  async function setUser() {
+    firebase.getDpImage().then(setDpImage);
+    dpImage && window.sessionStorage.setItem("dpmin", dpImage);
+
+  }
+  const handleFile = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = () => {
+    if (image) {
+      firebase.setProfileImage(image);
+      window.sessionStorage.removeItem("dpmin");
+      setUser();
+    } else {
+      alert("Select Some Image");
+    }
+  };
+  const handleImageUpload = (e) => {
+    handleFile(e);
+    const [file] = e.target.files;
+    if (file) {
+      const reader = new FileReader();
+      const { current } = uploadedImage;
+      current.file = file;
+      reader.onload = (e) => {
+        current.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const usermini = window.sessionStorage.getItem("dpmin");
 
   const profileData = {
     name: name,
@@ -30,29 +69,32 @@ const Profile = (props) => {
     email: email,
     dob: dob,
     address: address,
-    sec:sec,
-    branch:branch,
-    college:college
+    sec: sec,
+    branch: branch,
+    college: college,
   };
 
   async function doSignOut() {
     await firebase.logout();
+    window.sessionStorage.setItem("dpmin", undefined);
   }
 
   async function updateUserProfile() {
     try {
       await firebase.updateProfile(profileData);
-      alert('Profile Updated Successfully')
-      setEditMode(false)
+      alert("Profile Updated Successfully");
+      setEditMode(false);
     } catch (e) {
       alert("Something Wend Wrong");
     }
   }
 
   useEffect(() => {
-    firebase.getField('activeSubject').then(setActiveSubjects);
-    firebase.getProfile().then(setProfileInfo);
-    
+    // firebase.getDpImage().then(setDpImage);
+    firebase.getCurrentUsername() &&
+      firebase.getField("activeSubject").then(setActiveSubjects);
+    firebase.getCurrentUsername() && firebase.getProfile().then(setProfileInfo);
+
     if (profileInfo) {
       setName(profileInfo.name);
       setMobile(profileInfo.mobile);
@@ -63,31 +105,26 @@ const Profile = (props) => {
       setEmail(profileInfo.email);
       setBranch(profileInfo.branch);
       setCollege(profileInfo.college);
-      setSec(profileInfo.sec)
+      setSec(profileInfo.sec);
     }
     // if(activeSubjects){
     //   setAc(activeSubjects);
     // }
-  }, [editMode,c]);
+  }, [editMode, c]);
 
   if (!firebase.getCurrentUsername()) {
-    // not logged in
-    //alert('You need to be logged in')
     props.history.replace("/login");
     return null;
   }
-
   const toogleEdit = () => {
-    // alert(await firebase.getField('i'))
     editMode ? setEditMode(false) : setEditMode(true);
   };
 
- async function removeSubject(sub){
-    //await firebase.getField("activeSubject").then(setActiveSubjects);
-    const index = activeSubjects.indexOf(sub)
+  async function removeSubject(sub) {
+    const index = activeSubjects.indexOf(sub);
     activeSubjects.splice(index, 1);
     await firebase.updateActiveSubjects(activeSubjects);
-    setC(c+1)
+    setC(c + 1);
   }
 
   return !editMode ? (
@@ -98,7 +135,8 @@ const Profile = (props) => {
       {profileInfo ? (
         <div className="w3-animate-right">
           <div className="w3-half">
-            <FaUserCircle className="w3-text-green" size={150} />
+            {!usermini && <FaUserCircle className="w3-text-green" size={150} />}
+            {usermini && <img className="dpcircle" src={usermini} />}
             <br></br>
             <br></br>
             <b>{firebase.getCurrentUsername()}</b>
@@ -118,7 +156,6 @@ const Profile = (props) => {
             >
               Edit Profile
             </button>
-            
           </div>
           <div className="w3-half">
             <table style={{ maxWidth: "500px" }} className="w3-table">
@@ -186,13 +223,25 @@ const Profile = (props) => {
             <div className="c-box-min"></div>
           </div>
           <h2>Active Subjects</h2>
-          
-            <ul className='w3-ul'>
-              {activeSubjects&&activeSubjects.map((ac)=>{
-                return <li>{ac}<span style = {{marginLeft:'50%'}} onClick={()=>removeSubject(ac)} className='w3-btn'>Remove</span></li>
+
+          <ul className="w3-ul">
+            {activeSubjects &&
+              activeSubjects.map((ac) => {
+                return (
+                  <li>
+                    {ac}
+                    <span
+                      style={{ marginLeft: "50%" }}
+                      onClick={() => removeSubject(ac)}
+                      className="w3-btn"
+                    >
+                      Remove
+                    </span>
+                  </li>
+                );
               })}
-            </ul>
-            <div className="c-box-min"></div>
+          </ul>
+          <div className="c-box-min"></div>
         </div>
       ) : (
         <LoadingScreen />
@@ -206,17 +255,64 @@ const Profile = (props) => {
       {profileInfo ? (
         <div className="w3-animate-left">
           <div className="w3-half">
-            <FaUserCircle className="w3-text-green" size={150} />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                ref={imageUploader}
+                style={{
+                  display: "none",
+                }}
+              />
+              <div
+                style={{
+                  height: "150px",
+                  width: "150px",
+                  border: "1px dashed black",
+                  borderRadius:'50%'
+                }}
+                onClick={() => imageUploader.current.click()}
+              >
+                <img
+                  src={cameraPlaceholder}
+                  ref={uploadedImage}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius:'50%'
+                  }}
+                />
+              </div>
+              <br></br>
+              <button onClick={handleUpload}>Upload</button>
+            </div>
+            {/* {!usermini&& <FaUserCircle className="w3-text-green" size={150} /> }
+            {usermini&&<img className='dpcircle' src = {usermini}/>}
+            <br></br> <br></br>
+            <input onChange={handleFile} type="file" /> */}
+            {/* <button onClick={handleUpload}>Upload</button> */}
             <br></br>
             <br></br>
             <b>{firebase.getCurrentUsername()}</b>
             <br></br>
             <br></br>
-
             <button onClick={toogleEdit} className="w3-red w3-button w3-margin">
               Cancel
             </button>
-            <button onClick={updateUserProfile} className="w3-green w3-button w3-margin">Save</button>
+            <button
+              onClick={updateUserProfile}
+              className="w3-green w3-button w3-margin"
+            >
+              Save
+            </button>
           </div>
           <div className="w3-half">
             <table style={{ maxWidth: "500px" }} className="w3-table">
@@ -290,7 +386,7 @@ const Profile = (props) => {
                   </td>
                 }
               </tr>
-              
+
               <tr className="w3-border">
                 <td>
                   <b>DOB</b>

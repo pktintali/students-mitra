@@ -17,6 +17,7 @@ function SelectSubject(props) {
       <div>
         {topbar && <TopBar txt="Test" click={props.click} bool={true} />}
         {topbar && <div className="mtop"></div>}
+        <p>⚠️<i className='w3-text-red'>Select Subject Marks will not be counted in your progress</i></p>
         <SubjectList
           click={props.click}
           hidebar={hidebar}

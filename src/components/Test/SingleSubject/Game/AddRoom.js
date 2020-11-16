@@ -1,5 +1,19 @@
 import firebase from "../../../firebase";
 
+function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var seconds = date.getSeconds();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  hours = hours < 10 ? '0'+hours : hours;
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  seconds = seconds < 10 ? '0'+seconds : seconds;
+  var strTime = hours + ':' + minutes +':'+seconds+' '+ ampm;
+  return strTime;
+}
+
 async function AddRoom(id, value, type, user) {
   // const snapshot = await citiesRef.where("roomid", "==", id).get();
   const gameRef = firebase.db.collection("games").doc(id);
@@ -61,6 +75,8 @@ async function AddRoom(id, value, type, user) {
       {
         name: user,
         msg: value,
+        senderId:firebase.getCurrentUserEmail(),
+        time: formatAMPM(new Date())
       },
       { merge: true }
     );

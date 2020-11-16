@@ -117,7 +117,7 @@ function Graph() {
               />
             </div>
           </div>
-          <h2>Individual Subjects Progress</h2>
+          {activeMarks.individualData[0] && <h2>Individual Subjects Progress</h2>}
           {activeMarks &&
             activeMarks.individualData.map((sub) => {
               return (
@@ -138,7 +138,7 @@ function Graph() {
                 </div>
               );
             })}
-            <FeaturedLearning sub = {activeMarks.weakSubject}/>
+            {activeMarks.weakSubject!=''&&<FeaturedLearning sub = {activeMarks.weakSubject}/>}
         </div>
       ) : (
         <LoadingScreen/>

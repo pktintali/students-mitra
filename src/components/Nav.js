@@ -6,8 +6,9 @@ import { useLocation } from "react-router-dom";
 import firebase from "./firebase";
 
 function Nav() {
+ 
   const { pathname } = useLocation();
-
+  const usermini = window.sessionStorage.getItem("dpmin");
   const [clse, sce] = useState("w3-text-grey");
   const [clsd, scd] = useState("w3-text-grey");
   const [clsq, scq] = useState("w3-text-grey");
@@ -122,9 +123,10 @@ function Nav() {
           {firebase.getCurrentUsername() && (
             <Link
               to="./profile"
-              className="w3-right w3-bar-item w3-hover-white w3-button w3-circle w3-padding-large"
+              className={usermini?"w3-right w3-hover-white w3-bar-item w3-circle w3-padding":"w3-right w3-hover-white w3-bar-item w3-circle w3-padding-large"}
             >
-              <FaUser size={20} />
+              {!usermini&&<FaUser size={20} />}
+              {usermini&&<img src ={usermini} className='mini-dpcircle'/>}
             </Link>
           )}
         </div>

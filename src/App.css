@@ -14,6 +14,21 @@ cursor:pointer;
       -ms-user-select: none;
           user-select: none;
 }
+
+.dpcircle {
+  background-size: cover;
+  border-radius:50% 50% 50% 50%;
+  width:180px;
+  height:180px;
+  border: #02c002 .2rem solid;
+}
+
+.mini-dpcircle {
+  background-size: cover;
+  border-radius:50% 50% 50% 50%;
+  width:35px;
+  height:35px;
+}
 .nav-m{
 margin-top:-13px;
 }

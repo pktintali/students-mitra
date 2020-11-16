@@ -10,13 +10,15 @@ function UseMsg(id) {
       .collection("games")
       .doc(id)
       .collection("chats")
+      .orderBy("time", "asc")
       .onSnapshot((snapshot) => {
         const newItems = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-
         setPlayers(newItems);
+        // let chatBox = document.getElementById('chatList');
+        // chatBox.scrollTo(10001,10000);
       });
 
     return () => unsubscribe();
@@ -28,6 +30,11 @@ function UseMsg(id) {
 const ChatScreen = (props) => {
   const [msg, setMsg] = useState();
   const msges = UseMsg(props.id);
+
+  useEffect(() => {
+        let chatBox = document.getElementById('chatList');
+        chatBox.scrollTo(10001,10001);
+  }, [msges]);
 
   async function sendMsg(e) {
     e.preventDefault();
@@ -41,13 +48,16 @@ const ChatScreen = (props) => {
   return (
     <div>
       <ul
-        style={{height :'250px',maxHeight: 250, overflow: "auto" }}
-        className="w3-ul w3-padding w3-border"
+        id = 'chatList'
+        style={{listStyleType:'none', height :'250px',maxHeight: 250, overflow: "auto" }}
+        className="w3-padding w3-border"
       >
         {msges.map((msg) => (
-          <li style = {{revere:'true'}}>
-            <p>
-              <b>{msg.name} -</b>
+          <li style = {{marginRight:msg.senderId===firebase.getCurrentUserEmail()?0:200,marginLeft:msg.senderId==firebase.getCurrentUserEmail()?200:0,revere:'true'}}>
+            <p className ={`w3-round w3-padding-small w3-card ${msg.senderId===firebase.getCurrentUserEmail()?'w3-pale-green':'w3-pale-yellow'}`}>
+        <span className='w3-left w3-tiny'>{msg.senderId===firebase.getCurrentUserEmail()?'You':msg.name}</span>
+        <span className='w3-right w3-tiny'>{msg.time}</span>
+              <br></br>
               <span>{msg.msg}</span>
             </p>
           </li>
@@ -55,6 +65,7 @@ const ChatScreen = (props) => {
       </ul>
       <form onSubmit={sendMsg}>
         <input
+          style = {{width:250}}
           type="text"
           value={msg}
           autoFocus
