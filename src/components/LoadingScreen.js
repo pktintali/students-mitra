@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import HashLoader	 from "react-spinners/HashLoader";
 
 function LoadingScreen() {
   return (
@@ -12,7 +13,11 @@ function LoadingScreen() {
           transform: "translate(-50%, -50%)",
         }}
       >
-        Loading.....
+        <HashLoader		
+              size={150}
+              color={"#0CBB06"}
+              loading={true}
+            />
       </h1>
     </div>
   );

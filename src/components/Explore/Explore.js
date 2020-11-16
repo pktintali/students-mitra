@@ -6,14 +6,17 @@ import Schedule from "./schedule";
 import PostCard from "./PostCard";
 import firebase from "../firebase";
 import cameraPlaceholder from "../../camera-placeholder.png";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+toast.configure();
 function Explore() {
   const [visible, setVisible] = useState(false);
   const [text, setText] = useState("");
   const uploadedImage = useRef(null);
   const imageUploader = useRef(null);
   const [image, setImage] = useState(null);
-  const [isImage,setIsImage] = useState(false)
+  const [isImage, setIsImage] = useState(false);
   const posts = UsePost();
 
   const handleFile = (e) => {
@@ -23,12 +26,18 @@ function Explore() {
   };
 
   function handleUpload() {
-    
     if (image) {
-      alert('Uploading');
+      toast.info("Uploading...", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 10000,
+      });
+      // alert('Uploading');
       firebase.savePostImage(image);
     } else {
-      alert("Select Some Image");
+      // alert("Select Some Image");
+      toast.error("Select Some Image", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   }
   const handleImageUpload = (e) => {
@@ -43,7 +52,7 @@ function Explore() {
       };
       reader.readAsDataURL(file);
     }
-    setIsImage(true)
+    setIsImage(true);
   };
 
   const display = () => {
@@ -63,8 +72,8 @@ function Explore() {
   }
 
   async function sendPost() {
-      const img = isImage?await firebase.getPostImage(image):'';
-    
+    const img = isImage ? await firebase.getPostImage(image) : "";
+
     var currentdate = new Date();
     var date =
       currentdate.getDate() +
@@ -76,7 +85,7 @@ function Explore() {
     var author = firebase.getCurrentUsername();
     var authorId = firebase.getCurrentUserEmail();
     try {
-      if(isImage){
+      if (isImage) {
         await firebase.addPost({
           text: text,
           date: date,
@@ -85,7 +94,7 @@ function Explore() {
           authorId: authorId,
           image: img,
         });
-      }else{
+      } else {
         await firebase.addPost({
           text: text,
           date: date,
@@ -94,19 +103,20 @@ function Explore() {
           authorId: authorId,
         });
       }
-      setText("")
-      setIsImage(false)
+      setText("");
+      setIsImage(false);
     } catch (e) {
       alert(e);
     }
   }
 
-  const setInput=(e)=>{
-    setText(e.target.value)
+  const setInput = (e) => {
+    setText(e.target.value);
     // if(!text){
     //   setImage(false)
     // }
-  }
+  };
+
   return (
     <>
       <TopBar txt="Explore" bool={false} />
@@ -114,7 +124,7 @@ function Explore() {
       {firebase.getCurrentUsername() && (
         <div className="w3-padding">
           <div className="w3-third">
-            {!text&&<p></p>}
+            {!text && <p></p>}
             {text && (
               <div
                 style={{
@@ -159,32 +169,30 @@ function Explore() {
             )}
           </div>
           <div className="w3-third">
-            <div className='w3-hide-small'>
-            <textarea
-              type="text"
-              rows="4"
-              cols="70"
-              type="text"
-              placeholder="Type Something..."
-              value={text}
-              onChange={setInput}
-            ></textarea>
+            <div className="w3-hide-small">
+              <textarea
+                type="text"
+                rows="4"
+                cols="70"
+                placeholder="Type Something..."
+                value={text}
+                onChange={setInput}
+              ></textarea>
             </div>
-            <div className='w3-hide-large w3-hide-medium'>
-            <textarea
-              type="text"
-              rows="4"
-              cols="30"
-              type="text"
-              placeholder="Type Something..."
-              value={text}
-              onChange={setInput}
-            ></textarea>
+            <div className="w3-hide-large w3-hide-medium">
+              <textarea
+                type="text"
+                rows="4"
+                cols="30"
+                placeholder="Type Something..."
+                value={text}
+                onChange={setInput}
+              ></textarea>
             </div>
-            <p className='w3-hide-large'></p>
+            <p className="w3-hide-large"></p>
             {text && (
               <button
-                style = {{marginTop:30}}
+                style={{ marginTop: 30 }}
                 onClick={sendPost}
                 className={`w3-button w3-green w3-hide-large ${
                   !text ? "w3-disabled" : ""
@@ -204,9 +212,14 @@ function Explore() {
                   <div className="touch">
                     <p className="w3-left-align">{text}</p>
                     <img
+                      alt="post image"
                       src={cameraPlaceholder}
                       ref={uploadedImage}
-                      style={{ maxHeight: 340, maxWidth: 380,display:isImage?'':'none' }}
+                      style={{
+                        maxHeight: 340,
+                        maxWidth: 380,
+                        display: isImage ? "" : "none",
+                      }}
                     />
                   </div>
                   <br></br>
@@ -216,13 +229,12 @@ function Explore() {
                 <div className="c-box-xmin"> </div>
               </div>
             )}
-            
           </div>
           <div className="w3-third">
-          {!text&&<p></p>}
+            {!text && <p></p>}
             {text && (
               <button
-                style = {{marginTop:30}}
+                style={{ marginTop: 30 }}
                 onClick={sendPost}
                 className={`w3-button w3-green w3-hide-medium w3-hide-small ${
                   !text ? "w3-disabled" : ""
@@ -236,12 +248,14 @@ function Explore() {
         </div>
       )}
 
-      {!text&&<div className="w3-row-padding">
-        {posts &&
-          posts.map((post) => {
-            return <PostCard post={post} />;
-          })}
-      </div>}
+      {!text && (
+        <div className="w3-row-padding">
+          {posts &&
+            posts.map((post) => {
+              return <PostCard post={post} />;
+            })}
+        </div>
+      )}
       {!visible && (
         <div onClick={display} style={{ height: "50px", width: "300px" }}></div>
       )}

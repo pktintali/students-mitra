@@ -6,7 +6,10 @@ import FetchRoom from "./Game/FetchRoom";
 import checkFull from "./Game/CheckFull";
 import AddRoom from "./Game/AddRoom";
 import firebase from "../../firebase";
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+toast.configure();
 export const GameSubContext = React.createContext();
 
 function SingleSubject(props) {
@@ -79,17 +82,20 @@ function SingleSubject(props) {
    // alert(await checkFull(id, "full"));
     if ((await checkFull(id, "invalid")) === 1 && !creation) {
       setLoading(false);
-      alert("Invalid Room ID");
+      // alert("Invalid Room ID");
+      toast.error('Invalid Room ID',{position:toast.POSITION.TOP_CENTER,autoClose:3000})
       return;
     } 
     else if ((await checkFull(id, "full")) > 3 && !creation) {
       setLoading(false);
-      alert("Room is Full");
+      toast.error('Room is Full',{position:toast.POSITION.TOP_CENTER,autoClose:3500})
+      // alert("Room is Full");
       return;
     } 
     else if ((await checkFull(id, "already")) === 1 && creation) {
       setLoading(false);
-      alert("Already Exist");
+      // alert("Already Exist");
+      toast.error('Already Exist',{position:toast.POSITION.TOP_CENTER,autoClose:3000})
       return;
     } else {
       if (!creation) {
@@ -111,7 +117,8 @@ function SingleSubject(props) {
     if(id){
     setLoading(true);
     checkRoom(false);}else{
-      alert('Invalid Id')
+      // alert('Invalid Id')
+      toast.error('Invalid Id',{position:toast.POSITION.TOP_CENTER,autoClose:2500})
     }
   };
 
@@ -124,7 +131,8 @@ function SingleSubject(props) {
     setLoading(true);
     await checkRoom(true);
     await sleep(2000);}else{
-      alert('Invalid Id')
+      // alert('Invalid Id')
+      toast.error('Invalid Id',{position:toast.POSITION.TOP_CENTER,autoClose:2500})
     }
     //checkRoom(false)
   }

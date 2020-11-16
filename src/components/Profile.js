@@ -5,6 +5,10 @@ import firebase from "./firebase";
 import { Link } from "react-router-dom";
 import LoadingScreen from "./LoadingScreen";
 import cameraPlaceholder from "../camera-placeholder.png";
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 const Profile = (props) => {
   const [profileInfo, setProfileInfo] = useState();
   const [activeSubjects, setActiveSubjects] = useState();
@@ -42,7 +46,8 @@ const Profile = (props) => {
       window.sessionStorage.removeItem("dpmin");
       setUser();
     } else {
-      alert("Select Some Image");
+      // alert("Select Some Image");
+      toast.error('Select Image First',{position:toast.POSITION.BOTTOM_LEFT});
     }
   };
   const handleImageUpload = (e) => {
@@ -82,10 +87,11 @@ const Profile = (props) => {
   async function updateUserProfile() {
     try {
       await firebase.updateProfile(profileData);
-      alert("Profile Updated Successfully");
+      // alert("Profile Updated Successfully");
+      toast.success("Profile Updated Successfully",{position:toast.POSITION.BOTTOM_RIGHT,autoClose:4000})
       setEditMode(false);
     } catch (e) {
-      alert("Something Wend Wrong");
+      alert("Something Went Wrong");
     }
   }
 

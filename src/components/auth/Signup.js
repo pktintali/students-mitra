@@ -5,7 +5,10 @@ import { FaUserGraduate } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import firebase from "../firebase";
 import LoadingScreen from "../LoadingScreen";
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+toast.configure();
 function SignupPage(props) {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState();
@@ -32,7 +35,8 @@ function SignupPage(props) {
       setLoading(false);
       props.history.replace("/");
     } catch (e) {
-      alert(e.message);
+      // alert(e.message);
+      toast.error(e.message,{position:toast.POSITION.BOTTOM_RIGHT})
       setLoading(false);
     }
 

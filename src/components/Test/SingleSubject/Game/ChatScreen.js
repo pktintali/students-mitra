@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import firebase from "../../../firebase";
 import { RiSendPlaneFill } from "react-icons/ri";
 import AddRoom from "./AddRoom";
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+toast.configure();
 function UseMsg(id) {
   const [players, setPlayers] = useState([]);
   useEffect(() => {
@@ -41,7 +44,7 @@ const ChatScreen = (props) => {
     if(msg){
     await AddRoom(props.id, msg, "chat", firebase.getCurrentUsername());
     }else{
-      alert("You Can't send Empty Messages")
+      toast.info('Empty Message',{position:toast.POSITION.BOTTOM_RIGHT,autoClose:2000})
     }
     setMsg("");
   }

@@ -6,6 +6,10 @@ import { FaUserGraduate } from "react-icons/fa";
 import firebase from "../firebase";
 import LoadingScreen from "../LoadingScreen";
 
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 function LoginPage(props) {
   const [loading, setLoading] = useState(false);
   const [reset, setRest] = useState(false);
@@ -23,7 +27,8 @@ function LoginPage(props) {
       setLoading(false);
       props.history.replace("/");
     } catch (e) {
-      alert(e.message);
+      // alert(e.message);
+      toast.error(e.message,{position:toast.POSITION.BOTTOM_RIGHT})
       setLoading(false);
     }
   }
@@ -34,7 +39,7 @@ function LoginPage(props) {
     setResetSend(true)
     }catch(e){
       setUserEmail('')
-      alert(e)
+      toast.error(e.message,{position:toast.POSITION.BOTTOM_RIGHT})
     }
   }
 

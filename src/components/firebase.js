@@ -3,6 +3,10 @@ import "firebase/firestore";
 import "firebase/storage";
 import "firebase/auth";
 
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure();
+
 var firebaseConfig = {
   apiKey: "AIzaSyB1u4b-8sHBsoRqmAUf4Qhyet99goh9Q4c",
   authDomain: "students-mitra.firebaseapp.com",
@@ -159,7 +163,8 @@ class Firebase {
         console.log(error);
       },
       ()=>{
-        alert('Updated Successfully');
+        toast.success('Updated Successfully',{positio:toast.POSITION.BOTTOM_RIGHT})
+        // alert('Updated Successfully');
       }
     )
   }
@@ -173,7 +178,8 @@ class Firebase {
         console.log(error);
       },
       ()=>{
-        alert('Uploaded');
+        toast.success('Uploaded',{position:toast.POSITION.BOTTOM_RIGHT});
+        // alert('Uploaded');
       }
     )
   }
