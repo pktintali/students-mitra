@@ -3,8 +3,8 @@ import "firebase/firestore";
 import "firebase/storage";
 import "firebase/auth";
 
-import {toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 var firebaseConfig = {
@@ -31,7 +31,7 @@ class Firebase {
   }
 
   logout() {
-    window.sessionStorage.removeItem('dpmin')
+    window.sessionStorage.removeItem("dpmin");
     return this.auth.signOut();
   }
 
@@ -86,8 +86,7 @@ class Firebase {
       .set(
         {
           profile,
-          userId:`${this.auth.currentUser.email}`
-          
+          userId: `${this.auth.currentUser.email}`,
         },
         { merge: true }
       );
@@ -109,7 +108,7 @@ class Firebase {
       .collection("usersData")
       .doc(`${this.auth.currentUser.email}`)
       .update({
-        activeSubject:sub
+        activeSubject: sub,
       });
   }
 
@@ -153,91 +152,95 @@ class Firebase {
     return marks.get(name);
   }
 
-
-  setProfileImage(image){
-    const uploadTask = this.store.ref(`images/dp/${this.auth.currentUser.email}`).put(image);
+  setProfileImage(image) {
+    const uploadTask = this.store
+      .ref(`images/dp/${this.auth.currentUser.email}`)
+      .put(image);
     uploadTask.on(
       "state_changed",
-      snapshot=>{},
-      error=>{
+      (snapshot) => {},
+      (error) => {
         console.log(error);
       },
-      ()=>{
-        toast.success('Updated Successfully',{positio:toast.POSITION.BOTTOM_RIGHT})
+      () => {
+        toast.success("Updated Successfully", {
+          positio: toast.POSITION.BOTTOM_RIGHT,
+        });
         // alert('Updated Successfully');
       }
-    )
+    );
   }
 
-  savePostImage(image){
-    const uploadTask = this.store.ref(`images/posts/${this.auth.currentUser.email}/${image.name}`).put(image);
+  savePostImage(image) {
+    const uploadTask = this.store
+      .ref(`images/posts/${this.auth.currentUser.email}/${image.name}`)
+      .put(image);
     uploadTask.on(
       "state_changed",
-      snapshot=>{},
-      error=>{
+      (snapshot) => {},
+      (error) => {
         console.log(error);
       },
-      ()=>{
-        toast.success('Uploaded',{position:toast.POSITION.BOTTOM_RIGHT});
+      () => {
+        toast.success("Uploaded", { position: toast.POSITION.BOTTOM_RIGHT });
         // alert('Uploaded');
       }
-    )
+    );
   }
-
 
   addPost(post) {
     if (!this.auth.currentUser) {
       return alert("Not authorized");
     }
-    return this.db.collection('posts').doc().set(post);
+    return this.db.collection("posts").doc().set(post);
   }
 
-  async getDpImage(){
-   const dpurl = await this.store
-        .ref('images/dp/')
-        .child(`${this.auth.currentUser.email}`)
-        .getDownloadURL()
-        return dpurl;
+  async getDpImage() {
+    const dpurl = await this.store
+      .ref("images/dp/")
+      .child(`${this.auth.currentUser.email}`)
+      .getDownloadURL();
+    return dpurl;
   }
 
-  async getPostImage(image){
+  async getPostImage(image) {
     const url = await this.store
-    .ref(`images/posts/${this.auth.currentUser.email}`)
-    .child(`${image.name}`)
-    .getDownloadURL()
+      .ref(`images/posts/${this.auth.currentUser.email}`)
+      .child(`${image.name}`)
+      .getDownloadURL();
     return url;
   }
 
-  async getAuthorDp(id){
-    const dpurl = await this.store
-         .ref('images/dp/')
-         .child(`${id}`)
-         .getDownloadURL()
-         // .then(url=>{
-         //   console.log(url)
-         //   //return url;
-         // })
- 
-         return dpurl;
-   }
-  setImage(image){
+  async getAuthorDp(id) {
+    try {
+      const dpurl = await this.store
+        .ref("images/dp/")
+        .child(`${id}`)
+        .getDownloadURL();
+        return dpurl;
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+  
+  setImage(image) {
     const uploadTask = this.store.ref(`images/${image.name}`).put(image);
     uploadTask.on(
       "state_changed",
-      snapshot=>{},
-      error=>{
+      (snapshot) => {},
+      (error) => {
         console.log(error);
       },
-      ()=>{
+      () => {
         this.store
-        .ref('images')
-        .child(image.name)
-        .getDownloadURL()
-        .then(url=>{
-          console.log(url)
-        })
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then((url) => {
+            console.log(url);
+          });
       }
-    )
+    );
   }
 }
 export default new Firebase();

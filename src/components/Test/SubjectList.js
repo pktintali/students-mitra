@@ -44,6 +44,7 @@ function SubjectList(props) {
             Start
           </button>
           <h1>Your Active Subjects</h1>
+          {props.id==2&& <p>⚠️<i className='w3-text-red'>Select Subject Marks will not be counted in your progress</i></p>}
           {props.id==1&&<i className='w3-text-red'>You Can Edit Your Active Subjects in Your Profile</i>}
           <SubjectCard
             game={props.game}

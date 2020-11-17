@@ -7,6 +7,7 @@ function PostCard(props) {
   const [authorDp, setAuthorDp] = useState();
 
   useEffect(() => {
+
     firebase.getAuthorDp(props.post.authorId).then(setAuthorDp);
   }, []);
 

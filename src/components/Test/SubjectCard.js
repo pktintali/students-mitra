@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-
+import HashLoader from "react-spinners/HashLoader";
 import firebase from "../firebase";
 import FetchSubjectList from "./FetchSubjectList";
 import UseActiveSub from "./UseActiveSub";
-import {FaRegStar,FaStar} from 'react-icons/fa';
+import { FaRegStar, FaStar } from "react-icons/fa";
 
 function SubjectCard(props) {
   const [c, setC] = useState(0);
@@ -28,8 +28,8 @@ function SubjectCard(props) {
       activeSub[0].activeSubject &&
       activeSub[0].activeSubject.includes(sub)
     ) {
-      const index = activeSub[0].activeSubject.indexOf(sub)
-      activeSub[0].activeSubject.splice(index,1)
+      const index = activeSub[0].activeSubject.indexOf(sub);
+      activeSub[0].activeSubject.splice(index, 1);
       await firebase.updateActiveSubjects(activeSub[0].activeSubject);
       //alert("Already Active");
       return;
@@ -51,17 +51,18 @@ function SubjectCard(props) {
       <div
         style={cardStyle}
         onClick={() => {
-          if(active){
-          for(let j in subList){
-            if(subList[j][2]==activeSub[0].activeSubject[i]){
-             props.config({
-               randLimit:subList[j][4]
-             })
+          if (active) {
+            for (let j in subList) {
+              if (subList[j][2] == activeSub[0].activeSubject[i]) {
+                props.config({
+                  randLimit: subList[j][4],
+                });
+              }
             }
-          }}else{
+          } else {
             props.config({
-              randLimit:subList[i][4]
-            })
+              randLimit: subList[i][4],
+            });
           }
           props.enableButton("");
 
@@ -95,27 +96,50 @@ function SubjectCard(props) {
         }}
         className={` ${col[i]} pointer cardButton w3-padding w3-card w3-margin w3-round-xlarge w3-card`}
       >
-        {!active&&activeSub[0]&&activeSub[0].activeSubject&&<span style = {{zIndex:3}} onClick = {()=> MarkActive(subList[i][2])} className='w3-display-topleft w3-tiny w3-button'>{!active&&(activeSub[0].activeSubject.includes(subList[i][2])?<FaStar color= {'red'} size ={18}/>:<FaRegStar  size ={18}/>)}</span>}
-        {!activeSub[0].activeSubject&&<span style = {{zIndex:3}} onClick = {()=> MarkActive(subList[i][2])} className='w3-display-topleft w3-tiny w3-button'>{!active&&<FaRegStar  size ={18}/>}</span>}
+        {!active && activeSub[0] && activeSub[0].activeSubject && (
+          <span
+            style={{ zIndex: 3 }}
+            onClick={() => MarkActive(subList[i][2])}
+            className="w3-display-topleft w3-tiny w3-button"
+          >
+            {!active &&
+              (activeSub[0].activeSubject.includes(subList[i][2]) ? (
+                <FaStar color={"red"} size={18} />
+              ) : (
+                <FaRegStar size={18} />
+              ))}
+          </span>
+        )}
+        {!activeSub[0] && (
+          <span
+            style={{ zIndex: 3 }}
+            onClick={() => MarkActive(subList[i][2])}
+            className="w3-display-topleft w3-tiny w3-button"
+          >
+            {!active && <FaRegStar size={18} />}
+          </span>
+        )}
         {!active && subList[i][3] && (
           <span className="w3-display-topright w3-padding-small w3-green w3-small">
             New!
           </span>
         )}
-       
-        <h1 style={{marginTop:20}}>
+
+        <h1 style={{ marginTop: 20 }}>
           {!active
             ? subList[i][2].toUpperCase()
             : activeSub[0].activeSubject[i].toUpperCase()}
         </h1>
         <p className="w3-tiny">{!active && subList[i][1].toUpperCase()}</p>
-        {
-          subList.map((sub)=>{
-            if(activeSub[0].activeSubject&&sub[2]==activeSub[0].activeSubject[i]){
-             return <p className="w3-tiny">{active && sub[1].toUpperCase()}</p>
-            }
-          })
-        }
+        
+        {subList&&subList.map((sub) => {
+          if (
+            activeSub[0].activeSubject &&
+            sub[2] == activeSub[0].activeSubject[i]
+          ) {
+            return <p className="w3-tiny">{active && sub[1].toUpperCase()}</p>;
+          }
+        })}
       </div>
     );
   };
@@ -143,7 +167,7 @@ function SubjectCard(props) {
   };
 
   const getActiveCard = () => {
-    if (activeSub[0]&&activeSub[0].activeSubject) {
+    if (activeSub[0] && activeSub[0].activeSubject) {
       for (let i = 0; i < activeSub[0].activeSubject.length; i = i + 2) {
         mobileCard.push(
           <div className="w3-row">
@@ -157,7 +181,7 @@ function SubjectCard(props) {
         );
       }
     }
-    if (activeSub[0]&&activeSub[0].activeSubject) {
+    if (activeSub[0] && activeSub[0].activeSubject) {
       for (let i = 0; i < subList.length; i = i + 4) {
         pcCard.push(
           <div className="w3-row">
@@ -180,7 +204,23 @@ function SubjectCard(props) {
   };
 
   if (!subList) {
-    return <h1>Loading...</h1>;
+    return props.active ? (
+      <div>
+      <div
+        style={{
+          marginTop: 50,
+          position: "absolute",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      >
+        <HashLoader size={150} color={"#0CBB06"} loading={true} />
+      </div>
+      <div style ={{height:400}}></div>
+      </div>
+    ) : (
+      <p></p>
+    );
   } else {
     if (props.active) {
       getActiveCard();

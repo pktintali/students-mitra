@@ -8,6 +8,7 @@ import firebase from "../firebase";
 import cameraPlaceholder from "../../camera-placeholder.png";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ReactPlayer from 'react-player/youtube'
 
 toast.configure();
 function Explore() {
@@ -248,7 +249,7 @@ function Explore() {
         </div>
       )}
 
-      {!text && (
+      {!text && firebase.getCurrentUsername()&&(
         <div className="w3-row-padding">
           {posts &&
             posts.map((post) => {
@@ -256,6 +257,18 @@ function Explore() {
             })}
         </div>
       )}
+      {
+        !firebase.getCurrentUsername()&&!visible&&<div className='w3-hide-small w3-hide-medium w3-display-middle'>
+          <h1>Have a quick tour</h1>
+          <ReactPlayer light height={400} width={720} controls url='https://www.youtube.com/watch?v=hLQXsF23NBQ'/>
+          </div>
+      }
+      {
+        !firebase.getCurrentUsername()&&!visible&&<div className='w3-hide-large w3-display-middle'>
+          <h1>Have a quick tour</h1>
+          <ReactPlayer light height={160} width={300} controls url='https://www.youtube.com/watch?v=hLQXsF23NBQ'/>
+          </div>
+      }
       {!visible && (
         <div onClick={display} style={{ height: "50px", width: "300px" }}></div>
       )}

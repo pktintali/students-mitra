@@ -10,18 +10,20 @@ import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure();
+
 function Quiz(props) {
+
   const [id, setId] = useState(0);
   const [selector, setSelector] = useState(true);
   const [game,setGame] = useState(false)
+
   if (!firebase.getCurrentUsername()) {
     // not logged in
-    toast.error('You need to be logged in',{position:toast.POSITION.BOTTOM_RIGHT})
-    // alert("You need to be logged in");
+    toast.error('You need to be logged in',{position:toast.POSITION.BOTTOM_RIGHT});
     props.history.replace("/login");
     return null;
   }
-
+  
   const goBack = () => {
     setId(0);
     setGame(false)

@@ -165,6 +165,7 @@ const Profile = (props) => {
           </div>
           <div className="w3-half">
             <table style={{ maxWidth: "500px" }} className="w3-table">
+              <tbody>
               <tr className="w3-border">
                 <td>
                   <b>Name</b>
@@ -225,6 +226,7 @@ const Profile = (props) => {
                 </td>
                 {<td>{profileInfo.country}</td>}
               </tr>
+              </tbody>
             </table>
             <div className="c-box-min"></div>
           </div>
@@ -234,7 +236,7 @@ const Profile = (props) => {
             {activeSubjects &&
               activeSubjects.map((ac) => {
                 return (
-                  <li>
+                  <li key ={ac}>
                     {ac}
                     <span
                       style={{ marginLeft: "50%" }}
@@ -322,6 +324,7 @@ const Profile = (props) => {
           </div>
           <div className="w3-half">
             <table style={{ maxWidth: "500px" }} className="w3-table">
+              <tbody>
               <tr className="w3-border">
                 <td>
                   <b>Name:</b>
@@ -449,6 +452,7 @@ const Profile = (props) => {
                   </td>
                 }
               </tr>
+              </tbody>
             </table>
             <div className="c-box-min"></div>
           </div>

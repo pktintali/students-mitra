@@ -20,10 +20,15 @@ async function GetAvgMarks() {
         mark10.push(submarks[j] * 10);
         t = j;
       }
-      len.push(parseInt(t) + 1);
-      mark10.push(100);
+      len.push(parseInt(t)+1);
       var num = (avg / submarks.length) * 10;
       avgMarks.push(Math.round((num + Number.EPSILON) * 100) / 100);
+      if(mark10.length>30){
+        mark10.splice(0,mark10.length-31);
+      }
+      if(len.length>30){
+        len.splice(0,len.length-31);
+      }
       individualData.push({ len: len, marks: mark10, sub: activeSub[i] });
       if(num<min){
         min=num;
@@ -35,8 +40,8 @@ async function GetAvgMarks() {
     }
     
   }
-    avgMarks.push(0);
-    avgMarks.push(100);
+    // avgMarks.push(0);
+    // avgMarks.push(100);
   return {
     activeSubjects: activeSub,
     individualData: individualData,
