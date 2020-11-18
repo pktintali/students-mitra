@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./style.css";
 import TopBar from "../../TopBar";
+import DataFetching from "../DataFetching";
+import { SubjectContext } from "../SubjectList";
 
-function Questions3() {
+function Questions3(props) {
+  const subjectByContext = useContext(SubjectContext);
+
   return (
     <>
-      <TopBar txt="Time Remaining 10:00" bool={false} />
+      <TopBar bool={false} txt="Active Subjects Test" />
       <div className="mtop"></div>
-      {/* <DataFetching /> */}
-      <div className="w3-panel">
-        <button className="w3-button w3-red">Submit</button>
-      </div>
+      <DataFetching click={props.click} type="select" sub={subjectByContext} />
       <div className="mbot"></div>
     </>
   );

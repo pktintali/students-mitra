@@ -5,7 +5,6 @@ import SubjectList from "../SubjectList";
 
 function SelectSubject(props) {
   const [topbar, setTopBar] = useState(true);
-  const [width, setWidth] = useState(true);
 
   const hidebar = () => {
     setTopBar(false);

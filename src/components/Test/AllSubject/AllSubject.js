@@ -1,16 +1,26 @@
-import React from "react";
+import React,{useState} from "react";
 import "./style.css";
 import TopBar from "../../TopBar";
+import SubjectList from "../SubjectList";
 
 function AllSubject(props) {
+  const [topbar, setTopBar] = useState(true);
+  const hidebar = () => {
+    setTopBar(false);
+  };
+
   return (
     <>
-      <TopBar txt="Test" click={props.click} bool={true} />
-      <div className="mtop"></div>
-      <h3 className="mbot">
-        Questions will come from all of your favourite subjects
-      </h3>
-      <button className="w3-round w3-button w3-red">Start</button>
+      {topbar &&<TopBar txt="Test" click={props.click} bool={true} />}
+      {topbar &&<div className="mtop"></div>}
+      {topbar &&<h3>
+        Questions will come from all of your active subjects
+        </h3>}
+          <SubjectList
+          click={props.click}
+          hidebar={hidebar}
+          id={props.id}
+        />
       <div className="mbot"></div>
     </>
   );
