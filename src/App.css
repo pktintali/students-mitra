@@ -1,6 +1,12 @@
 .App {
  text-align: center;
 }
+
+.pk-dark{
+  background-color: #1e1e1e;
+  color: azure;
+}
+
 .pdr-xxsmall{
 padding-right:3px;
 color:#ff0000;

@@ -18,21 +18,23 @@ export const NavContext = React.createContext();
 
 function App() {
   const [visible, setVisible] = useState(true);
-  const [usermini,setUserMini] = useState();
+  const [usermini, setUserMini] = useState();
   const [initLizedFire, setInitFire] = useState(false);
-
   const hide = (a) => {
     setVisible(a);
   };
 
+  
   useEffect(() => {
     firebase.isInitialized().then((val) => {
       setInitFire(val);
-      
     });
   }, []);
-  initLizedFire&&firebase.getDpImage().then(setUserMini)
-  usermini&&window.sessionStorage.setItem("dpmin", usermini);
+
+  useEffect(() => {
+    initLizedFire && firebase.getDpImage().then(setUserMini);
+    usermini && window.sessionStorage.setItem("dpmin", usermini);
+  }, [initLizedFire]);
 
   return initLizedFire !== false ? (
     <Router>

@@ -49,7 +49,7 @@ function SubjectList(props) {
          
           <br></br>
           {props.game && <h4>You Are in Game Mode</h4>}
-          {props.id===3&&activeSub&&activeSub[0]&&activeSub[0].activeSubject.length>0&&<button
+          {props.id===3&&activeSub&&activeSub[0]&&activeSub[0].activeSubject&&activeSub[0].activeSubject.length>0&&<button
             onClick={directStartQuiz}
             className={`w3-large w3-round w3-red w3-margin w3-button`}
           >

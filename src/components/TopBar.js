@@ -8,11 +8,10 @@ function TopBar(props) {
 
   const [userminidp,setUserMiniDP] = useState();
   const usermini = window.sessionStorage.getItem("dpmin");
+
   useEffect(() => {
-    if(usermini===null){
-      firebase.getCurrentUsername()&&firebase.getDpImage().then(setUserMiniDP)
-   userminidp&&window.sessionStorage.setItem("dpmin",userminidp);
-    }
+     !usermini&&firebase.getCurrentUsername()&&firebase.getDpImage().then(setUserMiniDP)
+      userminidp&&window.sessionStorage.setItem("dpmin",userminidp);
   }, [userminidp]);
 
   const doClick = () => {

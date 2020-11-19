@@ -1,5 +1,5 @@
 import firebase from "../../../firebase";
-async function checkFull(id, type,mail) {
+async function checkFull(id, type) {
   var val = 0;
   const citiesRef = firebase.db.collection("games");
   const snapshot = await citiesRef.where("roomid", "==", id).get();
@@ -33,8 +33,7 @@ async function checkFull(id, type,mail) {
     //       citiesRef.doc(id).delete();
     //     }else{
       citiesRef
-      .doc(id)
-      .collection("players").doc(mail).delete();
+      .doc(id).delete();
       //  }
         
       //});
@@ -43,13 +42,13 @@ async function checkFull(id, type,mail) {
   snapshot.forEach((doc) => {
 
 
-    if (type == "getHost") {
+    if (type === "getHost") {
       val = doc.data().host;
     }
-    if(type=="leval"){
+    if(type==="leval"){
       val = doc.data().leval;
     }
-    if (type == "getSub") {
+    if (type === "getSub") {
       val = doc.data().subject;
     }
     if (type === "p1") {

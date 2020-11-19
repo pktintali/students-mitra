@@ -86,6 +86,7 @@ function DataFetching(props) {
           data={questions}
           type={props.type}
           leval={props.leval}
+          host = {props.host}
         />
       );
     }

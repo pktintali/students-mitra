@@ -13,7 +13,11 @@ function LeaderBoard(props) {
   async function handleProps() {
     setLoading(true)
     //Deleted in checkFull
-    await checkFull(id, "delete",firebase.getCurrentUserEmail());
+    if(props.host){
+    await checkFull(id, "delete");
+  }else{
+    console.log('Not Host')
+  }
     setLoading(false)
     //alert(full)
     props.closeAns();

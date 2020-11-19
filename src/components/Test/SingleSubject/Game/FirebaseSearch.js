@@ -29,18 +29,22 @@ function UseGame(id) {
 function FirebaseSearch(props) {
   const [sub, setSub] = useState();
   const [chat, setChat] = useState(false);
+  const [defaultLeval,setDefaultLeval]=useState(null)
   const games = UseGame(props.id);
   const players = UsePlayers(props.id);
   console.log(players);
-  if (games[0] != undefined && games[0].subject != undefined) {
+  if (games[0] !== undefined && games[0].subject !== undefined) {
     props.userReady();
   }
   var user = firebase.getCurrentUserEmail();
-  function autoStart() {
-    //props.userReady();
+
+  async function hostStart() {
+    !defaultLeval&&await AddRoom(props.id, "Normal", "leval");
+    props.start();
   }
 
   async function setLeval(leval){
+    setDefaultLeval(leval)
     await AddRoom(props.id, leval, "leval");
     props.setLeval(leval)
   }
@@ -126,7 +130,7 @@ function FirebaseSearch(props) {
           {games[0] && games[0].host == user && (
             <button
               className="w3-right w3-button w3-green  w3-card"
-              onClick={props.start}
+              onClick={hostStart}
             >
               Start
             </button>
@@ -141,7 +145,7 @@ function FirebaseSearch(props) {
           {sub != undefined && (
             <button
               className="w3-center w3-button w3-green"
-              onClick={autoStart()}
+              // onClick={autoStart()}
             >
               Ready
             </button>

@@ -27,6 +27,7 @@ function Questions1(props) {
           sub={subject}
           config={props.config}
           leval={props.leval}
+          host = {props.host}
         />
         <div className="mbot"></div>
       </>

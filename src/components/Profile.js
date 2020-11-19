@@ -32,6 +32,7 @@ const Profile = (props) => {
   async function setUser() {
     firebase.getDpImage().then(setDpImage);
     dpImage && window.sessionStorage.setItem("dpmin", dpImage);
+    firebase.addField({dp:true})
 
   }
   const handleFile = (e) => {
@@ -67,16 +68,16 @@ const Profile = (props) => {
   const usermini = window.sessionStorage.getItem("dpmin");
 
   const profileData = {
-    name: name,
-    state: state,
-    country: country,
-    mobile: mobile,
-    email: email,
-    dob: dob,
-    address: address,
-    sec: sec,
-    branch: branch,
-    college: college,
+    name: name?name:"",
+    state: state?state:"",
+    country: country?country:"",
+    mobile: mobile?mobile:"",
+    email: email?email:"",
+    dob: dob?dob:"",
+    address: address?address:"",
+    sec: sec?sec:"",
+    branch: branch?branch:"",
+    college: college?college:"",
   };
 
   async function doSignOut() {
@@ -91,7 +92,7 @@ const Profile = (props) => {
       toast.success("Profile Updated Successfully",{position:toast.POSITION.BOTTOM_RIGHT,autoClose:4000})
       setEditMode(false);
     } catch (e) {
-      alert("Something Went Wrong");
+      toast.error("Something Went Wrong",{position:toast.POSITION.BOTTOM_RIGHT,autoClose:4000})
     }
   }
 

@@ -445,7 +445,7 @@ function QuestionMaker(props) {
         />
       );
     } else {
-      return <LeaderBoard closeAns={closeAnsModal} click={props.click} />;
+      return <LeaderBoard host = {props.host} closeAns={closeAnsModal} click={props.click} />;
     }
   }
 }

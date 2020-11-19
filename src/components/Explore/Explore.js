@@ -253,7 +253,7 @@ function Explore() {
         <div className="w3-row-padding">
           {posts &&
             posts.map((post) => {
-              return <PostCard post={post} />;
+              return <PostCard key ={post.time} post={post} />;
             })}
         </div>
       )}

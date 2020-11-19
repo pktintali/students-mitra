@@ -211,7 +211,18 @@ class Firebase {
     return url;
   }
 
+
+  async getIsDp(user) {
+    const quote = await this.db
+      .collection("usersData")
+      .doc(`${user}`)
+      .get();
+    return quote.get("dp");
+  }
+
   async getAuthorDp(id) {
+    const dp = await this.getIsDp(id);
+    if(dp){
     try {
       const dpurl = await this.store
         .ref("images/dp/")
@@ -221,6 +232,9 @@ class Firebase {
     } catch (e) {
       console.log(e.message);
     }
+  }else{
+    return null;
+  }
   }
   
   setImage(image) {

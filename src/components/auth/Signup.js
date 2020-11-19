@@ -22,15 +22,7 @@ function SignupPage(props) {
       await firebase.register(userName, userEmail, password);
       await firebase.updateProfile({
         name: userName,
-        sec: "",
-        branch: "",
-        college: "",
-        mobile: "",
         email: userEmail,
-        dob: "",
-        address: "",
-        state: "",
-        country: "",
       });
       setLoading(false);
       props.history.replace("/");

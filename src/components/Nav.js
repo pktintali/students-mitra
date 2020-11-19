@@ -122,7 +122,7 @@ function Nav() {
           )}
           {firebase.getCurrentUsername() && (
             <Link
-              to="./profile"
+              to="/profile"
               className={usermini?"w3-right w3-hover-white w3-bar-item w3-circle w3-padding":"w3-right w3-hover-white w3-bar-item w3-circle w3-padding-large"}
             >
               {!usermini&&<FaUser size={20} />}

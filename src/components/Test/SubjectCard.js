@@ -53,7 +53,10 @@ function SubjectCard(props) {
         onClick={() => {
           if (active) {
             for (let j in subList) {
-              if (subList[j][2] == activeSub[0].activeSubject[i]) {
+              if (
+                activeSub[0] &&
+                subList[j][2] == activeSub[0].activeSubject[i]
+              ) {
                 props.config({
                   randLimit: subList[j][4],
                 });
@@ -70,7 +73,9 @@ function SubjectCard(props) {
             undo();
             col[i] = "w3-green";
             !active && (props.subject[0] = subList[i][2]);
-            active && (props.subject[0] = activeSub[0].activeSubject[i]);
+            active &&
+              activeSub[0] &&
+              (props.subject[0] = activeSub[0].activeSubject[i]);
             setC(c + 1);
           }
 
@@ -78,14 +83,19 @@ function SubjectCard(props) {
             col[i] = col[i] == "w3-green" ? "" : "w3-green";
             if (
               (!active && !props.subject.includes(subList[i][2])) ||
-              (active && !props.subject.includes(activeSub[0].activeSubject[i]))
+              (active &&
+                activeSub[0] &&
+                !props.subject.includes(activeSub[0].activeSubject[i]))
             ) {
               !active && props.subject.push(subList[i][2]);
-              active && props.subject.push(activeSub[0].activeSubject[i]);
+              active &&
+                activeSub[0] &&
+                props.subject.push(activeSub[0].activeSubject[i]);
             } else {
               const index = !active
                 ? props.subject.indexOf(subList[i][2])
-                : props.subject.indexOf(activeSub[0].activeSubject[i]);
+                : activeSub[0] &&
+                  props.subject.indexOf(activeSub[0].activeSubject[i]);
               props.subject.splice(index, 1);
               if (!props.subject.length > 0) {
                 props.enableButton("w3-disabled");
@@ -102,15 +112,14 @@ function SubjectCard(props) {
             onClick={() => MarkActive(subList[i][2])}
             className="w3-display-topleft w3-tiny w3-button"
           >
-            {!active &&
-              (activeSub[0].activeSubject.includes(subList[i][2]) ? (
-                <FaStar color={"red"} size={18} />
-              ) : (
-                <FaRegStar size={18} />
-              ))}
+            {activeSub[0].activeSubject.includes(subList[i][2]) ? (
+              <FaStar color={"red"} size={18} />
+            ) : (
+              <FaRegStar size={18} />
+            )}
           </span>
         )}
-        {!activeSub[0] && (
+        {!active && activeSub && activeSub[0].activeSubject === undefined && (
           <span
             style={{ zIndex: 3 }}
             onClick={() => MarkActive(subList[i][2])}
@@ -128,18 +137,22 @@ function SubjectCard(props) {
         <h1 style={{ marginTop: 20 }}>
           {!active
             ? subList[i][2].toUpperCase()
-            : activeSub[0].activeSubject[i].toUpperCase()}
+            : activeSub[0] && activeSub[0].activeSubject[i].toUpperCase()}
         </h1>
         <p className="w3-tiny">{!active && subList[i][1].toUpperCase()}</p>
-        
-        {subList&&subList.map((sub) => {
-          if (
-            activeSub[0].activeSubject &&
-            sub[2] == activeSub[0].activeSubject[i]
-          ) {
-            return <p className="w3-tiny">{active && sub[1].toUpperCase()}</p>;
-          }
-        })}
+
+        {subList &&
+          subList.map((sub) => {
+            if (
+              activeSub[0] &&
+              activeSub[0].activeSubject &&
+              sub[2] == activeSub[0].activeSubject[i]
+            ) {
+              return (
+                <p className="w3-tiny">{active && sub[1].toUpperCase()}</p>
+              );
+            }
+          })}
       </div>
     );
   };
@@ -203,20 +216,20 @@ function SubjectCard(props) {
     }
   };
 
-  if (!subList) {
+  if (!subList || !activeSub[0]) {
     return props.active ? (
       <div>
-      <div
-        style={{
-          marginTop: 50,
-          position: "absolute",
-          left: "50%",
-          transform: "translateX(-50%)",
-        }}
-      >
-        <HashLoader size={150} color={"#0CBB06"} loading={true} />
-      </div>
-      <div style ={{height:400}}></div>
+        <div
+          style={{
+            marginTop: 50,
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          <HashLoader size={150} color={"#0CBB06"} loading={true} />
+        </div>
+        <div style={{ height: 400 }}></div>
       </div>
     ) : (
       <p></p>
