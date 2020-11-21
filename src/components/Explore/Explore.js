@@ -94,6 +94,7 @@ function Explore() {
           author: author,
           authorId: authorId,
           image: img,
+          key:currentdate.getTime()
         });
       } else {
         await firebase.addPost({
@@ -102,6 +103,7 @@ function Explore() {
           time: time,
           author: author,
           authorId: authorId,
+          key:currentdate.getTime()
         });
       }
       setText("");
@@ -211,7 +213,7 @@ function Explore() {
                 </div>
                 <div className="w3-padding  w3-panel w3-card w3-pale-blue">
                   <div className="touch">
-                    <p className="w3-left-align">{text}</p>
+                    <p style ={{whiteSpace:'pre-line'}} className="w3-left-align">{text}</p>
                     <img
                       alt="post image"
                       src={cameraPlaceholder}
@@ -253,7 +255,7 @@ function Explore() {
         <div className="w3-row-padding">
           {posts &&
             posts.map((post) => {
-              return <PostCard key ={post.time} post={post} />;
+              return <PostCard key ={post.key} post={post} />;
             })}
         </div>
       )}

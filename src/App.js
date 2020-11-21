@@ -12,6 +12,7 @@ import {
   Explore,
   Nav,
   LoadingScreen,
+  Game,
 } from "./components/index";
 
 export const NavContext = React.createContext();
@@ -36,6 +37,8 @@ function App() {
     usermini && window.sessionStorage.setItem("dpmin", usermini);
   }, [initLizedFire]);
 
+  usermini && window.sessionStorage.setItem("dpmin", usermini);
+  
   return initLizedFire !== false ? (
     <Router>
       <ScrollToTop />
@@ -49,6 +52,7 @@ function App() {
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={Signup} />
             <Route path="/profile" component={Profile} />
+            <Route path="/game" component={Game} />
           </Switch>
         </NavContext.Provider>
       </div>

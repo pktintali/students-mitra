@@ -3,16 +3,9 @@ import "../App.css";
 import { FaArrowLeft, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import firebase from "./firebase";
-
 function TopBar(props) {
 
-  const [userminidp,setUserMiniDP] = useState();
   const usermini = window.sessionStorage.getItem("dpmin");
-
-  useEffect(() => {
-     !usermini&&firebase.getCurrentUsername()&&firebase.getDpImage().then(setUserMiniDP)
-      userminidp&&window.sessionStorage.setItem("dpmin",userminidp);
-  }, [userminidp]);
 
   const doClick = () => {
     if (props.profile) {

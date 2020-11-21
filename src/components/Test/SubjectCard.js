@@ -51,6 +51,7 @@ function SubjectCard(props) {
       <div
         style={cardStyle}
         onClick={() => {
+          if(props.id === 1){
           if (active) {
             for (let j in subList) {
               if (
@@ -67,6 +68,7 @@ function SubjectCard(props) {
               randLimit: subList[i][4],
             });
           }
+        }
           props.enableButton("");
 
           if (props.id === 1) {
@@ -149,7 +151,9 @@ function SubjectCard(props) {
               sub[2] == activeSub[0].activeSubject[i]
             ) {
               return (
-                <p className="w3-tiny">{active && sub[1].toUpperCase()}</p>
+                <p key={sub[1]} className="w3-tiny">
+                  {active && sub[1].toUpperCase()}
+                </p>
               );
             }
           })}
@@ -183,7 +187,7 @@ function SubjectCard(props) {
     if (activeSub[0] && activeSub[0].activeSubject) {
       for (let i = 0; i < activeSub[0].activeSubject.length; i = i + 2) {
         mobileCard.push(
-          <div className="w3-row">
+          <div key={activeSub[0].activeSubject[i]} className="w3-row">
             {activeSub[0].activeSubject[i] && (
               <div className="w3-col s6">{unitCard(i, true)}</div>
             )}
@@ -197,7 +201,7 @@ function SubjectCard(props) {
     if (activeSub[0] && activeSub[0].activeSubject) {
       for (let i = 0; i < subList.length; i = i + 4) {
         pcCard.push(
-          <div className="w3-row">
+          <div key={activeSub[0].activeSubject[i]} className="w3-row">
             {activeSub[0].activeSubject[i] && (
               <div className="w3-col s3">{unitCard(i, true)}</div>
             )}

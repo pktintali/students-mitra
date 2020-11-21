@@ -2,19 +2,38 @@ import React, { useState, useEffect } from "react";
 import firebase from "../firebase";
 
 import "../../App.css";
-// import { FaRegThumbsUp, FaRegComment, FaShare } from "react-icons/fa";
 function PostCard(props) {
   const [authorDp, setAuthorDp] = useState();
+  const [fullImg,setFullImg] = useState(false);
 
   useEffect(() => {
-
     firebase.getAuthorDp(props.post.authorId).then(setAuthorDp);
   }, []);
 
+  const imgModal = (
+      <div
+        className="w3-white w3-modal w3-animate-zoom"
+        style={{
+          display:'block',
+          zIndex:9999999
+        }}
+      > <span onClick = {()=>setFullImg(false)} style={{position:'fixed'}} className='w3-button w3-border w3-padding w3-text-red w3-display-topright'>X</span>
+        <img style = {{
+          maxHeight:window.innerHeight-100,
+          maxWidth:window.innerWidth-50,
+          width:'auto'
+        }} className="w3-modal-content" src={props.post.image}></img>
+      </div>
+    );
+
   return (
     <>
-      <div className="w3-third">
-        <div style={{height:500}} className="w3-padding  w3-panel w3-card w3-pale-blue">
+    {fullImg&&imgModal}
+      {!fullImg&&<div className="w3-third">
+        <div
+          style={{ height: 500 }}
+          className="w3-padding  w3-panel w3-card w3-pale-blue"
+        >
           <div>
             <img
               alt="user logo"
@@ -34,12 +53,20 @@ function PostCard(props) {
           <br></br>
           <p></p>
           <div className="touch">
-            <p className="w3-left-align">{props.post.text}</p>
+            <p style={{ whiteSpace: "pre-line" }} className="w3-left-align">
+              {props.post.text}
+            </p>
             <div>
               {props.post.image && (
                 <img
+                  onClick={()=>setFullImg(true)}
                   alt="post image"
-                  style={{width:'100%',height:'100%', maxHeight: 340, maxWidth: 380}}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    maxHeight: 340,
+                    maxWidth: 380,
+                  }}
                   className=""
                   src={props.post.image}
                 />
@@ -49,7 +76,7 @@ function PostCard(props) {
           <br></br>
           <br></br>
         </div>
-      </div>
+      </div>}
     </>
   );
 }

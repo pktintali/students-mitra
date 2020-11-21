@@ -22,7 +22,7 @@ function DataFetching(props) {
     get10();
     const r = props.config
       ? Math.floor(Math.random() * props.config.randLimit)
-      : Math.floor(Math.random() * 25);
+      : Math.floor(Math.random() * 23);
     if (props.type === "select") {
       for (let i in subject) {
         axios

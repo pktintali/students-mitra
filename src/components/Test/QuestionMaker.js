@@ -15,7 +15,7 @@ function QuestionMaker(props) {
   const questions = props.data;
   const [q, setQ] = useState(0);
   const [marks, setMarks] = useState(0);
-  const [count, setCount] = useState(327);
+  const [count, setCount] = useState(654);
   const [totalLength, setTotalLength] = useState();
   const [display, setDisplay] = useState("none");
   const [notice, setNotice] = useState("block");
@@ -30,7 +30,7 @@ function QuestionMaker(props) {
   const [review, setReview] = useState(false);
   const [answered, setAnswered] = useState(false);
   const [allUserAns, setAllUserAns] = useState([]);
-  const [loader,setLoader] = useState(false);
+  const [loader, setLoader] = useState(false);
   var [timeout, setTimeOut] = useState(false);
   const clearColor = () => {
     setOpt0Color("w3-white");
@@ -55,7 +55,7 @@ function QuestionMaker(props) {
   };
 
   const submitWaitModal = (
-    <div style={{ display: "block" ,zIndex:999999}} className="w3-modal">
+    <div style={{ display: "block", zIndex: 999999 }} className="w3-modal">
       <div
         style={{ maxWidth: "350px" }}
         className="w3-modal-content w3-padding w3-border w3-border-red w3-animate-zoom w3-padding w3-card-4"
@@ -68,12 +68,12 @@ function QuestionMaker(props) {
   );
 
   const ansmodal = (
-    <div style={{ display: display,zIndex:9999999 }} className="w3-modal">
+    <div style={{ display: display, zIndex: 9999999 }} className="w3-modal">
       <div
         style={{ maxWidth: "500px" }}
         className="w3-modal-content w3-padding-large w3-border w3-border-red w3-animate-top w3-padding w3-card-4"
       >
-        <h4>You Got: {marks} Marks</h4>
+        <h4>Marks Obtained : {marks}</h4>
         <div className="w3-bar">
           {!props.game && (
             <button
@@ -84,7 +84,7 @@ function QuestionMaker(props) {
             </button>
           )}
           <button
-            className="w3-right w3-button w3-green"
+            className={`${props.game ? "" : "w3-right"} w3-button w3-green`}
             onClick={toogleReview}
           >
             {props.game ? "View Leaderboard" : "Review"}
@@ -94,8 +94,11 @@ function QuestionMaker(props) {
     </div>
   );
   const noticemodal = (
-    <div style={{ display: notice,zIndex:999999 }} className="w3-modal">
-      <div className="w3-modal-content w3-animate-top w3-padding w3-card-4">
+    <div style={{ display: notice, zIndex: 9999999 }} className="w3-modal">
+      <div
+        style={{ maxWidth: 350 }}
+        className="w3-border w3-border-red w3-modal-content w3-animate-top w3-padding w3-card-4"
+      >
         <ul className="w3-ul">
           <li>
             {" "}
@@ -111,7 +114,10 @@ function QuestionMaker(props) {
             automatically skipped
           </li>
         </ul>
-        <button className="w3-button w3-border" onClick={closeNoticeModal}>
+        <button
+          className="w3-card w3-button w3-border w3-pale-green w3-small"
+          onClick={closeNoticeModal}
+        >
           I Understand, Continue{" "}
         </button>
       </div>
@@ -182,28 +188,28 @@ function QuestionMaker(props) {
   };
   const goNext = () => {
     clearColor();
-
     setAnswered(false);
     if (q === questions.length - 1) {
       setEnd(true);
     }
     if (q < questions.length - 1) {
-      setCount(327);
-      setQ(q + 1);
+      setCount(654);
       setTimeOut(false);
       setTimeColor("green");
       setAnimation("w3-animate-right");
+      setQ(q + 1);
     }
   };
 
   async function submit() {
-    setLoader(true)
-    !props.game && SaveResult({mark:marks,sub:props.sub,type:props.type});
+    setLoader(true);
+    !props.game &&
+      SaveResult({ mark: marks, sub: props.sub, type: props.type });
     props.game &&
       (await AddRoom(id, firebase.getCurrentUserEmail(), "marks", marks));
     //!timeout&&userAns!=undefined&&alert(userAns)
     !timeout && userAns != undefined && allUserAns.push(userAns);
-    setLoader(false)
+    setLoader(false);
     window.scrollTo(0, 0);
     setDisplay("block");
   }
@@ -231,7 +237,7 @@ function QuestionMaker(props) {
   }, [q]);
 
   useEffect(() => {
-    const interval = setInterval(tick, 300); //300
+    const interval = setInterval(tick, 100); //100
     return () => {
       clearInterval(interval);
     };
@@ -239,13 +245,23 @@ function QuestionMaker(props) {
 
   const tick = () => {
     if (notice == "none") {
-      if (count == 317 || count == 321 || count == 323 || count == 325) {
+      if (
+        count == 645 ||
+        count == 642 ||
+        count == 644 ||
+        count == 648 ||
+        count == 649 ||
+        count == 650 ||
+        count == 651 ||
+        count == 652 ||
+        count == 653
+      ) {
         setAnimation("");
       }
-      if (count < 120) {
+      if (count < 240) {
         setTimeColor("orange");
       }
-      if (count < 55) {
+      if (count < 110) {
         setTimeColor("red");
       }
 
@@ -253,51 +269,36 @@ function QuestionMaker(props) {
         if (props.game) {
           switch (props.leval) {
             case "Easy": {
-              
               if (totalLength < 100) {
-                !end && setCount(count - 5);
-              } else if (totalLength < 160) {
                 !end && setCount(count - 4);
+              } else if (totalLength < 160) {
+                !end && setCount(count - 3);
               } else if (totalLength < 250) {
                 !end && setCount(count - 2);
               } else {
                 !end && setCount(count - 1);
               }
-              break
-            }
-            case "Normal": {
-              
-              if (totalLength < 100) {
-                !end && setCount(count - 10);
-              } else if (totalLength < 160) {
-                !end && setCount(count - 6);
-              } else if (totalLength < 250) {
-                !end && setCount(count - 4);
-              } else {
-                !end && setCount(count - 2);
-              }
-              break
+              break;
             }
             case "Hard": {
-              
               if (totalLength < 100) {
-                !end && setCount(count - 30);
+                !end && setCount(count - 12);
               } else if (totalLength < 160) {
-                !end && setCount(count - 25);
+                !end && setCount(count - 10);
               } else if (totalLength < 250) {
-                !end && setCount(count - 18);
+                !end && setCount(count - 6);
               } else {
-                !end && setCount(count - 14);
+                !end && setCount(count - 4);
               }
-              break
+              break;
             }
             default: {
               if (totalLength < 100) {
-                !end && setCount(count - 10);
-              } else if (totalLength < 160) {
                 !end && setCount(count - 6);
+              } else if (totalLength < 160) {
+                !end && setCount(count - 5);
               } else if (totalLength < 250) {
-                !end && setCount(count - 4);
+                !end && setCount(count - 3);
               } else {
                 !end && setCount(count - 2);
               }
@@ -305,11 +306,11 @@ function QuestionMaker(props) {
           }
         } else {
           if (totalLength < 100) {
-            !end && setCount(count - 10);
-          } else if (totalLength < 160) {
             !end && setCount(count - 6);
+          } else if (totalLength < 160) {
+            !end && setCount(count - 5);
           } else if (totalLength < 250) {
-            !end && setCount(count - 4);
+            !end && setCount(count - 3);
           } else {
             !end && setCount(count - 2);
           }
@@ -318,11 +319,11 @@ function QuestionMaker(props) {
 
       if (count < 1) {
         //count>-10&&!answered&&alert('timeout')
-        count > -10 && !answered && allUserAns.push("timeout");
-        count > -10 && !answered && setTimeOut(true);
+        count > -12 && !answered && allUserAns.push("timeout");
+        count > -12 && !answered && setTimeOut(true);
         if (q === questions.length - 1) {
           setEnd(true);
-          setCount(-10);
+          setCount(-12);
         }
         !end && goNext();
       }
@@ -337,14 +338,14 @@ function QuestionMaker(props) {
     return (
       <>
         {ansmodal}
-        {loader&&submitWaitModal}
+        {loader && submitWaitModal}
         {noticemodal}
         {questions.slice(q, q + 1).map((question) => (
           <div>
             <div
               style={{ maxWidth: "355px" }}
               id="top"
-              className={`${animation} centeredW w3-container`}
+              className={`${animation} w3-container`}
             >
               <div className="preventSelection w3-display-container w3-center w3-card w3-round w3-padding-large w3-container">
                 <span className="pdr-xxsmall w3-small w3-display-topright">
@@ -354,7 +355,11 @@ function QuestionMaker(props) {
               </div>
               <div
                 className="w3-round w3-card"
-                style={{ backgroundColor: timeColor, height: 3, width: count }}
+                style={{
+                  backgroundColor: timeColor,
+                  height: 3,
+                  width: count / 2,
+                }}
               ></div>
 
               <p className="preventSelection w3-text-gray">
@@ -445,7 +450,13 @@ function QuestionMaker(props) {
         />
       );
     } else {
-      return <LeaderBoard host = {props.host} closeAns={closeAnsModal} click={props.click} />;
+      return (
+        <LeaderBoard
+          host={props.host}
+          closeAns={closeAnsModal}
+          click={props.click}
+        />
+      );
     }
   }
 }

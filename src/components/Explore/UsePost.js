@@ -8,7 +8,7 @@ function UsePost() {
       const unsubscribe = firebase
         .db
         .collection("posts")
-        .orderBy("time", "desc")
+        .orderBy("key", "desc")
         .onSnapshot((snapshot) => {
           const newItems = snapshot.docs.map((doc) => ({
             id: doc.id,

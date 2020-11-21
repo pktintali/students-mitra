@@ -60,36 +60,36 @@ function FirebaseSearch(props) {
         <div className="w3-hide-small">
           {games[0] && games[0].host == user&&<form className="w3-container">
             <h2>Select Game Leval</h2>
-            <p>
+            <p className='w3-padding'>
               <input
-                className="w3-radio"
+                className="w3-radio pointer"
                 type="radio"
                 name="leval"
                 value="Easy"
                 onChange= {(e)=>setLeval(e.target.value)}
               />
-              <label>Easy</label>
+              <label> Easy</label>
             </p>
-            <p>
+            <p className='w3-padding'>
               <input
-                className="w3-radio"
+                className="w3-radio pointer"
                 type="radio"
                 name="leval"
                 value="Normal"
                 
                 onChange= {(e)=>setLeval(e.target.value)}
               />
-              <label>Normal</label>
+              <label> Normal</label>
             </p>
-            <p>
+            <p className='w3-padding'>
               <input
-                className="w3-radio"
+                className="w3-radio pointer"
                 type="radio"
                 name="leval"
                 value="Hard"
                 onChange= {(e)=>setLeval(e.target.value)}
               />
-              <label>Hard</label>
+              <label> Hard</label>
             </p>
           </form>}
           <p></p>
@@ -181,7 +181,7 @@ function FirebaseSearch(props) {
                 value="Easy"
                 onChange= {(e)=>setLeval(e.target.value)}
               />
-              <label>Easy</label>
+              <label> Easy</label>
             </p>
             <p>
               <input
@@ -192,7 +192,7 @@ function FirebaseSearch(props) {
                 
                 onChange= {(e)=>setLeval(e.target.value)}
               />
-              <label>Normal</label>
+              <label> Normal</label>
             </p>
             <p>
               <input
@@ -202,7 +202,7 @@ function FirebaseSearch(props) {
                 value="Hard"
                 onChange= {(e)=>setLeval(e.target.value)}
               />
-              <label>Hard</label>
+              <label> Hard</label>
             </p>
           </form>}
           <p></p>

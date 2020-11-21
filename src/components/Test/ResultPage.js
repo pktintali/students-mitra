@@ -56,7 +56,7 @@ function ResultPage(props) {
   return (
     <>
     <h2 style={{marginTop:'-50px'}}>Review Your Results</h2>
-    <div className='w3-half'>
+    <div style = {{position:'fixed'}} className='w3-hide-small w3-hide-medium w3-half'>
       <Doughnut
       
         data={ansData}
@@ -67,7 +67,18 @@ function ResultPage(props) {
         }}
       />
     </div>
-    <div className='w3-half'>
+    <div className='w3-hide-large w3-half'>
+      <Doughnut
+      
+        data={ansData}
+        width={80}
+        height={60}
+        options={{
+          maintainAspectRatio: true,
+        }}
+      />
+    </div>
+    <div className='w3-right w3-half'>
       <br></br>
       {questions.map((q) => (
         <div className="w3-container">
@@ -104,11 +115,11 @@ function ResultPage(props) {
             </h5>
             {q[7]&& (
               <a
-                className="w3-text-blue w3-btn"
+                className="w3-text-blue w3-hover-white w3-btn"
                 href={q[7]}
                 target="blank"
               >
-                Learn more about this 📋
+                Learn more about this ↗
               </a>
             )}
           </div>

@@ -14,7 +14,7 @@ function AllSubject(props) {
       {topbar &&<TopBar txt="Test" click={props.click} bool={true} />}
       {topbar &&<div className="mtop"></div>}
       {topbar &&<h3>
-        Questions will come from all of your active subjects
+        Contains questions from all your active subjects
         </h3>}
           <SubjectList
           click={props.click}
