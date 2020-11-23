@@ -166,7 +166,6 @@ function Graph() {
       ) : (
         <LoadingScreen />
       )}
-      <div className="c-box-min"></div>
     </div>
   );
 }

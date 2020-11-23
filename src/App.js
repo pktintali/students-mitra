@@ -13,7 +13,9 @@ import {
   Nav,
   LoadingScreen,
   Game,
+  FeedBackPage
 } from "./components/index";
+import Test from "./Test";
 
 export const NavContext = React.createContext();
 
@@ -53,6 +55,8 @@ function App() {
             <Route path="/signup" component={Signup} />
             <Route path="/profile" component={Profile} />
             <Route path="/game" component={Game} />
+            <Route path="/feedback" component={FeedBackPage} />
+            <Route path="/dev" component={Test} />
           </Switch>
         </NavContext.Provider>
       </div>

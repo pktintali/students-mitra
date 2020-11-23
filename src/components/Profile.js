@@ -7,6 +7,7 @@ import LoadingScreen from "./LoadingScreen";
 import cameraPlaceholder from "../camera-placeholder.png";
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Helmet } from "react-helmet";
 
 toast.configure();
 const Profile = (props) => {
@@ -136,6 +137,13 @@ const Profile = (props) => {
 
   return !editMode ? (
     <>
+    <Helmet>
+  <title>{profileInfo?profileInfo.name:'Your Profile'}</title>
+        <meta
+          name="description"
+          content="students-mitra users profile info. students-mitra is online study analyzer and learning suggestion modal."
+        />
+      </Helmet>
       <TopBar bool={true} profile={true} txt="Profile" />
       <div className="mtop"></div>
       <h2 className="w3-hide-small">Your Profile Info</h2>

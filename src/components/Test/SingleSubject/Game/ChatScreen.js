@@ -4,6 +4,7 @@ import { RiSendPlaneFill } from "react-icons/ri";
 import AddRoom from "./AddRoom";
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Helmet } from "react-helmet";
 
 toast.configure();
 function UseMsg(id) {
@@ -50,6 +51,13 @@ const ChatScreen = (props) => {
   }
   return (
     <div>
+      <Helmet>
+        <title>{props.id+"Chats"}</title>
+        <meta
+          name="description"
+          content="Game mode chat screen. joined players in the room can chat here."
+        />
+      </Helmet>
       <ul
         id = 'chatList'
         style={{listStyleType:'none', height :'250px',maxHeight: 250, overflow: "auto" }}

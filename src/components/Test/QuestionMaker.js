@@ -5,6 +5,7 @@ import SaveResult from "./SaveResult";
 import LeaderBoard from "./SingleSubject/Game/LeaderBoard";
 import AddRoom from "./SingleSubject/Game/AddRoom";
 import firebase from "../firebase";
+import { Helmet } from "react-helmet";
 
 function QuestionMaker(props) {
   const navByContext = useContext(NavContext);
@@ -342,6 +343,13 @@ function QuestionMaker(props) {
         {noticemodal}
         {questions.slice(q, q + 1).map((question) => (
           <div>
+            <Helmet>
+        <title>{question[1]}</title>
+              <meta
+                name="description"
+                content={question[1]+','+question[2]+','+question[3]+','+question[4]+','+question[5]}
+              />
+            </Helmet>
             <div
               style={{ maxWidth: "355px" }}
               id="top"

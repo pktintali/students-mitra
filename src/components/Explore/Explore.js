@@ -8,7 +8,9 @@ import firebase from "../firebase";
 import cameraPlaceholder from "../../camera-placeholder.png";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ReactPlayer from 'react-player/youtube'
+import ReactPlayer from "react-player/youtube";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 toast.configure();
 function Explore() {
@@ -94,7 +96,7 @@ function Explore() {
           author: author,
           authorId: authorId,
           image: img,
-          key:currentdate.getTime()
+          key: currentdate.getTime(),
         });
       } else {
         await firebase.addPost({
@@ -103,7 +105,7 @@ function Explore() {
           time: time,
           author: author,
           authorId: authorId,
-          key:currentdate.getTime()
+          key: currentdate.getTime(),
         });
       }
       setText("");
@@ -122,6 +124,13 @@ function Explore() {
 
   return (
     <>
+    <Helmet>
+        <title>Students-mitra Explore feeds</title>
+        <meta
+          name="description"
+          content="students-mitra explore feeds and posts by other user. education releated news and you can ask your questions"
+        />
+      </Helmet>
       <TopBar txt="Explore" bool={false} />
       <div className="mtop"></div>
       {firebase.getCurrentUsername() && (
@@ -213,7 +222,12 @@ function Explore() {
                 </div>
                 <div className="w3-padding  w3-panel w3-card w3-pale-blue">
                   <div className="touch">
-                    <p style ={{whiteSpace:'pre-line'}} className="w3-left-align">{text}</p>
+                    <p
+                      style={{ whiteSpace: "pre-line" }}
+                      className="w3-left-align"
+                    >
+                      {text}
+                    </p>
                     <img
                       alt="post image"
                       src={cameraPlaceholder}
@@ -251,26 +265,46 @@ function Explore() {
         </div>
       )}
 
-      {!text && firebase.getCurrentUsername()&&(
+      {!text && firebase.getCurrentUsername() && (
         <div className="w3-row-padding">
           {posts &&
             posts.map((post) => {
-              return <PostCard key ={post.key} post={post} />;
+              return <PostCard key={post.key} post={post} />;
             })}
+          <div className="w3-padding-large w3-right">
+            <Link
+              to="/feedback"
+              className="w3-border-red w3-button w3-round-large w3-border"
+            >
+              Feedback/Report Bug
+            </Link>
+          </div>
         </div>
       )}
-      {
-        !firebase.getCurrentUsername()&&!visible&&<div className='w3-hide-small w3-hide-medium w3-display-middle'>
+      {!firebase.getCurrentUsername() && !visible && (
+        <div className="w3-hide-small w3-hide-medium w3-display-middle">
           <h1>Have a quick tour</h1>
-          <ReactPlayer light height={400} width={720} controls url='https://www.youtube.com/watch?v=hLQXsF23NBQ'/>
-          </div>
-      }
-      {
-        !firebase.getCurrentUsername()&&!visible&&<div className='w3-hide-large w3-display-middle'>
+          <ReactPlayer
+            light
+            height={400}
+            width={720}
+            controls
+            url="https://www.youtube.com/watch?v=hLQXsF23NBQ"
+          />
+        </div>
+      )}
+      {!firebase.getCurrentUsername() && !visible && (
+        <div className="w3-hide-large w3-display-middle">
           <h1>Have a quick tour</h1>
-          <ReactPlayer light height={160} width={300} controls url='https://www.youtube.com/watch?v=hLQXsF23NBQ'/>
-          </div>
-      }
+          <ReactPlayer
+            light
+            height={160}
+            width={300}
+            controls
+            url="https://www.youtube.com/watch?v=hLQXsF23NBQ"
+          />
+        </div>
+      )}
       {!visible && (
         <div onClick={display} style={{ height: "50px", width: "300px" }}></div>
       )}

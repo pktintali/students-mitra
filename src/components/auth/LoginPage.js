@@ -8,6 +8,7 @@ import LoadingScreen from "../LoadingScreen";
 
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Helmet } from "react-helmet";
 
 toast.configure();
 function LoginPage(props) {
@@ -98,6 +99,13 @@ function LoginPage(props) {
 
   return !loading ? (
     <>
+    <Helmet>
+        <title>Login to Students-mitra</title>
+        <meta
+          name="description"
+          content="students-mitra login page. student mitra is online subject knowledge testing platform."
+        />
+      </Helmet>
       {reset && resetModal}
       <div style={myFormStyle}>
         <TopBar txt="Login" />

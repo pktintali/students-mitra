@@ -8,6 +8,7 @@ import AddRoom from "./Game/AddRoom";
 import firebase from "../../firebase";
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Helmet } from "react-helmet";
 
 toast.configure();
 export const GameSubContext = React.createContext();
@@ -148,6 +149,13 @@ function SingleSubject(props) {
   if (!props.game || game) {
     return (
       <>
+      <Helmet>
+        <title>Single Subject Test</title>
+        <meta
+          name="description"
+          content="students-mitra single subject testpage. Test for single subject. here you can select any one subject"
+        />
+      </Helmet>
         <div className="mtop"></div>
         <div>
           {topbar && <TopBar txt="Test" click={props.click} bool={true} />}
@@ -177,6 +185,13 @@ function SingleSubject(props) {
   } else {
     return (
       <>
+      <Helmet>
+        <title>Game Mode On Learning through fun</title>
+        <meta
+          name="description"
+          content="welcom to game mode. #LearningthroughFun learning with fun play quizzes with your friends and host rooms. create and join room. challenge Your friend"
+        />
+      </Helmet>
       <div style ={bg?{
         color:'white',
       width:'100%',

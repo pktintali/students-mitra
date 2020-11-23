@@ -1,5 +1,6 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
+import { Helmet } from "react-helmet";
 
 function ResultPage(props) {
   const questions = props.qData;
@@ -55,6 +56,13 @@ function ResultPage(props) {
 
   return (
     <>
+    <Helmet>
+  <title>{c.toString()+' Marks | Review Your Results'}</title>
+        <meta
+          name="description"
+          content="students-mitra test review page. Where users can review their result and marks obtained in a test."
+        />
+      </Helmet>
     <h2 style={{marginTop:'-50px'}}>Review Your Results</h2>
     <div style = {{position:'fixed'}} className='w3-hide-small w3-hide-medium w3-half'>
       <Doughnut

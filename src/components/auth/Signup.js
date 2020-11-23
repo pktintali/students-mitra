@@ -7,6 +7,7 @@ import firebase from "../firebase";
 import LoadingScreen from "../LoadingScreen";
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Helmet } from "react-helmet";
 
 toast.configure();
 function SignupPage(props) {
@@ -52,6 +53,13 @@ function SignupPage(props) {
 
   return !loading ? (
     <>
+    <Helmet>
+        <title>SignUp for Students-Mitra</title>
+        <meta
+          name="description"
+          content="students-mitra SignUp page. student mitra is online subject knowledge testing platform."
+        />
+      </Helmet>
       <div style={myFormStyle}>
         <TopBar txt="Login" />
         <div className="mtop"></div>

@@ -4,6 +4,7 @@ import { BsChatDots, BsFillChatDotsFill } from "react-icons/bs";
 import ChatScreen from "./ChatScreen";
 import UsePlayers from "./UsePlayers";
 import AddRoom from "./AddRoom";
+import { Helmet } from "react-helmet";
 
 function UseGame(id) {
   const [game, setGames] = useState([]);
@@ -56,6 +57,13 @@ function FirebaseSearch(props) {
 
   return (
     <>
+    <Helmet>
+  <title>{props.id}</title>
+        <meta
+          name="description"
+          content="game room page. wait for other players to join. play with friends. learning with fun"
+        />
+      </Helmet>
       <div className="w3-third">
         <div className="w3-hide-small">
           {games[0] && games[0].host == user&&<form className="w3-container">

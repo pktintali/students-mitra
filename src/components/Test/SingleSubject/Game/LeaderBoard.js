@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import firebase from "../../../firebase";
 import UsePlayers from "./UsePlayers";
 import checkFull from "./CheckFull";
+import { Helmet } from "react-helmet";
 
 function LeaderBoard(props) {
   const [loading, setLoading] = useState(false);
@@ -38,6 +39,13 @@ function LeaderBoard(props) {
 
   return players ? (
     <>
+    <Helmet>
+        <title>LeaderBoard</title>
+        <meta
+          name="description"
+          content="students-mitra game leaderboard. View your and your friends game score here."
+        />
+      </Helmet>
       {loading && loader}
       <div className="w3-third">
         <p></p>
