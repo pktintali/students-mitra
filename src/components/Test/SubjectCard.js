@@ -11,6 +11,13 @@ function SubjectCard(props) {
   const mobileCard = [];
   const pcCard = [];
 
+  const emptyUIList = [
+    <div>
+      <h3>Your Active Subjects List is Empty.</h3>
+      <p><i>Click on Star to Mark a subject active</i></p>
+    </div>,
+  ];
+
   const subList = FetchSubjectList();
   const activeSub = UseActiveSub(firebase.getCurrentUserEmail());
 
@@ -51,24 +58,24 @@ function SubjectCard(props) {
       <div
         style={cardStyle}
         onClick={() => {
-          if(props.id === 1){
-          if (active) {
-            for (let j in subList) {
-              if (
-                activeSub[0] &&
-                subList[j][2] == activeSub[0].activeSubject[i]
-              ) {
-                props.config({
-                  randLimit: subList[j][4],
-                });
+          if (props.id === 1) {
+            if (active) {
+              for (let j in subList) {
+                if (
+                  activeSub[0] &&
+                  subList[j][2] == activeSub[0].activeSubject[i]
+                ) {
+                  props.config({
+                    randLimit: subList[j][4],
+                  });
+                }
               }
+            } else {
+              props.config({
+                randLimit: subList[i][4],
+              });
             }
-          } else {
-            props.config({
-              randLimit: subList[i][4],
-            });
           }
-        }
           props.enableButton("");
 
           if (props.id === 1) {
@@ -246,8 +253,12 @@ function SubjectCard(props) {
     }
     return (
       <>
-        <div className="w3-hide-large w3-hide-medium">{mobileCard}</div>
-        <div className="w3-hide-small">{pcCard}</div>
+        <div className="w3-hide-large w3-hide-medium">
+          {mobileCard.length > 0 ? mobileCard : emptyUIList}
+        </div>
+        <div className="w3-hide-small">
+          {mobileCard.length > 0 ? pcCard : emptyUIList}
+        </div>
       </>
     );
   }

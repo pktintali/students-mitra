@@ -83,7 +83,7 @@ height:20px;
 width:100px;
 }
 .full-height{
-height:100vh;
+height:50vh;
 }
 .mr-m{
 color:green;
@@ -145,6 +145,7 @@ padding:65px;
 .touch{
 cursor:pointer,
 }
+
 #top{
   margin: auto;
   width: 100%;

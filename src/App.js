@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
@@ -13,7 +15,7 @@ import {
   Nav,
   LoadingScreen,
   Game,
-  FeedBackPage
+  FeedBackPage,
 } from "./components/index";
 import Test from "./Test";
 
@@ -27,7 +29,6 @@ function App() {
     setVisible(a);
   };
 
-  
   useEffect(() => {
     firebase.isInitialized().then((val) => {
       setInitFire(val);
@@ -40,27 +41,29 @@ function App() {
   }, [initLizedFire]);
 
   usermini && window.sessionStorage.setItem("dpmin", usermini);
-  
+
   return initLizedFire !== false ? (
-    <Router>
-      <ScrollToTop />
-      <div className="App">
-        <NavContext.Provider value={hide}>
-          {visible && <Nav />}
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/explore" component={Explore} />
-            <Route path="/test" exact component={Quiz} />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/game" component={Game} />
-            <Route path="/feedback" component={FeedBackPage} />
-            <Route path="/dev" component={Test} />
-          </Switch>
-        </NavContext.Provider>
-      </div>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <ScrollToTop />
+        <div className="App">
+          <NavContext.Provider value={hide}>
+            {visible && <Nav />}
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/explore" component={Explore} />
+              <Route path="/test" exact component={Quiz} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/profile" component={Profile} />
+              <Route path="/game" component={Game} />
+              <Route path="/feedback" component={FeedBackPage} />
+              <Route path="/dev" component={Test} />
+            </Switch>
+          </NavContext.Provider>
+        </div>
+      </Router>
+    </Provider>
   ) : (
     <div className="App">
       <div className="w3-container w3-large w3-padding-large w3-red">

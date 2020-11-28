@@ -5,8 +5,8 @@ import firebase from "./firebase";
 import { Link } from "react-router-dom";
 import LoadingScreen from "./LoadingScreen";
 import cameraPlaceholder from "../camera-placeholder.png";
-import {toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet";
 
 toast.configure();
@@ -33,8 +33,7 @@ const Profile = (props) => {
   async function setUser() {
     firebase.getDpImage().then(setDpImage);
     dpImage && window.sessionStorage.setItem("dpmin", dpImage);
-    firebase.addField({dp:true})
-
+    firebase.addField({ dp: true });
   }
   const handleFile = (e) => {
     if (e.target.files[0]) {
@@ -49,7 +48,9 @@ const Profile = (props) => {
       setUser();
     } else {
       // alert("Select Some Image");
-      toast.error('Select Image First',{position:toast.POSITION.BOTTOM_LEFT});
+      toast.error("Select Image First", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
     }
   };
   const handleImageUpload = (e) => {
@@ -69,16 +70,16 @@ const Profile = (props) => {
   const usermini = window.sessionStorage.getItem("dpmin");
 
   const profileData = {
-    name: name?name:"",
-    state: state?state:"",
-    country: country?country:"",
-    mobile: mobile?mobile:"",
-    email: email?email:"",
-    dob: dob?dob:"",
-    address: address?address:"",
-    sec: sec?sec:"",
-    branch: branch?branch:"",
-    college: college?college:"",
+    name: name ? name : "",
+    state: state ? state : "",
+    country: country ? country : "",
+    mobile: mobile ? mobile : "",
+    email: email ? email : "",
+    dob: dob ? dob : "",
+    address: address ? address : "",
+    sec: sec ? sec : "",
+    branch: branch ? branch : "",
+    college: college ? college : "",
   };
 
   async function doSignOut() {
@@ -90,10 +91,16 @@ const Profile = (props) => {
     try {
       await firebase.updateProfile(profileData);
       // alert("Profile Updated Successfully");
-      toast.success("Profile Updated Successfully",{position:toast.POSITION.BOTTOM_RIGHT,autoClose:4000})
+      toast.success("Profile Updated Successfully", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 4000,
+      });
       setEditMode(false);
     } catch (e) {
-      toast.error("Something Went Wrong",{position:toast.POSITION.BOTTOM_RIGHT,autoClose:4000})
+      toast.error("Something Went Wrong", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 4000,
+      });
     }
   }
 
@@ -128,6 +135,21 @@ const Profile = (props) => {
     editMode ? setEditMode(false) : setEditMode(true);
   };
 
+  const sendEmailVerificationLink = () => {
+    try {
+      firebase.sendEmailVerificationLink();
+      toast.success("Verification link Send To Your Email", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 4000,
+      });
+    } catch (e) {
+      toast.error("Could/'t Send Email Verification Link", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 4000,
+      });
+    }
+  };
+
   async function removeSubject(sub) {
     const index = activeSubjects.indexOf(sub);
     activeSubjects.splice(index, 1);
@@ -137,8 +159,8 @@ const Profile = (props) => {
 
   return !editMode ? (
     <>
-    <Helmet>
-  <title>{profileInfo?profileInfo.name:'Your Profile'}</title>
+      <Helmet>
+        <title>{profileInfo ? profileInfo.name : "Your Profile"}</title>
         <meta
           name="description"
           content="students-mitra users profile info. students-mitra is online study analyzer and learning suggestion modal."
@@ -146,6 +168,17 @@ const Profile = (props) => {
       </Helmet>
       <TopBar bool={true} profile={true} txt="Profile" />
       <div className="mtop"></div>
+      {!firebase.isUserVerified() && (
+        <div>
+          <i>⚠️Your Email is Not Verified. Verify for full Access</i>
+          <button
+            className="w3-margin w3-button w3-small w3-round-xxlarge w3-green"
+            onClick={sendEmailVerificationLink}
+          >
+            Verify
+          </button>
+        </div>
+      )}
       <h2 className="w3-hide-small">Your Profile Info</h2>
       {profileInfo ? (
         <div className="w3-animate-right">
@@ -175,66 +208,66 @@ const Profile = (props) => {
           <div className="w3-half">
             <table style={{ maxWidth: "500px" }} className="w3-table">
               <tbody>
-              <tr className="w3-border">
-                <td>
-                  <b>Name</b>
-                </td>
-                {<td>{profileInfo.name}</td>}
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>Section</b>
-                </td>
-                {<td>{profileInfo.sec}</td>}
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>Branch</b>
-                </td>
-                {<td>{profileInfo.branch}</td>}
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>College</b>
-                </td>
-                {<td>{profileInfo.college}</td>}
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>Mobile</b>
-                </td>
-                {<td>{profileInfo.mobile}</td>}
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>Email</b>
-                </td>
-                {<td>{profileInfo.email}</td>}
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>DOB</b>
-                </td>
-                {<td>{profileInfo.dob}</td>}
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>Address</b>
-                </td>
-                {<td>{profileInfo.address}</td>}
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>State</b>
-                </td>
-                {<td>{profileInfo.state}</td>}
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>Country</b>
-                </td>
-                {<td>{profileInfo.country}</td>}
-              </tr>
+                <tr className="w3-border">
+                  <td>
+                    <b>Name</b>
+                  </td>
+                  {<td>{profileInfo.name}</td>}
+                </tr>
+                <tr className="w3-border">
+                  <td>
+                    <b>Section</b>
+                  </td>
+                  {<td>{profileInfo.sec}</td>}
+                </tr>
+                <tr className="w3-border">
+                  <td>
+                    <b>Branch</b>
+                  </td>
+                  {<td>{profileInfo.branch}</td>}
+                </tr>
+                <tr className="w3-border">
+                  <td>
+                    <b>College</b>
+                  </td>
+                  {<td>{profileInfo.college}</td>}
+                </tr>
+                <tr className="w3-border">
+                  <td>
+                    <b>Mobile</b>
+                  </td>
+                  {<td>{profileInfo.mobile}</td>}
+                </tr>
+                <tr className="w3-border">
+                  <td>
+                    <b>Email</b>
+                  </td>
+                  {<td>{profileInfo.email}</td>}
+                </tr>
+                <tr className="w3-border">
+                  <td>
+                    <b>DOB</b>
+                  </td>
+                  {<td>{profileInfo.dob}</td>}
+                </tr>
+                <tr className="w3-border">
+                  <td>
+                    <b>Address</b>
+                  </td>
+                  {<td>{profileInfo.address}</td>}
+                </tr>
+                <tr className="w3-border">
+                  <td>
+                    <b>State</b>
+                  </td>
+                  {<td>{profileInfo.state}</td>}
+                </tr>
+                <tr className="w3-border">
+                  <td>
+                    <b>Country</b>
+                  </td>
+                  {<td>{profileInfo.country}</td>}
+                </tr>
               </tbody>
             </table>
             <div className="c-box-min"></div>
@@ -245,7 +278,7 @@ const Profile = (props) => {
             {activeSubjects &&
               activeSubjects.map((ac) => {
                 return (
-                  <li key ={ac}>
+                  <li key={ac}>
                     {ac}
                     <span
                       style={{ marginLeft: "50%" }}
@@ -294,7 +327,7 @@ const Profile = (props) => {
                   height: "150px",
                   width: "150px",
                   border: "1px dashed black",
-                  borderRadius:'50%'
+                  borderRadius: "50%",
                 }}
                 onClick={() => imageUploader.current.click()}
               >
@@ -304,7 +337,7 @@ const Profile = (props) => {
                   style={{
                     width: "100%",
                     height: "100%",
-                    borderRadius:'50%'
+                    borderRadius: "50%",
                   }}
                 />
               </div>
@@ -334,133 +367,133 @@ const Profile = (props) => {
           <div className="w3-half">
             <table style={{ maxWidth: "500px" }} className="w3-table">
               <tbody>
-              <tr className="w3-border">
-                <td>
-                  <b>Name:</b>
-                </td>
-                {
+                <tr className="w3-border">
                   <td>
-                    <input
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
+                    <b>Name:</b>
                   </td>
-                }
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>Section</b>
-                </td>
-                {
+                  {
+                    <td>
+                      <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                    </td>
+                  }
+                </tr>
+                <tr className="w3-border">
                   <td>
-                    <input
-                      type="text"
-                      value={sec}
-                      onChange={(e) => setSec(e.target.value)}
-                    />
+                    <b>Section</b>
                   </td>
-                }
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>Branch</b>
-                </td>
-                {
+                  {
+                    <td>
+                      <input
+                        type="text"
+                        value={sec}
+                        onChange={(e) => setSec(e.target.value)}
+                      />
+                    </td>
+                  }
+                </tr>
+                <tr className="w3-border">
                   <td>
-                    <input
-                      type="text"
-                      value={branch}
-                      onChange={(e) => setBranch(e.target.value)}
-                    />
+                    <b>Branch</b>
                   </td>
-                }
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>College</b>
-                </td>
-                {
+                  {
+                    <td>
+                      <input
+                        type="text"
+                        value={branch}
+                        onChange={(e) => setBranch(e.target.value)}
+                      />
+                    </td>
+                  }
+                </tr>
+                <tr className="w3-border">
                   <td>
-                    <input
-                      type="text"
-                      value={college}
-                      onChange={(e) => setCollege(e.target.value)}
-                    />
+                    <b>College</b>
                   </td>
-                }
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>Mobile</b>
-                </td>
-                {
+                  {
+                    <td>
+                      <input
+                        type="text"
+                        value={college}
+                        onChange={(e) => setCollege(e.target.value)}
+                      />
+                    </td>
+                  }
+                </tr>
+                <tr className="w3-border">
                   <td>
-                    <input
-                      type="number"
-                      value={mobile}
-                      onChange={(e) => setMobile(e.target.value)}
-                    />
+                    <b>Mobile</b>
                   </td>
-                }
-              </tr>
+                  {
+                    <td>
+                      <input
+                        type="number"
+                        value={mobile}
+                        onChange={(e) => setMobile(e.target.value)}
+                      />
+                    </td>
+                  }
+                </tr>
 
-              <tr className="w3-border">
-                <td>
-                  <b>DOB</b>
-                </td>
-                {
+                <tr className="w3-border">
                   <td>
-                    <input
-                      type="date"
-                      value={dob}
-                      onChange={(e) => setDob(e.target.value)}
-                    />
+                    <b>DOB</b>
                   </td>
-                }
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>Address</b>
-                </td>
-                {
+                  {
+                    <td>
+                      <input
+                        type="date"
+                        value={dob}
+                        onChange={(e) => setDob(e.target.value)}
+                      />
+                    </td>
+                  }
+                </tr>
+                <tr className="w3-border">
                   <td>
-                    <input
-                      type="text"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                    />
+                    <b>Address</b>
                   </td>
-                }
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>State</b>
-                </td>
-                {
+                  {
+                    <td>
+                      <input
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                      />
+                    </td>
+                  }
+                </tr>
+                <tr className="w3-border">
                   <td>
-                    <input
-                      type="text"
-                      value={state}
-                      onChange={(e) => setState(e.target.value)}
-                    />
+                    <b>State</b>
                   </td>
-                }
-              </tr>
-              <tr className="w3-border">
-                <td>
-                  <b>Country</b>
-                </td>
-                {
+                  {
+                    <td>
+                      <input
+                        type="text"
+                        value={state}
+                        onChange={(e) => setState(e.target.value)}
+                      />
+                    </td>
+                  }
+                </tr>
+                <tr className="w3-border">
                   <td>
-                    <input
-                      type="text"
-                      value={country}
-                      onChange={(e) => setCountry(e.target.value)}
-                    />
+                    <b>Country</b>
                   </td>
-                }
-              </tr>
+                  {
+                    <td>
+                      <input
+                        type="text"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                      />
+                    </td>
+                  }
+                </tr>
               </tbody>
             </table>
             <div className="c-box-min"></div>

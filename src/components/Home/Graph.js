@@ -4,6 +4,9 @@ import { Line } from "react-chartjs-2";
 import GetAvgMarks from "./GetAvgMarks";
 import LoadingScreen from "../LoadingScreen";
 import FeaturedLearning from "./FeaturedLearning";
+import { Link } from "react-router-dom";
+import firebase from '../firebase';
+
 
 const dataLine2 = {
   labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -39,7 +42,9 @@ function Graph() {
   }
 
   useEffect(() => {
-    getMarks();
+    let isMounted = true; 
+    isMounted&&getMarks();
+    return () => { isMounted = false };
   }, []);
 
   const dataBar = {
@@ -92,19 +97,18 @@ function Graph() {
     //   display:true,
     //   text:'% Marks'
     // },
-    scales:{
-      yAxes:[
+    scales: {
+      yAxes: [
         {
-          ticks:{
-            min:0,
-            max:100,
-            stepSize:10,
-          }
-        }
-      ]
-    }
-
-  }
+          ticks: {
+            min: 0,
+            max: 100,
+            stepSize: 10,
+          },
+        },
+      ],
+    },
+  };
 
   return (
     <div className="mtop">
@@ -114,12 +118,7 @@ function Graph() {
             <h3 className="w3-text-grey">Active Subjects Analysis</h3>
 
             <div style={{ padding: 10 }}>
-              <Bar
-                data={dataBar}
-                width={100}
-                height={60}
-                options={options}
-              />
+              <Bar data={dataBar} width={100} height={60} options={options} />
             </div>
           </div>
           <div className="w3-half">
@@ -162,6 +161,17 @@ function Graph() {
           {activeMarks.weakSubject != "" && (
             <FeaturedLearning sub={activeMarks.weakSubject} />
           )}
+          {firebase.isUserVerified()&&<div
+            style={{ marginBottom: 60 }}
+            className="w3-padding-large w3-right"
+          >
+            <Link
+              to="/feedback"
+              className="w3-border-red w3-button w3-round-large w3-border"
+            >
+              Feedback/Report Bug
+            </Link>
+          </div>}
         </div>
       ) : (
         <LoadingScreen />

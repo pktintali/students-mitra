@@ -166,7 +166,7 @@ function LoginPage(props) {
               <br></br>
               <Link to="/signup" className="no-td">
                 <button className="w3-block w3-button w3-red">
-                  New User ? SignUp
+                  New User ? Sign Up
                 </button>
               </Link>
               <p></p>

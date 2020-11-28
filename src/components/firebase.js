@@ -46,6 +46,14 @@ class Firebase {
     return this.auth.sendPasswordResetEmail(email);
   }
 
+   isUserVerified(){
+    return this.auth.currentUser.emailVerified;
+  }
+
+  async sendEmailVerificationLink() {
+    return await this.auth.currentUser.sendEmailVerification();
+  }
+
   getCurrentUsername() {
     return this.auth.currentUser && this.auth.currentUser.displayName;
   }
@@ -124,7 +132,6 @@ class Firebase {
       .doc(sub)
       .set(data, { merge: true });
   }
-
   async getmarks(sub) {
     const marks = await this.db
       .collection("usersData")
@@ -188,11 +195,15 @@ class Firebase {
     );
   }
 
-  addPost(post) {
+  addPost(post,key) {
     if (!this.auth.currentUser) {
       return alert("Not authorized");
     }
-    return this.db.collection("posts").doc().set(post);
+    return this.db.collection("posts").doc(`${key}`).set(post,{merge:true});
+  }
+
+  deletePost(key){
+    this.db.collection("posts").doc(`${key}`).delete();
   }
 
   async getDpImage() {

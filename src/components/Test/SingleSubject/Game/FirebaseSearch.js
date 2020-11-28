@@ -30,7 +30,7 @@ function UseGame(id) {
 function FirebaseSearch(props) {
   const [sub, setSub] = useState();
   const [chat, setChat] = useState(false);
-  const [defaultLeval,setDefaultLeval]=useState(null)
+  const [defaultLeval, setDefaultLeval] = useState(null);
   const games = UseGame(props.id);
   const players = UsePlayers(props.id);
   console.log(players);
@@ -40,14 +40,14 @@ function FirebaseSearch(props) {
   var user = firebase.getCurrentUserEmail();
 
   async function hostStart() {
-    !defaultLeval&&await AddRoom(props.id, "Normal", "leval");
+    !defaultLeval && (await AddRoom(props.id, "Normal", "leval"));
     props.start();
   }
 
-  async function setLeval(leval){
-    setDefaultLeval(leval)
+  async function setLeval(leval) {
+    setDefaultLeval(leval);
     await AddRoom(props.id, leval, "leval");
-    props.setLeval(leval)
+    props.setLeval(leval);
   }
 
   const toogleChat = () => {
@@ -57,54 +57,58 @@ function FirebaseSearch(props) {
 
   return (
     <>
-    <Helmet>
-  <title>{props.id}</title>
+      <Helmet>
+        <title>{props.id}</title>
         <meta
           name="description"
           content="game room page. wait for other players to join. play with friends. learning with fun"
         />
       </Helmet>
       <div className="w3-third">
+        
         <div className="w3-hide-small">
-          {games[0] && games[0].host == user&&<form className="w3-container">
-            <h2>Select Game Leval</h2>
-            <p className='w3-padding'>
-              <input
-                className="w3-radio pointer"
-                type="radio"
-                name="leval"
-                value="Easy"
-                onChange= {(e)=>setLeval(e.target.value)}
-              />
-              <label> Easy</label>
-            </p>
-            <p className='w3-padding'>
-              <input
-                className="w3-radio pointer"
-                type="radio"
-                name="leval"
-                value="Normal"
-                
-                onChange= {(e)=>setLeval(e.target.value)}
-              />
-              <label> Normal</label>
-            </p>
-            <p className='w3-padding'>
-              <input
-                className="w3-radio pointer"
-                type="radio"
-                name="leval"
-                value="Hard"
-                onChange= {(e)=>setLeval(e.target.value)}
-              />
-              <label> Hard</label>
-            </p>
-          </form>}
+          {games[0] && games[0].host == user && (
+            <form className="w3-container">
+              <h2>Select Game Leval</h2>
+              <p className="w3-padding">
+                <input
+                  className="w3-radio pointer"
+                  type="radio"
+                  name="leval"
+                  value="Easy"
+                  onChange={(e) => setLeval(e.target.value)}
+                />
+                <label> Easy</label>
+              </p>
+              <p className="w3-padding">
+                <input
+                  className="w3-radio pointer"
+                  type="radio"
+                  name="leval"
+                  value="Normal"
+                  onChange={(e) => setLeval(e.target.value)}
+                />
+                <label> Normal</label>
+              </p>
+              <p className="w3-padding">
+                <input
+                  className="w3-radio pointer"
+                  type="radio"
+                  name="leval"
+                  value="Hard"
+                  onChange={(e) => setLeval(e.target.value)}
+                />
+                <label> Hard</label>
+              </p>
+            </form>
+          )}
           <p></p>
         </div>
       </div>
       <div className="w3-third">
-  <h3>Room id = <i>{props.id}</i></h3>
+        <h3>
+          Room id = <i>{props.id}</i>
+        </h3>
         <table className="w3-table w3-striped w3-border">
           <tr className="w3-pale-green">
             <th>
@@ -179,7 +183,8 @@ function FirebaseSearch(props) {
         <div className="c-box-min"></div>
       </div>
       <div className="w3-hide-large w3-hide-medium">
-          {games[0] && games[0].host == user&&<form className="w3-container">
+        {games[0] && games[0].host == user && (
+          <form className="w3-container">
             <h2>Select Game Leval</h2>
             <p>
               <input
@@ -187,7 +192,7 @@ function FirebaseSearch(props) {
                 type="radio"
                 name="leval"
                 value="Easy"
-                onChange= {(e)=>setLeval(e.target.value)}
+                onChange={(e) => setLeval(e.target.value)}
               />
               <label> Easy</label>
             </p>
@@ -197,8 +202,7 @@ function FirebaseSearch(props) {
                 type="radio"
                 name="leval"
                 value="Normal"
-                
-                onChange= {(e)=>setLeval(e.target.value)}
+                onChange={(e) => setLeval(e.target.value)}
               />
               <label> Normal</label>
             </p>
@@ -208,13 +212,14 @@ function FirebaseSearch(props) {
                 type="radio"
                 name="leval"
                 value="Hard"
-                onChange= {(e)=>setLeval(e.target.value)}
+                onChange={(e) => setLeval(e.target.value)}
               />
               <label> Hard</label>
             </p>
-          </form>}
-          <p></p>
-        </div>
+          </form>
+        )}
+        <p></p>
+      </div>
       <div className="c-box-min"></div>
     </>
   );

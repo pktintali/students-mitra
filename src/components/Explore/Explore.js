@@ -89,24 +89,30 @@ function Explore() {
     var authorId = firebase.getCurrentUserEmail();
     try {
       if (isImage) {
-        await firebase.addPost({
-          text: text,
-          date: date,
-          time: time,
-          author: author,
-          authorId: authorId,
-          image: img,
-          key: currentdate.getTime(),
-        });
+        await firebase.addPost(
+          {
+            text: text,
+            date: date,
+            time: time,
+            author: author,
+            authorId: authorId,
+            image: img,
+            key: currentdate.getTime(),
+          },
+          currentdate.getTime().toString()
+        );
       } else {
-        await firebase.addPost({
-          text: text,
-          date: date,
-          time: time,
-          author: author,
-          authorId: authorId,
-          key: currentdate.getTime(),
-        });
+        await firebase.addPost(
+          {
+            text: text,
+            date: date,
+            time: time,
+            author: author,
+            authorId: authorId,
+            key: currentdate.getTime(),
+          },
+          currentdate.getTime().toString()
+        );
       }
       setText("");
       setIsImage(false);
@@ -114,6 +120,22 @@ function Explore() {
       alert(e);
     }
   }
+
+  const sendEmailVerificationLink = () => {
+    try {
+      firebase.sendEmailVerificationLink();
+      toast.success("Verification link Send To Your Email", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 4000,
+      });
+    } catch (e) {
+      toast.error("Could/'t Send Email Verification Link", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 4000,
+      });
+    }
+    // window.location.reload();
+  };
 
   const setInput = (e) => {
     setText(e.target.value);
@@ -124,7 +146,7 @@ function Explore() {
 
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>Students-mitra Explore feeds</title>
         <meta
           name="description"
@@ -135,6 +157,17 @@ function Explore() {
       <div className="mtop"></div>
       {firebase.getCurrentUsername() && (
         <div className="w3-padding">
+          {!firebase.isUserVerified() && (
+            <div>
+              <i>⚠️Your Email is Not Verified. So You Can't Post Anything</i>
+              <button
+                className="w3-margin w3-button w3-small w3-round-xxlarge w3-green"
+                onClick={sendEmailVerificationLink}
+              >
+                Verify
+              </button>
+            </div>
+          )}
           <div className="w3-third">
             {!text && <p></p>}
             {text && (
@@ -181,70 +214,76 @@ function Explore() {
             )}
           </div>
           <div className="w3-third">
-            <div className="w3-hide-small">
-              <textarea
-                type="text"
-                rows="4"
-                cols="70"
-                placeholder="Type Something..."
-                value={text}
-                onChange={setInput}
-              ></textarea>
-            </div>
-            <div className="w3-hide-large w3-hide-medium">
-              <textarea
-                type="text"
-                rows="4"
-                cols="30"
-                placeholder="Type Something..."
-                value={text}
-                onChange={setInput}
-              ></textarea>
-            </div>
-            <p className="w3-hide-large"></p>
-            {text && (
-              <button
-                style={{ marginTop: 30 }}
-                onClick={sendPost}
-                className={`w3-button w3-green w3-hide-large ${
-                  !text ? "w3-disabled" : ""
-                }`}
-                type="submit"
-              >
-                POST
-              </button>
-            )}
-            {text && (
+            {firebase.isUserVerified() ? (
               <div>
-                <h3>Preview</h3>
-                <div className="w3-third">
-                  <p> </p>
+                <div className="w3-hide-small">
+                  <textarea
+                    type="text"
+                    rows="4"
+                    cols="70"
+                    placeholder="Type Something..."
+                    value={text}
+                    onChange={setInput}
+                  ></textarea>
                 </div>
-                <div className="w3-padding  w3-panel w3-card w3-pale-blue">
-                  <div className="touch">
-                    <p
-                      style={{ whiteSpace: "pre-line" }}
-                      className="w3-left-align"
-                    >
-                      {text}
-                    </p>
-                    <img
-                      alt="post image"
-                      src={cameraPlaceholder}
-                      ref={uploadedImage}
-                      style={{
-                        maxHeight: 340,
-                        maxWidth: 380,
-                        display: isImage ? "" : "none",
-                      }}
-                    />
+                <div className="w3-hide-large w3-hide-medium">
+                  <textarea
+                    type="text"
+                    rows="4"
+                    cols="30"
+                    placeholder="Type Something..."
+                    value={text}
+                    onChange={setInput}
+                  ></textarea>
+                </div>
+                <p className="w3-hide-large"></p>
+                {text && (
+                  <button
+                    style={{ marginTop: 30 }}
+                    onClick={sendPost}
+                    className={`w3-button w3-green w3-hide-large ${
+                      !text ? "w3-disabled" : ""
+                    }`}
+                    type="submit"
+                  >
+                    POST
+                  </button>
+                )}
+                {text && (
+                  <div>
+                    <h3>Preview</h3>
+                    <div className="w3-third">
+                      <p> </p>
+                    </div>
+                    <div className="w3-padding  w3-panel w3-card w3-pale-blue">
+                      <div className="touch">
+                        <p
+                          style={{ whiteSpace: "pre-line" }}
+                          className="w3-left-align"
+                        >
+                          {text}
+                        </p>
+                        <img
+                          alt="post image"
+                          src={cameraPlaceholder}
+                          ref={uploadedImage}
+                          style={{
+                            maxHeight: 340,
+                            maxWidth: 380,
+                            display: isImage ? "" : "none",
+                          }}
+                        />
+                      </div>
+                      <br></br>
+                      <br></br>
+                    </div>
+                    <div className="mbot"></div>
+                    <div className="c-box-xmin"> </div>
                   </div>
-                  <br></br>
-                  <br></br>
-                </div>
-                <div className="mbot"></div>
-                <div className="c-box-xmin"> </div>
+                )}
               </div>
+            ) : (
+              <p></p>
             )}
           </div>
           <div className="w3-third">
@@ -271,25 +310,26 @@ function Explore() {
             posts.map((post) => {
               return <PostCard key={post.key} post={post} />;
             })}
-          <div className="w3-padding-large w3-right">
-            <Link
-              to="/feedback"
-              className="w3-border-red w3-button w3-round-large w3-border"
-            >
-              Feedback/Report Bug
-            </Link>
-          </div>
+        </div>
+      )}
+      {firebase.isUserVerified() && (
+        <div className="w3-padding-large w3-right">
+          <Link
+            to="/feedback"
+            className="w3-border-red w3-button w3-round-large w3-border"
+          >
+            Feedback/Report Bug
+          </Link>
         </div>
       )}
       {!firebase.getCurrentUsername() && !visible && (
         <div className="w3-hide-small w3-hide-medium w3-display-middle">
           <h1>Have a quick tour</h1>
           <ReactPlayer
-            light
             height={400}
             width={720}
             controls
-            url="https://www.youtube.com/watch?v=hLQXsF23NBQ"
+            url="https://youtu.be/tsfKferlvRY"
           />
         </div>
       )}
@@ -301,7 +341,7 @@ function Explore() {
             height={160}
             width={300}
             controls
-            url="https://www.youtube.com/watch?v=hLQXsF23NBQ"
+            url="https://youtu.be/tsfKferlvRY"
           />
         </div>
       )}

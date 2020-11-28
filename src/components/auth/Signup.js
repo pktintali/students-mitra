@@ -14,11 +14,17 @@ function SignupPage(props) {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState();
   const [password, setPassword] = useState();
+  const [password2, setPassword2] = useState();
   const [loading, setLoading] = useState(false);
 
   async function signup(e) {
     setLoading(true);
     e.preventDefault();
+    if(password!==password2){
+      toast.error('Password did not match with first',{position:toast.POSITION.BOTTOM_RIGHT})
+      setLoading(false);
+      return
+    }
     try {
       await firebase.register(userName, userEmail, password);
       await firebase.updateProfile({
@@ -115,18 +121,18 @@ function SignupPage(props) {
                   className="w3-input w3-border"
                   type="password"
                   placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={password2}
+                  onChange={(e) => setPassword2(e.target.value)}
                 ></input>
               </p>
               <br></br>
               <button onClick={signup} className="w3-block w3-button w3-red">
-                Register
+                Sign up
               </button>
               <br></br>
               <Link to="/login" className="no-td">
                 <button className="w3-block w3-button w3-red">
-                  Already Account SignIn
+                  Already Account Login
                 </button>
               </Link>
               <p></p>
