@@ -20,10 +20,10 @@ function Quiz(props) {
   const [id, setId] = useState(0);
   const [selector, setSelector] = useState(true);
   const [game, setGame] = useState(false);
-  const [animation,setAnimation] = useState('');
+  const [animation, setAnimation] = useState("");
 
   // if (!firebase.getCurrentUsername()) {
-    // not logged in
+  // not logged in
   //   toast.error("You need to be logged in", {
   //     position: toast.POSITION.BOTTOM_RIGHT,
   //   });
@@ -32,7 +32,7 @@ function Quiz(props) {
   // }
 
   const goBack = () => {
-    setAnimation('w3-animate-right')
+    setAnimation("w3-animate-right");
     window.scrollTo(0, 0);
     setId(0);
     setGame(false);
@@ -72,97 +72,103 @@ function Quiz(props) {
   if (selector) {
     return (
       <>
-      <Helmet>
+        <Helmet>
           <title>Students-mitra Test</title>
           <meta
             name="description"
             content="students-mitra testpage. give test for single subject, selected subjects and for all active subjects. there is also a game mode."
           />
         </Helmet>
-      <div className={`${animation}`}>
-        <TopBar txt="Test" bool={false} />
-        <div className="mtop"></div>
-        {firebase.getCurrentUsername() && (
-          <div>
-            <div className="w3-row-padding ">
-              <div style={{ width: "33.3%" }} className="w3-col">
-                <RoundButton click={setSingleSubject} txt="Single Subject" />
-              </div>
+        <div>
+          <TopBar txt="Test" bool={false} />
+          <div className="mtop"></div>
+          {firebase.getCurrentUsername() && (
+            <div className={`${animation}`}>
+              <div className="w3-row-padding ">
+                <div style={{ width: "33.3%" }} className="w3-col">
+                  <RoundButton click={setSingleSubject} txt="Single Subject" />
+                </div>
 
-              <div style={{ width: "33.3%" }} className="w3-col">
-                <RoundButton click={setSelectSubject} txt="Select Subject" />
-              </div>
+                <div style={{ width: "33.3%" }} className="w3-col">
+                  <RoundButton click={setSelectSubject} txt="Select Subject" />
+                </div>
 
-              <div style={{ width: "33.3%" }} className="w3-col">
-                <RoundButton click={setAllSubject} txt="Active Subjects" />
+                <div style={{ width: "33.3%" }} className="w3-col">
+                  <RoundButton click={setAllSubject} txt="Active Subjects" />
+                </div>
               </div>
-            </div>
-            <div style={{ height: "10px" }}></div>
-            <div
-              style={{ marginLeft: "33%", marginRight: "33%" }}
-              className="w3-padding"
-            >
-              <RoundButton
-                tag={true}
-                click={setSingleSubjectWithGame}
-                txt="Play With Friends"
-              />
-            </div>
-            {firebase.isUserVerified()&&<div style = {{marginTop:window.innerHeight/2-120}} className="w3-padding-large w3-right">
-              <Link
-                to="/feedback"
-                className="w3-border-red w3-button w3-round-large w3-border"
+              <div style={{ height: "10px" }}></div>
+              <div
+                style={{ marginLeft: "33%", marginRight: "33%" }}
+                className="w3-padding"
               >
-                Feedback/Report Bug
-              </Link>
-            </div>}
-          </div>
-        )}
-        {!firebase.getCurrentUsername() && (
-          <div>
-            <h1>Demo Test</h1>
-            <div
-              style={{ marginLeft: "33%", marginRight: "33%" }}
-              className="w3-padding"
-            >
-              <RoundButton
-                click={setSingleSubjectWithDemo}
-                txt="Start Demo Test"
-              />
+                <RoundButton
+                  tag={true}
+                  click={setSingleSubjectWithGame}
+                  txt="Play With Friends"
+                />
+              </div>
+              {firebase.isUserVerified() && (
+                <div
+                  style={{ marginTop: window.innerHeight / 2 - 105 }}
+                  className="w3-padding-large w3-right"
+                >
+                  <Link
+                    to="/feedback"
+                    className="w3-border-red w3-button w3-round-large w3-border"
+                  >
+                    Feedback/Report Bug
+                  </Link>
+                </div>
+              )}
             </div>
-            <h1>
-              <i>Sign Up for Full Feature</i>
-            </h1>
-            <div
-              style={{
-                width: "50%",
-                margin: "0 auto",
-              }}
-              className="w3-hide-small w3-hide-medium w3-text-center"
-            >
-              <br></br><br></br>
-              <h2>Watch how it works!😀</h2>
-              <ReactPlayer
-                height={400}
-                width={720}
-                controls
-                url="https://youtu.be/tsfKferlvRY"
-              />
+          )}
+          {!firebase.getCurrentUsername() && (
+            <div>
+              <h1>Demo Test</h1>
+              <div
+                style={{ marginLeft: "33%", marginRight: "33%" }}
+                className="w3-padding"
+              >
+                <RoundButton
+                  click={setSingleSubjectWithDemo}
+                  txt="Start Demo Test"
+                />
+              </div>
+              <h1>
+                <i>Sign Up for Full Feature</i>
+              </h1>
+              <div
+                style={{
+                  width: "50%",
+                  margin: "0 auto",
+                }}
+                className="w3-hide-small w3-hide-medium w3-text-center"
+              >
+                <br></br>
+                <br></br>
+                <h2>Watch how it works!😀</h2>
+                <ReactPlayer
+                  height={400}
+                  width={720}
+                  controls
+                  url="https://youtu.be/tsfKferlvRY"
+                />
+              </div>
+              <div className="w3-hide-large">
+                <h2>Watch how it works!😀</h2>
+                <ReactPlayer
+                  light
+                  height={180}
+                  width={window.innerWidth}
+                  controls
+                  url="https://youtu.be/tsfKferlvRY"
+                />
+              </div>
             </div>
-            <div className="w3-hide-large">
-              <h1>Watch how it works!</h1>
-              <ReactPlayer
-                light
-                height={160}
-                width={300}
-                controls
-                url="https://youtu.be/tsfKferlvRY"
-              />
-            </div>
-          </div>
-        )}
-        <div className="c-box-min"></div>
-      </div>
+          )}
+          <div className="c-box-min"></div>
+        </div>
       </>
     );
   } else {

@@ -312,7 +312,7 @@ function Explore() {
             })}
         </div>
       )}
-      {firebase.isUserVerified() && (
+      {firebase.getCurrentUsername()&&firebase.isUserVerified() && (
         <div className="w3-padding-large w3-right">
           <Link
             to="/feedback"
@@ -338,8 +338,8 @@ function Explore() {
           <h1>Have a quick tour</h1>
           <ReactPlayer
             light
-            height={160}
-            width={300}
+            height={180}
+            width={350}
             controls
             url="https://youtu.be/tsfKferlvRY"
           />

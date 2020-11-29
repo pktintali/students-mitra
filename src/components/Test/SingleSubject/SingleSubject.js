@@ -9,6 +9,7 @@ import firebase from "../../firebase";
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Helmet } from "react-helmet";
+import { FaArrowLeft } from "react-icons/fa";
 
 toast.configure();
 export const GameSubContext = React.createContext();
@@ -205,6 +206,12 @@ function SingleSubject(props) {
           {loading && loader}
           {topbar && <TopBar txt="Test" click={props.click} bool={true} />}
           {topbar && <div className="c-box-min"></div>}
+          {topbar&&<button
+            onClick={props.click}
+            className="w3-hide-small w3-hide-medium icon-bar  w3-left w3-button"
+          >
+            <FaArrowLeft size="20" />
+          </button>}
           {!join&&<h2>Welcome to Game Mode</h2>}
 
           {!join && <p className='w3-text-sand'>Join/Create Room</p>}
