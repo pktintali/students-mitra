@@ -6,10 +6,11 @@ import LeaderBoard from "./SingleSubject/Game/LeaderBoard";
 import AddRoom from "./SingleSubject/Game/AddRoom";
 import firebase from "../firebase";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
 
 function QuestionMaker(props) {
   const navByContext = useContext(NavContext);
-
+  const dark = useSelector((state) => state.theme.dark);
   var id = window.sessionStorage.getItem("id");
   //Skip ans goNext Buttons Functionalaty only difference is that
   //skip goes next without saving ans and goNext goes next by saving ans
@@ -21,10 +22,10 @@ function QuestionMaker(props) {
   const [display, setDisplay] = useState("none");
   const [notice, setNotice] = useState("block");
   const [timeColor, setTimeColor] = useState("green");
-  const [opt0Color, setOpt0Color] = useState("w3-white");
-  const [opt1Color, setOpt1Color] = useState("w3-white");
-  const [opt2Color, setOpt2Color] = useState("w3-white");
-  const [opt3Color, setOpt3Color] = useState("w3-white");
+  const [opt0Color, setOpt0Color] = useState(dark ? "" : "w3-white");
+  const [opt1Color, setOpt1Color] = useState(dark ? "" : "w3-white");
+  const [opt2Color, setOpt2Color] = useState(dark ? "" : "w3-white");
+  const [opt3Color, setOpt3Color] = useState(dark ? "" : "w3-white");
   const [animation, setAnimation] = useState("");
   const [userAns, setUserAns] = useState();
   const [end, setEnd] = useState(false);
@@ -34,10 +35,10 @@ function QuestionMaker(props) {
   const [loader, setLoader] = useState(false);
   var [timeout, setTimeOut] = useState(false);
   const clearColor = () => {
-    setOpt0Color("w3-white");
-    setOpt1Color("w3-white");
-    setOpt2Color("w3-white");
-    setOpt3Color("w3-white");
+    setOpt0Color(dark ? "" : "w3-white");
+    setOpt1Color(dark ? "" : "w3-white");
+    setOpt2Color(dark ? "" : "w3-white");
+    setOpt3Color(dark ? "" : "w3-white");
   };
 
   const closeAnsModal = () => {
@@ -59,7 +60,9 @@ function QuestionMaker(props) {
     <div style={{ display: "block", zIndex: 999999 }} className="w3-modal">
       <div
         style={{ maxWidth: "350px" }}
-        className="w3-modal-content w3-padding w3-border w3-border-red w3-animate-zoom w3-padding w3-card-4"
+        className={`w3-modal-content w3-padding w3-border ${
+          dark ? "w3-black" : ""
+        } w3-border-red w3-animate-zoom w3-padding w3-card-4`}
       >
         <div style={{ height: "30px" }}></div>
         <h4>Submitting Your Answers...</h4>
@@ -72,7 +75,9 @@ function QuestionMaker(props) {
     <div style={{ display: display, zIndex: 9999999 }} className="w3-modal">
       <div
         style={{ maxWidth: "500px" }}
-        className="w3-modal-content w3-padding-large w3-border w3-border-red w3-animate-top w3-padding w3-card-4"
+        className={`w3-modal-content w3-padding-large w3-border w3-border-red ${
+          dark ? "w3-black" : ""
+        } w3-animate-top w3-padding w3-card-4`}
       >
         <h4>Marks Obtained : {marks}</h4>
         <div className="w3-bar">
@@ -98,7 +103,9 @@ function QuestionMaker(props) {
     <div style={{ display: notice, zIndex: 9999999 }} className="w3-modal">
       <div
         style={{ maxWidth: 350 }}
-        className="w3-border w3-border-red w3-modal-content w3-animate-top w3-padding w3-card-4"
+        className={`w3-border ${
+          dark ? "w3-black" : ""
+        } w3-border-red w3-modal-content w3-animate-top w3-padding w3-card-4`}
       >
         <ul className="w3-ul">
           <li>
@@ -344,10 +351,20 @@ function QuestionMaker(props) {
         {questions.slice(q, q + 1).map((question) => (
           <div>
             <Helmet>
-        <title>{question[1]}</title>
+              <title>{question[1]}</title>
               <meta
                 name="description"
-                content={question[1]+','+question[2]+','+question[3]+','+question[4]+','+question[5]}
+                content={
+                  question[1] +
+                  "," +
+                  question[2] +
+                  "," +
+                  question[3] +
+                  "," +
+                  question[4] +
+                  "," +
+                  question[5]
+                }
               />
             </Helmet>
             <div
@@ -381,6 +398,10 @@ function QuestionMaker(props) {
                   onClick={
                     !answered ? () => setUserAns(question[2]) : undefined
                   }
+                  style={{
+                    backgroundColor: dark ? "#1F1F1F" : "",
+                    boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
+                  }}
                   className={`pointer preventSelection w3-card w3-round opt w3-padding-large ${opt0Color}`}
                 >
                   {question[2]}
@@ -391,6 +412,10 @@ function QuestionMaker(props) {
                   onClick={
                     !answered ? () => setUserAns(question[3]) : undefined
                   }
+                  style={{
+                    backgroundColor: dark ? "#1F1F1F" : "",
+                    boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
+                  }}
                   className={`pointer preventSelection w3-card w3-round opt w3-panel w3-padding-large ${opt1Color}`}
                 >
                   {question[3]}
@@ -402,6 +427,10 @@ function QuestionMaker(props) {
                   onClick={
                     !answered ? () => setUserAns(question[4]) : undefined
                   }
+                  style={{
+                    backgroundColor: dark ? "#1F1F1F" : "",
+                    boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
+                  }}
                   className={`pointer preventSelection w3-card w3-round opt w3-padding-large ${opt2Color}`}
                 >
                   {question[4]}
@@ -412,6 +441,10 @@ function QuestionMaker(props) {
                   onClick={
                     !answered ? () => setUserAns(question[5]) : undefined
                   }
+                  style={{
+                    backgroundColor: dark ? "#1F1F1F" : "",
+                    boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
+                  }}
                   className={`pointer preventSelection w3-card w3-round opt w3-panel w3-padding-large ${opt3Color}`}
                 >
                   {question[5]}

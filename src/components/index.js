@@ -11,3 +11,4 @@ export { default as Explore } from './Explore/Explore';
 export { default as Nav } from './Nav';
 export {default as LoadingScreen} from './LoadingScreen';
 export {default as FeedBackPage} from "./FeedBackPage";
+export {default as Settings} from "./settings/Settings";

@@ -5,35 +5,12 @@ import LoadingScreen from "../LoadingScreen";
 import FeaturedLearning from "./FeaturedLearning";
 import { Link } from "react-router-dom";
 import firebase from "../firebase";
-
-// const dataLine2 = {
-//   labels: ["January", "February", "March", "April", "May", "June", "July"],
-//   datasets: [
-//     {
-//       label: "Average Marks",
-//       fill: true,
-//       lineTension: 0.1,
-//       backgroundColor: "rgba(75,192,92,0.4)",
-//       borderColor: "rgba(75,192,92,1)",
-//       borderCapStyle: "butt",
-//       borderDash: [],
-//       borderDashOffset: 0.0,
-//       borderJoinStyle: "miter",
-//       pointBorderColor: "rgba(75,192,42,1)",
-//       pointBackgroundColor: "#fff",
-//       pointBorderWidth: 1,
-//       pointHoverRadius: 5,
-//       pointHoverBackgroundColor: "rgba(75,192,92,1)",
-//       pointHoverBorderColor: "rgba(20,220,20,1)",
-//       pointHoverBorderWidth: 2,
-//       pointRadius: 1,
-//       pointHitRadius: 10,
-//       data: [0, 0, 0, 0, 0, 0, 0],
-//     },
-//   ],
-// };
+import getDevice from "../getDevice";
+import { useSelector } from "react-redux";
+import NoActiveSubUI from "./NoActiveSubUI";
 
 function Graph() {
+  const dark = useSelector((state) => state.theme.dark);
   const [activeMarks, setActiveMarks] = useState();
   const [colorArray, setTheColorArray] = useState([]);
   async function getMarks() {
@@ -41,10 +18,10 @@ function Graph() {
   }
 
   function getRandomColor() {
-    var letters = "23456789ABCDEF";
+    var letters = "0123456789ABCDEF";
     var color = "#";
     for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 14)];
+      color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
   }
@@ -68,14 +45,10 @@ function Graph() {
     labels: activeMarks ? activeMarks.activeSubjects : ["Loading...."],
     datasets: [
       {
-        label: '% Average Marks',
+        label: "% Average Marks",
         backgroundColor: colorArray,
         borderColor: colorArray,
-        // backgroundColor: "rgba(255,99,132,0.2)",
-        // borderColor: "rgba(255,99,132,1)",
         borderWidth: 1.3,
-        // hoverBackgroundColor: "rgba(255,99,132,0.4)",
-        // hoverBorderColor: "rgba(255,99,132,1)",
         data: activeMarks ? activeMarks.avgActiveSubMarks : [0],
       },
     ],
@@ -96,6 +69,7 @@ function Graph() {
   const dataLine = (len, marks) => {
     return {
       labels: len ? len : [0],
+
       datasets: [
         {
           label: "% Marks",
@@ -124,6 +98,7 @@ function Graph() {
 
   const options = {
     maintainAspectRatio: true,
+
     // title:{
     //   display:true,
     //   text:'% Marks'
@@ -142,47 +117,75 @@ function Graph() {
   };
 
   return (
-    <div className="mtop">
+    <div>
+      <div className="c-box-min"></div>
       {activeMarks ? (
         <div className="w3-row">
-          <h3 className="w3-text-grey">Active Subjects Analysis</h3>
-          <div className="w3-half">
-            <div style={{ padding: 10 }}>
-              <Bar data={dataBar} width={100} height={60} options={options} />
-            </div>
-          </div>
-          <div className="w3-half">
-            <div style={{ padding: 10 }}>
-              <Pie data={dataPi} width={100} height={60} />
-            </div>
-          </div>
-          {activeMarks.individualData[0] && (
-            <h2>Individual Subjects Progress</h2>
-          )}
-          {activeMarks &&
-            activeMarks.individualData.map((sub) => {
-              return (
-                <div>
-                  <div className="w3-half">
-                    <div style={{ padding: 10 }}>
-                      <h3 className="w3-text-grey">{sub.sub} Progress</h3>
-                      <Line
-                        data={dataLine(sub.len, sub.marks)}
-                        options={options}
-                        width={100}
-                        height={60}
-                        // options={{
-                        //   maintainAspectRatio: true,
-                        // }}
-                      />
-                    </div>
-                  </div>
+          <h3 className={`${dark ? "" : "w3-text-grey"}`}>
+            Active Subjects Analysis
+          </h3>
+          {activeMarks.activeSubjects.length > 0 ?(
+            <div>
+              <div className="w3-half">
+                <div style={{ padding: 10 }}>
+                  {getDevice() === "Mobile" ? (
+                    <Pie data={dataPi} width={100} height={60} />
+                  ) : (
+                    <Bar
+                      data={dataBar}
+                      width={100}
+                      height={60}
+                      options={options}
+                    />
+                  )}
                 </div>
-              );
-            })}
-          {activeMarks.weakSubject != "" && (
-            <FeaturedLearning sub={activeMarks.weakSubject} />
-          )}
+              </div>
+              <div className="w3-half">
+                <div style={{ padding: 10 }}>
+                  {getDevice() === "Mobile" ? (
+                    <Bar
+                      data={dataBar}
+                      width={100}
+                      height={60}
+                      options={options}
+                    />
+                  ) : (
+                    <Pie data={dataPi} width={100} height={60} />
+                  )}
+                </div>
+              </div>
+              {activeMarks.individualData[0] && (
+                <h2>Individual Subjects Progress</h2>
+              )}
+
+              {activeMarks &&
+                activeMarks.individualData.map((sub) => {
+                  return (
+                    <div>
+                      <div className="w3-half">
+                        <div style={{ padding: 10 }}>
+                          <h3 className={`${dark ? "" : "w3-text-grey"}`}>
+                            {sub.sub} Progress
+                          </h3>
+                          <Line
+                            data={dataLine(sub.len, sub.marks)}
+                            options={options}
+                            width={100}
+                            height={60}
+                            // options={{
+                            //   maintainAspectRatio: true,
+                            // }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              {activeMarks.weakSubject != "" && (
+                <FeaturedLearning sub={activeMarks.weakSubject} />
+              )}
+            </div>
+          ):<NoActiveSubUI/>}
           {firebase.isUserVerified() && (
             <div
               style={{ marginBottom: 60 }}

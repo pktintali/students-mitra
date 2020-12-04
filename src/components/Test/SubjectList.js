@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Questions1 from "./SingleSubject/Questions1";
 import Questions2 from "./SelectSubject/Questions2";
 import SubjectCard from "./SubjectCard";
@@ -8,10 +8,12 @@ import firebase from "../firebase";
 import UseActiveSub from "./UseActiveSub";
 import Questions3 from "./AllSubject/Questions3";
 import { FaArrowLeft } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 export const SubjectContext = React.createContext();
 
 function SubjectList(props) {
+  const dark = useSelector((state) => state.theme.dark);
   const [sub, setSub] = useState([]);
   const [sel, setSel] = useState(true);
   const [disabled, enable] = useState("w3-disabled");
@@ -47,7 +49,6 @@ function SubjectList(props) {
     if ((props.game && props.host) || !props.game) {
       return (
         <div className="w3-animate-left">
-          
           <button
             onClick={props.click}
             className="w3-hide-small w3-hide-medium icon-bar  w3-left w3-button"
@@ -57,7 +58,9 @@ function SubjectList(props) {
           {props.id === 3 && (
             <h3>Contains questions from all your active subjects</h3>
           )}
-          {props.text && <h2 className="w3-text-grey"> {props.text}</h2>}
+          {props.text && (
+            <h2 className={`${dark ? "" : "w3-text-grey"}`}> {props.text}</h2>
+          )}
 
           <br></br>
           {props.game && <h4>You Are in Game Mode</h4>}

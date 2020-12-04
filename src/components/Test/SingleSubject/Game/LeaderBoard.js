@@ -3,8 +3,10 @@ import firebase from "../../../firebase";
 import UsePlayers from "./UsePlayers";
 import checkFull from "./CheckFull";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
 
 function LeaderBoard(props) {
+  const dark = useSelector((state) => state.theme.dark);
   const [loading, setLoading] = useState(false);
   var user = firebase.getCurrentUserEmail();
   var id = window.sessionStorage.getItem("id");
@@ -28,7 +30,7 @@ function LeaderBoard(props) {
     <div style={{ display: "block" }} className="w3-modal">
       <div
         style={{ maxWidth: "350px" }}
-        className="w3-modal-content w3-padding w3-border w3-border-red w3-animate-zoom w3-padding w3-card-4"
+        className={`w3-modal-content w3-padding w3-border ${dark?'w3-dark-gray':''} w3-border-red w3-animate-zoom w3-padding w3-card-4`}
       >
         <div style={{ height: "30px" }}></div>
         <h4>Please Wait...</h4>

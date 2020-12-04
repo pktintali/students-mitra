@@ -1,25 +1,35 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
+import "./switchStyle.css";
 import { Link } from "react-router-dom";
 import { FaHome, FaBookReader, FaBong, FaUser } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import firebase from "./firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { setDark } from "../redux";
 
 function Nav() {
- 
+  const dark = useSelector((state) => state.theme.dark);
+  const dispatch = useDispatch();
+
   const { pathname } = useLocation();
   const usermini = window.sessionStorage.getItem("dpmin");
   const [clse, sce] = useState("w3-text-grey");
   const [clsd, scd] = useState("w3-text-grey");
   const [clsq, scq] = useState("w3-text-grey");
 
-  const [selectedHome, setSelectedHome] = useState("w3-white");
-  const [selectedTest, setSelectedTest] = useState("w3-red");
-  const [selectedExplore, setSelectedExplore] = useState("w3-red");
+  const col1 = dark ? "" : "w3-red";
+  const col2 = dark ? "w3-dark-gray" : "w3-white";
 
   const [sizee, sete] = useState("22");
   const [sized, setd] = useState("28");
   const [sizeq, setq] = useState("22");
+  const setDarkTheme = () => {
+    !dark
+      ? document.body.classList.add("dark")
+      : document.body.classList.remove("dark");
+    dispatch(setDark());
+  };
 
   const updateMenuE = () => {
     sce("w3-text-red");
@@ -29,10 +39,6 @@ function Nav() {
     sete("28");
     setd("22");
     setq("22");
-
-    setSelectedExplore("w3-white");
-    setSelectedTest("w3-red");
-    setSelectedHome("w3-red");
   };
 
   const updateMenuD = () => {
@@ -43,10 +49,6 @@ function Nav() {
     sete("22");
     setd("28");
     setq("22");
-
-    setSelectedExplore("w3-red");
-    setSelectedTest("w3-red");
-    setSelectedHome("w3-white");
   };
 
   const updateMenuQ = () => {
@@ -57,10 +59,6 @@ function Nav() {
     sete("22");
     setd("22");
     setq("28");
-
-    setSelectedExplore("w3-red");
-    setSelectedTest("w3-white");
-    setSelectedHome("w3-red");
   };
 
   async function doSignOut() {
@@ -80,26 +78,58 @@ function Nav() {
 
   return (
     <>
-      <nav style = {{zIndex:999}} className="w3-hide-small w3-hide-medium w3-top">
-        <div className="w3-bar w3-red w3-card w3-left-align w3-large">
+      <nav
+        style={{ zIndex: 999 }}
+        className="w3-hide-small w3-hide-medium w3-top"
+      >
+        <div
+          style={{ backgroundColor: dark ? "#242526" : "" }}
+          className={`w3-bar ${
+            dark ? "" : col1
+          } w3-card w3-left-align w3-large`}
+        >
           <Link
             onClick={updateMenuD}
             to="/"
-            className={` ${selectedHome}  w3-bar-item w3-button w3-hide-medium w3-hide-small w3-padding-large w3-hover-white`}
+            className={`${
+              window.location.href.endsWith("/")
+                ? dark
+                  ? "w3-dark-gray"
+                  : "w3-white"
+                : ""
+            }  w3-bar-item w3-button w3-hide-medium w3-hide-small w3-padding-large ${
+              dark ? "w3-hover-dark-gray" : "w3-hover-white"
+            }`}
           >
             Dashboard
           </Link>
           <Link
             onClick={updateMenuE}
             to="/explore"
-            className={` ${selectedExplore}  w3-bar-item w3-button w3-padding-large w3-hover-white`}
+            className={`${
+              window.location.href.match("/explore")
+                ? dark
+                  ? "w3-dark-gray"
+                  : "w3-white"
+                : ""
+            }  w3-bar-item w3-button w3-padding-large ${
+              dark ? "w3-hover-dark-gray" : "w3-hover-white"
+            }`}
           >
             Explore
           </Link>
           <Link
             onClick={updateMenuQ}
             to="/test"
-            className={` ${selectedTest}  w3-bar-item w3-button w3-hide-small w3-hide-medium w3-padding-large w3-hover-white`}
+            className={`${
+              window.location.href.match("/test")
+                ? dark
+                  ? "w3-dark-gray"
+                  : "w3-white"
+                : ""
+            }  w3-bar-item w3-button w3-hide-small w3-hide-medium w3-padding-large ${
+              dark ? "w3-hover-dark-gray" : "w3-hover-white"
+            }`}
           >
             Test
           </Link>
@@ -110,12 +140,13 @@ function Nav() {
             </div>
           )}
 
-          
           {firebase.getCurrentUsername() && (
             <Link
               onClick={doSignOut}
               to="/login"
-              className={`w3-right w3-bar-item w3-button w3-hide-small w3-hide-medium w3-padding-large w3-hover-white`}
+              className={`w3-right w3-bar-item w3-button w3-hide-small w3-hide-medium w3-padding-large ${
+                dark ? "w3-hover-dark-gray" : "w3-hover-white"
+              }`}
             >
               LogOut
             </Link>
@@ -123,20 +154,33 @@ function Nav() {
           {firebase.getCurrentUsername() && (
             <Link
               to="/profile"
-              className={usermini?"w3-right w3-hover-white w3-bar-item w3-circle w3-padding":"w3-right w3-hover-white w3-bar-item w3-circle w3-padding-large"}
+              className={
+                usermini
+                  ? "w3-right w3-hover-white w3-bar-item w3-circle w3-padding"
+                  : "w3-right w3-hover-white w3-bar-item w3-circle w3-padding-large"
+              }
             >
-              {!usermini&&<FaUser size={20} />}
-              {usermini&&<img src ={usermini} className='mini-dpcircle'/>}
+              {!usermini && <FaUser size={20} />}
+              {usermini && <img src={usermini} className="mini-dpcircle" />}
             </Link>
           )}
+          <div className={`w3-right w3-bar-item w3-hide-small w3-hide-medium`}>
+            <label class="switch">
+              <input type="checkbox" onChange={setDarkTheme} checked={dark} />
+              <span class="slider round"></span>
+            </label>
+          </div>
         </div>
       </nav>
 
-      <div style = {{zIndex:999}} className="w3-bottom w3-hide-large w3-card">
+      <div style={{ zIndex: 999 }} className="w3-bottom w3-hide-large w3-card">
         <nav className="w3-row">
           <Link
+            style={{ backgroundColor: dark ? "#242526" : "" }}
             onClick={updateMenuE}
-            className="w3-col w3-white no-td  w3-border-bottom w3-hover-border-red"
+            className={`w3-col ${
+              dark ? "" : "w3-white"
+            } no-td  w3-border-bottom w3-hover-border-red`}
             to="/explore"
           >
             <div className={`icon-nav ${clse}`}>
@@ -145,8 +189,11 @@ function Nav() {
             <div className="nav-m">Explore</div>
           </Link>
           <Link
+            style={{ backgroundColor: dark ? "#242526" : "" }}
             onClick={updateMenuD}
-            className="w3-col w3-white no-td w3-border-bottom  w3-hover-border-red"
+            className={`w3-col ${
+              dark ? "" : "w3-white"
+            } no-td w3-border-bottom  w3-hover-border-red`}
             to="/"
           >
             <div className={`icon-nav ${clsd}`}>
@@ -155,8 +202,11 @@ function Nav() {
             <div className="nav-m">Home</div>
           </Link>
           <Link
+            style={{ backgroundColor: dark ? "#242526" : "" }}
             onClick={updateMenuQ}
-            className="w3-col w3-white no-td w3-border-bottom  w3-hover-border-red"
+            className={`w3-col ${
+              dark ? "" : "w3-white"
+            } no-td w3-border-bottom  w3-hover-border-red`}
             to="/test"
           >
             <div className={`icon-nav ${clsq}`}>

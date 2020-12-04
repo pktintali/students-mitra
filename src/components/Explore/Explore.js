@@ -11,9 +11,11 @@ import "react-toastify/dist/ReactToastify.css";
 import ReactPlayer from "react-player/youtube";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
 
 toast.configure();
 function Explore() {
+  const dark = useSelector((state) => state.theme.dark);
   const [visible, setVisible] = useState(false);
   const [text, setText] = useState("");
   const uploadedImage = useRef(null);
@@ -198,7 +200,11 @@ function Explore() {
                   onClick={() => imageUploader.current.click()}
                 >
                   <img
-                    src={cameraPlaceholder}
+                    src={
+                      dark
+                        ? "https://www.heavydutydirect.ca/wp-content/uploads/2019/02/camera-placeholder.jpg"
+                        : cameraPlaceholder
+                    }
                     ref={uploadedImage}
                     style={{
                       width: "100%",
@@ -218,6 +224,10 @@ function Explore() {
               <div>
                 <div className="w3-hide-small">
                   <textarea
+                    style={{
+                      backgroundColor: dark ? "#212121" : "",
+                      color: dark ? "#f5f5f5" : "",
+                    }}
                     type="text"
                     rows="4"
                     cols="70"
@@ -228,6 +238,10 @@ function Explore() {
                 </div>
                 <div className="w3-hide-large w3-hide-medium">
                   <textarea
+                    style={{
+                      backgroundColor: dark ? "#212121" : "",
+                      color: dark ? "#f5f5f5" : "",
+                    }}
                     type="text"
                     rows="4"
                     cols="30"
@@ -241,7 +255,7 @@ function Explore() {
                   <button
                     style={{ marginTop: 30 }}
                     onClick={sendPost}
-                    className={`w3-button w3-green w3-hide-large ${
+                    className={`w3-button w3-round w3-green w3-hide-large ${
                       !text ? "w3-disabled" : ""
                     }`}
                     type="submit"
@@ -255,17 +269,33 @@ function Explore() {
                     <div className="w3-third">
                       <p> </p>
                     </div>
-                    <div className="w3-padding  w3-panel w3-card w3-pale-blue">
+                    <div
+                      style={{
+                        maxHeight: 500,
+                        backgroundColor: dark ? "#1F1F1F" : "",
+                        boxShadow: dark ? "2px 2px 3px 2px #888888" : "",
+                      }}
+                      className={`w3-padding  w3-panel w3-card ${
+                        dark ? "" : "w3-pale-blue"
+                      }`}
+                    >
                       <div className="touch">
                         <p
-                          style={{ whiteSpace: "pre-line" }}
+                          style={{
+                            whiteSpace: "pre-line",
+                            textOverflow: "clip",
+                          }}
                           className="w3-left-align"
                         >
                           {text}
                         </p>
                         <img
                           alt="post image"
-                          src={cameraPlaceholder}
+                          src={
+                            dark
+                              ? "https://www.heavydutydirect.ca/wp-content/uploads/2019/02/camera-placeholder.jpg"
+                              : cameraPlaceholder
+                          }
                           ref={uploadedImage}
                           style={{
                             maxHeight: 340,
@@ -292,7 +322,7 @@ function Explore() {
               <button
                 style={{ marginTop: 30 }}
                 onClick={sendPost}
-                className={`w3-button w3-green w3-hide-medium w3-hide-small ${
+                className={`w3-button w3-round w3-green w3-hide-medium w3-hide-small ${
                   !text ? "w3-disabled" : ""
                 }`}
                 type="submit"
@@ -312,7 +342,7 @@ function Explore() {
             })}
         </div>
       )}
-      {firebase.getCurrentUsername()&&firebase.isUserVerified() && (
+      {!text && firebase.getCurrentUsername() && firebase.isUserVerified() && (
         <div className="w3-padding-large w3-right">
           <Link
             to="/feedback"

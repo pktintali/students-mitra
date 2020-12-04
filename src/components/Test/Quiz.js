@@ -13,6 +13,7 @@ import { Helmet } from "react-helmet";
 import DataFetching from "./DataFetching";
 import DemoTest from "./DemoTest";
 import ReactPlayer from "react-player";
+import getDevice from "../getDevice";
 
 toast.configure();
 
@@ -111,7 +112,11 @@ function Quiz(props) {
               {firebase.isUserVerified() && (
                 <div
                   style={{ marginTop: window.innerHeight / 2 - 105 }}
-                  className="w3-padding-large w3-right"
+                  className={`${
+                    getDevice() === "Mobile"
+                      ? "w3-hide-small w3-hide-medium"
+                      : ""
+                  }w3-padding-large w3-right`}
                 >
                   <Link
                     to="/feedback"

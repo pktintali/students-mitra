@@ -8,9 +8,11 @@ import cameraPlaceholder from "../camera-placeholder.png";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
 
 toast.configure();
 const Profile = (props) => {
+  const dark = useSelector((state) => state.theme.dark);
   const [profileInfo, setProfileInfo] = useState();
   const [activeSubjects, setActiveSubjects] = useState();
   const [image, setImage] = useState(null);
@@ -193,14 +195,14 @@ const Profile = (props) => {
             <Link to="/login">
               <button
                 onClick={doSignOut}
-                className="w3-hide-large w3-red w3-button"
+                className="w3-hide-large w3-round w3-red w3-button"
               >
                 LogOut
               </button>
             </Link>
             <button
               onClick={toogleEdit}
-              className="w3-green w3-button w3-margin"
+              className="w3-green w3-button w3-round w3-margin"
             >
               Edit Profile
             </button>
@@ -274,7 +276,7 @@ const Profile = (props) => {
           </div>
           <h2>Active Subjects</h2>
 
-          <ul className="w3-ul">
+          <ul className="w3-ul w3-padding-large w3-border">
             {activeSubjects &&
               activeSubjects.map((ac) => {
                 return (
@@ -332,7 +334,7 @@ const Profile = (props) => {
                 onClick={() => imageUploader.current.click()}
               >
                 <img
-                  src={cameraPlaceholder}
+                  src={dark?"https://www.heavydutydirect.ca/wp-content/uploads/2019/02/camera-placeholder.jpg":cameraPlaceholder}
                   ref={uploadedImage}
                   style={{
                     width: "100%",
@@ -354,12 +356,12 @@ const Profile = (props) => {
             <b>{firebase.getCurrentUsername()}</b>
             <br></br>
             <br></br>
-            <button onClick={toogleEdit} className="w3-red w3-button w3-margin">
+            <button onClick={toogleEdit} className="w3-red w3-round w3-button w3-margin">
               Cancel
             </button>
             <button
               onClick={updateUserProfile}
-              className="w3-green w3-button w3-margin"
+              className="w3-green w3-round w3-button w3-margin"
             >
               Save
             </button>

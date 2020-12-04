@@ -206,7 +206,7 @@ function SingleSubject(props) {
           {loading && loader}
           {topbar && <TopBar txt="Test" click={props.click} bool={true} />}
           {topbar && <div className="c-box-min"></div>}
-          {topbar&&<button
+          {!join&&<button
             onClick={props.click}
             className="w3-hide-small w3-hide-medium icon-bar  w3-left w3-button"
           >

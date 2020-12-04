@@ -1,16 +1,19 @@
-import React, { useState,} from "react";
+import React, { useState } from "react";
 import signinLogo from "../../signinLogo.png";
+import logo5 from "../../logo5.png";
 import TopBar from "../TopBar";
 import { FaUserGraduate } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import firebase from "../firebase";
 import LoadingScreen from "../LoadingScreen";
-import {toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
 
 toast.configure();
 function SignupPage(props) {
+  const dark = useSelector((state) => state.theme.dark);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState();
   const [password, setPassword] = useState();
@@ -20,10 +23,12 @@ function SignupPage(props) {
   async function signup(e) {
     setLoading(true);
     e.preventDefault();
-    if(password!==password2){
-      toast.error('Password did not match with first',{position:toast.POSITION.BOTTOM_RIGHT})
+    if (password !== password2) {
+      toast.error("Password did not match with first", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
       setLoading(false);
-      return
+      return;
     }
     try {
       await firebase.register(userName, userEmail, password);
@@ -35,7 +40,7 @@ function SignupPage(props) {
       props.history.replace("/");
     } catch (e) {
       // alert(e.message);
-      toast.error(e.message,{position:toast.POSITION.BOTTOM_RIGHT})
+      toast.error(e.message, { position: toast.POSITION.BOTTOM_RIGHT });
       setLoading(false);
     }
 
@@ -54,12 +59,12 @@ function SignupPage(props) {
     left: "50%",
     top: "50%",
     transform: "translate(-50%, -50%)",
-    backgroundColor: "#ffffff",
+    // backgroundColor: "#ffffff",
   };
 
   return !loading ? (
     <>
-    <Helmet>
+      <Helmet>
         <title>SignUp for Students-Mitra</title>
         <meta
           name="description"
@@ -83,6 +88,10 @@ function SignupPage(props) {
                 </label>
                 <br></br>
                 <input
+                  style={{
+                    backgroundColor: dark ? "#313131" : "",
+                    color: dark?"#f2f2f2":"black",
+                  }}
                   className="w3-input w3-border"
                   type="text"
                   placeholder="Name"
@@ -95,6 +104,10 @@ function SignupPage(props) {
                   <b>Enter Your Email</b>
                 </label>
                 <input
+                  style={{
+                    backgroundColor: dark ? "#313131" : "",
+                    color: dark?"#f2f2f2":"black",
+                  }}
                   className="w3-border w3-input"
                   type="email"
                   placeholder="Email"
@@ -107,6 +120,10 @@ function SignupPage(props) {
                   <b>Enter Your Password</b>
                 </label>
                 <input
+                  style={{
+                    backgroundColor: dark ? "#313131" : "",
+                    color: dark?"#f2f2f2":"black",
+                  }}
                   className="w3-input w3-border"
                   type="password"
                   placeholder="Password"
@@ -118,6 +135,10 @@ function SignupPage(props) {
                   <b>Confirmm Password</b>
                 </label>
                 <input
+                  style={{
+                    backgroundColor: dark ? "#313131" : "",
+                    color: dark?"#f2f2f2":"black",
+                  }}
                   className="w3-input w3-border"
                   type="password"
                   placeholder="Password"
@@ -142,8 +163,8 @@ function SignupPage(props) {
           <div className="w3-half w3-hide-small">
             <div className="w3-center">
               <img
-                style={{ width: "100%" }}
-                src={signinLogo}
+                style={{ width: dark?"50%":"100%" }}
+                src={dark?logo5:signinLogo}
                 alt="Signin Logo"
               />
             </div>

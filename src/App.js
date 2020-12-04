@@ -16,6 +16,7 @@ import {
   LoadingScreen,
   Game,
   FeedBackPage,
+  Settings,
 } from "./components/index";
 import Test from "./Test";
 
@@ -36,6 +37,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+   
     initLizedFire && firebase.getDpImage().then(setUserMini);
     usermini && window.sessionStorage.setItem("dpmin", usermini);
   }, [initLizedFire]);
@@ -59,6 +61,7 @@ function App() {
               <Route path="/game" component={Game} />
               <Route path="/feedback" component={FeedBackPage} />
               <Route path="/dev" component={Test} />
+              <Route path="/settings" component={Settings} />
             </Switch>
           </NavContext.Provider>
         </div>

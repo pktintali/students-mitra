@@ -3,9 +3,11 @@ import firebase from "../firebase";
 import { FaPen } from "react-icons/fa";
 import "../../App.css";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 toast.configure();
 function PostCard(props) {
+  const dark = useSelector((state) => state.theme.dark);
   const [authorDp, setAuthorDp] = useState();
   const [fullImg, setFullImg] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -66,8 +68,9 @@ function PostCard(props) {
       {!fullImg && (
         <div className="w3-third">
           <div
-            style={{ height: 500 }}
-            className="w3-padding  w3-panel w3-card w3-pale-blue"
+            style={{ height: 500, backgroundColor: dark ? "#1F1F1F" : "",
+            boxShadow: dark ? "1px 1px 3px 1px #888888" : "", }}
+            className={`w3-padding  w3-panel w3-card ${dark?'':'w3-pale-blue'}`}
           >
             <div>
               <img

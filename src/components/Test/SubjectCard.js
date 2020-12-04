@@ -4,8 +4,10 @@ import firebase from "../firebase";
 import FetchSubjectList from "./FetchSubjectList";
 import UseActiveSub from "./UseActiveSub";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 function SubjectCard(props) {
+  const dark = useSelector((state) => state.theme.dark);
   const [c, setC] = useState(0);
   const [col, setColor] = useState([""]);
   const mobileCard = [];
@@ -23,12 +25,9 @@ function SubjectCard(props) {
 
   function undo() {
     for (let j in subList) {
-      col[j] = "w3-white";
+      col[j] = dark?"":"w3-white";
     }
   }
-  const cardStyle = {
-    minHeight: "140px",
-  };
 
   async function MarkActive(sub) {
     if (
@@ -56,7 +55,11 @@ function SubjectCard(props) {
   const unitCard = (i, active) => {
     return (
       <div
-        style={cardStyle}
+      style={{
+        minHeight:"140px",
+        backgroundColor: dark ? "#1F1F1F" : "",
+        boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
+      }}
         onClick={() => {
           if (props.id === 1) {
             if (active) {

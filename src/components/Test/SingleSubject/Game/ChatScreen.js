@@ -52,7 +52,7 @@ const ChatScreen = (props) => {
   return (
     <div>
       <Helmet>
-        <title>{props.id+"Chats"}</title>
+        <title>{props.id+" Chats"}</title>
         <meta
           name="description"
           content="Game mode chat screen. joined players in the room can chat here."
