@@ -25,9 +25,12 @@ function PostCard(props) {
   };
 
   const saveEdit = () => {
-    firebase.addPost({
-      text:postText
-    },props.post.key)
+    firebase.addPost(
+      {
+        text: postText,
+      },
+      props.post.key
+    );
     setEdit(false);
     toast.success("Updated Successfully", {
       position: toast.POSITION.BOTTOM_RIGHT,
@@ -36,7 +39,7 @@ function PostCard(props) {
 
   const imgModal = (
     <div
-      className="w3-white w3-modal w3-animate-zoom"
+      className={`${dark ? "w3-black" : "w3-white"} w3-modal w3-animate-zoom`}
       style={{
         display: "block",
         zIndex: 9999999,
@@ -68,21 +71,33 @@ function PostCard(props) {
       {!fullImg && (
         <div className="w3-third">
           <div
-            style={{ height: 500, backgroundColor: dark ? "#1F1F1F" : "",
-            boxShadow: dark ? "1px 1px 3px 1px #888888" : "", }}
-            className={`w3-padding  w3-panel w3-card ${dark?'':'w3-pale-blue'}`}
+            style={{
+              height: 500,
+              backgroundColor: dark ? "#1F1F1F" : "",
+              boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
+            }}
+            className={`w3-padding  w3-panel w3-card ${
+              dark ? "" : "w3-pale-blue"
+            }`}
           >
             <div>
+              <div className='w3-left circular-mini-div'>
               <img
                 alt="user logo"
-                className="w3-left"
-                style={{ borderRadius: "50%", width: "10%" }}
+                className="circular-mini-img"
+                // style={{
+                //   height: 45,
+                //   width: 45,
+                //   borderRadius: "50%",
+                //   // width: "10%",
+                // }}
                 src={
                   authorDp
                     ? authorDp
                     : "https://immedilet-invest.com/wp-content/uploads/2016/01/user-placeholder.jpg"
                 }
               />
+              </div>
               <b className="w3">{props.post.author}</b>
               <i className="w3-small w3-right">
                 {props.post.time}-{props.post.date}
@@ -173,35 +188,5 @@ function PostCard(props) {
       )}
     </>
   );
-}
-
-{
-  /* <br></br>
-            <div className="w3-text-grey w3-margin w3-display-container w3-padding">
-              <div
-                style={{ width: "33.3%" }}
-                className="w3-display-left w3-button"
-              >
-                <FaRegThumbsUp size={"25px"} />
-                <br></br>
-                <span>5M</span>
-              </div>
-              <div
-                style={{ width: "33.3%" }}
-                className="w3-button w3-display-middle"
-              >
-                <FaRegComment size={"25px"} />
-                <br></br>
-                <span>1M</span>
-              </div>
-              <div
-                style={{ width: "33.3%" }}
-                className="w3-button w3-display-right"
-              >
-                <FaShare size={"25px"} />
-                <br></br>
-                <span>200K</span>
-              </div>
-            </div> */
 }
 export default PostCard;

@@ -165,11 +165,11 @@ const Profile = (props) => {
         <title>{profileInfo ? profileInfo.name : "Your Profile"}</title>
         <meta
           name="description"
-          content="students-mitra users profile info. students-mitra is online study analyzer and learning suggestion modal."
+          content="studentmitra users profile info. studentmitra is online study analyzer and learning suggestion modal."
         />
       </Helmet>
       <TopBar bool={true} profile={true} txt="Profile" />
-      <div className="mtop"></div>
+
       {!firebase.isUserVerified() && (
         <div>
           <i>⚠️Your Email is Not Verified. Verify for full Access</i>
@@ -302,7 +302,7 @@ const Profile = (props) => {
   ) : (
     <>
       <TopBar bool={true} profile={true} txt="Profile" />
-      <div className="mtop"></div>
+
       <h2>Update Your Profile</h2>
       {profileInfo ? (
         <div className="w3-animate-left">
@@ -334,7 +334,11 @@ const Profile = (props) => {
                 onClick={() => imageUploader.current.click()}
               >
                 <img
-                  src={dark?"https://www.heavydutydirect.ca/wp-content/uploads/2019/02/camera-placeholder.jpg":cameraPlaceholder}
+                  src={
+                    dark
+                      ? "https://www.heavydutydirect.ca/wp-content/uploads/2019/02/camera-placeholder.jpg"
+                      : cameraPlaceholder
+                  }
                   ref={uploadedImage}
                   style={{
                     width: "100%",
@@ -356,7 +360,10 @@ const Profile = (props) => {
             <b>{firebase.getCurrentUsername()}</b>
             <br></br>
             <br></br>
-            <button onClick={toogleEdit} className="w3-red w3-round w3-button w3-margin">
+            <button
+              onClick={toogleEdit}
+              className="w3-red w3-round w3-button w3-margin"
+            >
               Cancel
             </button>
             <button

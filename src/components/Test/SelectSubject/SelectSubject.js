@@ -13,17 +13,15 @@ function SelectSubject(props) {
 
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>Select Subject Test</title>
         <meta
           name="description"
-          content="students-mitra select subject testpage where you can selecet subjects for tests. here you can select multiple subjects"
+          content="studentmitra select subject testpage where you can selecet subjects for tests. here you can select multiple subjects"
         />
       </Helmet>
-      <div className="mtop"></div>
       <div>
         {topbar && <TopBar txt="Test" click={props.click} bool={true} />}
-        {topbar && <div className="mtop"></div>}
         <SubjectList
           click={props.click}
           hidebar={hidebar}
@@ -31,7 +29,6 @@ function SelectSubject(props) {
           text="Select Subjects"
         />
       </div>
-      <div className="mbot"></div>
     </>
   );
 }

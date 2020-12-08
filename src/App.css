@@ -1,117 +1,117 @@
 .App {
- text-align: center;
+  text-align: center;
 }
 
-.dark{
-  background-color: #18191A;
-  color: #F5F6F7;
+.dark {
+  background-color: #18191a;
+  color: #f5f6f7;
 }
 
-.pdr-xxsmall{
-padding-right:3px;
-color:#ff0000;
+.pdr-xxsmall {
+  padding-right: 3px;
+  color: #ff0000;
 }
-.pointer{
-cursor:pointer;
+.pointer {
+  cursor: pointer;
 }
 .preventSelection {
   -webkit-user-select: none;
-     -moz-user-select: -moz-none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .dpcircle {
   background-size: cover;
-  border-radius:50% 50% 50% 50%;
-  width:180px;
-  height:180px;
-  border: #02c002 .2rem solid;
+  border-radius: 50% 50% 50% 50%;
+  width: 180px;
+  height: 180px;
+  border: #02c002 0.2rem solid;
 }
 
 .mini-dpcircle {
   background-size: cover;
-  border-radius:50% 50% 50% 50%;
-  width:35px;
-  height:35px;
+  border-radius: 50% 50% 50% 50%;
+  width: 35px;
+  height: 35px;
 }
-.nav-m{
-margin-top:-13px;
+.nav-m {
+  margin-top: -13px;
 }
-.m-left{
-margin-left:15px;
+.m-left {
+  margin-left: 15px;
 }
-.icon-bar{
-	margin-left:-20px;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-   height:57px;
-  width:70px;
-}
-
-.icon-nav{
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    height:48px;
-}
-.no-td{
-text-decoration:none;
-width:33.33%;
+.icon-bar {
+  margin-left: -20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 57px;
+  width: 70px;
 }
 
-.bm{
-margin-top:0px;
-margin-bottom:50px;
+.icon-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
 }
-.my-img{
-width:80%;
-max-height:250px;
+.no-td {
+  text-decoration: none;
+  width: 33.33%;
 }
-.small{
-height:100%;
-width:100%;
-align-items:center;
+
+.bm {
+  margin-top: 0px;
+  margin-bottom: 50px;
 }
-.c-box-min{
-height:55px;
-width:100px;
+.my-img {
+  width: 80%;
+  max-height: 250px;
 }
-.c-box-xmin{
-height:20px;
-width:100px;
+.small {
+  height: 100%;
+  width: 100%;
+  align-items: center;
 }
-.full-height{
-height:50vh;
+.c-box-min {
+  height: 55px;
+  width: 100px;
 }
-.mr-m{
-color:green;
-margin-top:0px;
+.c-box-xmin {
+  height: 20px;
+  width: 100px;
 }
-.myCol{
-background:#bf3f9f;
+.full-height {
+  height: 50vh;
 }
-.mbs{
+.mr-m {
+  color: green;
+  margin-top: 0px;
+}
+.myCol {
+  background: #bf3f9f;
+}
+.mbs {
   justify-content: center;
 }
-.mtop{
-margin-top:65px; 
+.mtop {
+  margin-top: 65px;
 }
-.mtop2{
-margin-top:10px;
-margin-left:-10px;
+.mtop2 {
+  margin-top: 10px;
+  margin-left: -10px;
 }
-.pding{
-padding:128px 16px;
+.pding {
+  padding: 128px 16px;
 }
-.c-pad{
-padding:65px;
+.c-pad {
+  padding: 65px;
 }
 .outer {
   display: flex;
   justify-content: center;
-} 
+}
 
 .cardButton {
   position: relative;
@@ -131,7 +131,7 @@ padding:65px;
   margin-left: -20px !important;
   margin-top: -120%;
   opacity: 0;
-  transition: all 0.8s
+  transition: all 0.8s;
 }
 
 .cardButton:active:after {
@@ -141,16 +141,48 @@ padding:65px;
   transition: 0s;
 }
 
-
-.touch{
-cursor:pointer,
+.circular-mini-div {
+  display: inline-block;
+  position: relative;
+  width: 3vw;
+  height: 3vw;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
-#top{
+.circular-mini-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scrollTop {
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  align-items: center;
+  height: 20px;
+  justify-content: center;
+  z-index: 100000;
+  cursor: pointer;
+  animation: fadeIn 0.3s;
+  transition: opacity 0.4s;
+  opacity: 0.5;
+}
+
+.scrollTop:hover {
+  opacity: 1;
+}
+
+.touch {
+  cursor: pointer;
+}
+
+#top {
   margin: auto;
   width: 100%;
   border: 0px solid white;
-   max-width:500px;
+  max-width: 500px;
 }
 
 .vl {
@@ -162,8 +194,9 @@ cursor:pointer,
   top: 0;
 }
 
-@media (min-width:480px)  { /* smartphones, Android phones, landscape iPhone */ 
-#top {
- border:1px solid red;
-}
+@media (min-width: 480px) {
+  /* smartphones, Android phones, landscape iPhone */
+  #top {
+    border: 1px solid red;
+  }
 }

@@ -5,7 +5,7 @@ import LoadingScreen from "../LoadingScreen";
 import FeaturedLearning from "./FeaturedLearning";
 import { Link } from "react-router-dom";
 import firebase from "../firebase";
-import getDevice from "../getDevice";
+import getDevice from "../utils/getDevice";
 import { useSelector } from "react-redux";
 import NoActiveSubUI from "./NoActiveSubUI";
 
@@ -118,13 +118,12 @@ function Graph() {
 
   return (
     <div>
-      <div className="c-box-min"></div>
       {activeMarks ? (
         <div className="w3-row">
           <h3 className={`${dark ? "" : "w3-text-grey"}`}>
             Active Subjects Analysis
           </h3>
-          {activeMarks.activeSubjects.length > 0 ?(
+          {activeMarks.activeSubjects.length > 0 ? (
             <div>
               <div className="w3-half">
                 <div style={{ padding: 10 }}>
@@ -161,7 +160,7 @@ function Graph() {
               {activeMarks &&
                 activeMarks.individualData.map((sub) => {
                   return (
-                    <div>
+                    <div key={sub.sub}>
                       <div className="w3-half">
                         <div style={{ padding: 10 }}>
                           <h3 className={`${dark ? "" : "w3-text-grey"}`}>
@@ -185,7 +184,9 @@ function Graph() {
                 <FeaturedLearning sub={activeMarks.weakSubject} />
               )}
             </div>
-          ):<NoActiveSubUI/>}
+          ) : (
+            <NoActiveSubUI />
+          )}
           {firebase.isUserVerified() && (
             <div
               style={{ marginBottom: 60 }}

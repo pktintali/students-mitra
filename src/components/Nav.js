@@ -165,9 +165,9 @@ function Nav() {
             </Link>
           )}
           <div className={`w3-right w3-bar-item w3-hide-small w3-hide-medium`}>
-            <label class="switch">
+            <label className="switch">
               <input type="checkbox" onChange={setDarkTheme} checked={dark} />
-              <span class="slider round"></span>
+              <span className="slider round"></span>
             </label>
           </div>
         </div>

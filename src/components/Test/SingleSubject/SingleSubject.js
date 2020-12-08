@@ -6,8 +6,8 @@ import FetchRoom from "./Game/FetchRoom";
 import checkFull from "./Game/CheckFull";
 import AddRoom from "./Game/AddRoom";
 import firebase from "../../firebase";
-import {toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -24,29 +24,24 @@ function SingleSubject(props) {
   const [host, setHost] = useState(false);
   const [loading, setLoading] = useState(false);
   const [game, setGame] = useState(false);
-  const [leval,setLeval] = useState()
-  const [bg,setBg] = useState(true)
+  const [leval, setLeval] = useState();
+  const [bg, setBg] = useState(true);
   const hidebar = () => {
     setTopBar(false);
   };
 
-  async function leave(){
+  async function leave() {
     setGame(false);
     //setPlay(false);
     props.click();
-    await AddRoom(
-      id,
-      firebase.getCurrentUserEmail(),
-      "delete",
-    );
-    
-  };
-  
+    await AddRoom(id, firebase.getCurrentUserEmail(), "delete");
+  }
+
   const setCloudSub = (s) => {
     setSub(s);
   };
 
-  const setTheLeval=(leval)=>{
+  const setTheLeval = (leval) => {
     setLeval(leval);
   };
 
@@ -82,23 +77,30 @@ function SingleSubject(props) {
   }
 
   async function checkRoom(creation) {
-   // alert(await checkFull(id, "full"));
+    // alert(await checkFull(id, "full"));
     if ((await checkFull(id, "invalid")) === 1 && !creation) {
       setLoading(false);
       // alert("Invalid Room ID");
-      toast.error('Invalid Room ID',{position:toast.POSITION.BOTTOM_RIGHT,autoClose:3000})
+      toast.error("Invalid Room ID", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 3000,
+      });
       return;
-    } 
-    else if ((await checkFull(id, "full")) > 3 && !creation) {
+    } else if ((await checkFull(id, "full")) > 3 && !creation) {
       setLoading(false);
-      toast.error('Room is Full',{position:toast.POSITION.BOTTOM_RIGHT,autoClose:3500})
+      toast.error("Room is Full", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 3500,
+      });
       // alert("Room is Full");
       return;
-    } 
-    else if ((await checkFull(id, "already")) === 1 && creation) {
+    } else if ((await checkFull(id, "already")) === 1 && creation) {
       setLoading(false);
       // alert("Already Exist");
-      toast.error('Already Exist',{position:toast.POSITION.BOTTOM_RIGHT,autoClose:3000})
+      toast.error("Already Exist", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 3000,
+      });
       return;
     } else {
       if (!creation) {
@@ -107,7 +109,7 @@ function SingleSubject(props) {
         setLoading(false);
         setCreate(false);
         setJoin(true);
-        setBg(false)
+        setBg(false);
       } else {
         AddRoom(id, firebase.getCurrentUserEmail(), "create");
         setLoading(false);
@@ -118,13 +120,15 @@ function SingleSubject(props) {
   }
 
   const handleJoin = () => {
-    if(id){
-    setLoading(true);
-    checkRoom(false);
-    
-  }else{
+    if (id) {
+      setLoading(true);
+      checkRoom(false);
+    } else {
       // alert('Invalid Id')
-      toast.error('Invalid Id',{position:toast.POSITION.TOP_CENTER,autoClose:2500})
+      toast.error("Invalid Id", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2500,
+      });
     }
   };
 
@@ -133,12 +137,16 @@ function SingleSubject(props) {
   }
 
   async function createRoom() {
-    if(id){
-    setLoading(true);
-    await checkRoom(true);
-    await sleep(2000);}else{
+    if (id) {
+      setLoading(true);
+      await checkRoom(true);
+      await sleep(2000);
+    } else {
       // alert('Invalid Id')
-      toast.error('Invalid Id',{position:toast.POSITION.TOP_CENTER,autoClose:2500})
+      toast.error("Invalid Id", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2500,
+      });
     }
     //checkRoom(false)
   }
@@ -150,17 +158,15 @@ function SingleSubject(props) {
   if (!props.game || game) {
     return (
       <>
-      <Helmet>
-        <title>Single Subject Test</title>
-        <meta
-          name="description"
-          content="students-mitra single subject testpage. Test for single subject. here you can select any one subject"
-        />
-      </Helmet>
-        <div className="mtop"></div>
+        <Helmet>
+          <title>Single Subject Test</title>
+          <meta
+            name="description"
+            content="studentmitra single subject testpage. Test for single subject. here you can select any one subject"
+          />
+        </Helmet>
         <div>
           {topbar && <TopBar txt="Test" click={props.click} bool={true} />}
-          {topbar && <div className="mtop"></div>}
           <GameSubContext.Provider value={sub}>
             <SubjectList
               s={sub}
@@ -176,120 +182,145 @@ function SingleSubject(props) {
           </GameSubContext.Provider>
           <br></br>
           <p></p>
-         
+
           <p></p>
           <br></br>
-          <div className="mbot"></div>
         </div>
       </>
     );
   } else {
     return (
       <>
-      <Helmet>
-        <title>Game Mode On Learning through fun</title>
-        <meta
-          name="description"
-          content="welcom to game mode. #LearningthroughFun learning with fun play quizzes with your friends and host rooms. create and join room. challenge Your friend"
-        />
-      </Helmet>
-      <div style ={bg?{
-        color:'white',
-      width:'100%',
-      height:window.innerHeight,
-      backgroundImage:"url('https://wallpaperaccess.com/full/895258.jpg')",
-      backgroundRepeat: 'no-repeat',
-      backgroundAttachment: 'fixed', 
-      backgroundSize: '100% 100%',
-    }:{}} className='w3-animate-zoom'>
-        <div className={`${bg?'w3-left w3-border':''} w3-hide-small w3-hide-medium w3-padding-large`}>
-          {loading && loader}
-          {topbar && <TopBar txt="Test" click={props.click} bool={true} />}
-          {topbar && <div className="c-box-min"></div>}
-          {!join&&<button
-            onClick={props.click}
-            className="w3-hide-small w3-hide-medium icon-bar  w3-left w3-button"
+        <Helmet>
+          <title>Game Mode On Learning through fun</title>
+          <meta
+            name="description"
+            content="welcom to game mode. #LearningthroughFun learning with fun play quizzes with your friends and host rooms. create and join room. challenge Your friend"
+          />
+        </Helmet>
+        <div
+          style={
+            bg
+              ? {
+                  color: "white",
+                  width: "100%",
+                  height: window.innerHeight,
+                  backgroundImage:
+                    "url('https://wallpaperaccess.com/full/895258.jpg')",
+                  backgroundRepeat: "no-repeat",
+                  backgroundAttachment: "fixed",
+                  backgroundSize: "100% 100%",
+                }
+              : {}
+          }
+          className="w3-animate-zoom"
+        >
+          <div
+            className={`${
+              bg ? "w3-left w3-border" : ""
+            } w3-hide-small w3-hide-medium w3-padding-large`}
           >
-            <FaArrowLeft size="20" />
-          </button>}
-          {!join&&<h2>Welcome to Game Mode</h2>}
+            {loading && loader}
+            {topbar && <TopBar txt="Test" click={props.click} bool={true} />}
+            {!join && (
+              <button
+                onClick={props.click}
+                className="w3-hide-small w3-hide-medium icon-bar  w3-left w3-button"
+              >
+                <FaArrowLeft size="20" />
+              </button>
+            )}
+            {!join && <h2>Welcome to Game Mode</h2>}
 
-          {!join && <p className='w3-text-sand'>Join/Create Room</p>}
-          {!join && (
-            <input
-            className='w3-input'
-              type="text"
-              placeholder="Room ID"
-              value={id}
-              onChange={(e) => setID(e.target.value)}
-            ></input>
-          )}
-          {!join&&<br></br>}
-          {!join && <button className='w3-button w3-border' onClick={handleJoin}>Join</button>}
-          {!join&&<br></br>}
-          {!join&&<p></p>}
-          {!join && <button className='w3-button w3-border' onClick={createRoom}>Create Room</button>}
-          {join && (
-            <FetchRoom
-              setSub={setCloudSub}
-              setHost={setMeHost}
-              leave={leave}
-              start={startGame}
-              id={id}
-              back={back}
-              setLeval = {setTheLeval}
-            />
-          )}
-          {create && (
-            <div className="w3-panel w3-pale-green">
-              <b>Room Created Successfully</b>
-            </div>
-          )}
-          {create && <h3>Room ID = {id}</h3>}
-          {create && <p>Enter ID and Join</p>}
-          <div className="mbot"></div>
-        </div>
-        <div className={`${bg?'':''} w3-hide-large`}>
-          {loading && loader}
-          {topbar && <TopBar txt="Test" click={props.click} bool={true} />}
-          {topbar && <div className="c-box-min"></div>}
-          {!join&&<h2>Welcome to Game Mode</h2>}
+            {!join && <p className="w3-text-sand">Join/Create Room</p>}
+            {!join && (
+              <input
+                className="w3-input"
+                type="text"
+                placeholder="Room ID"
+                value={id}
+                onChange={(e) => setID(e.target.value)}
+              ></input>
+            )}
+            {!join && <br></br>}
+            {!join && (
+              <button className="w3-button w3-border" onClick={handleJoin}>
+                Join
+              </button>
+            )}
+            {!join && <br></br>}
+            {!join && <p></p>}
+            {!join && (
+              <button className="w3-button w3-border" onClick={createRoom}>
+                Create Room
+              </button>
+            )}
+            {join && (
+              <FetchRoom
+                setSub={setCloudSub}
+                setHost={setMeHost}
+                leave={leave}
+                start={startGame}
+                id={id}
+                back={back}
+                setLeval={setTheLeval}
+              />
+            )}
+            {create && (
+              <div className="w3-panel w3-pale-green">
+                <b>Room Created Successfully</b>
+              </div>
+            )}
+            {create && <h3>Room ID = {id}</h3>}
+            {create && <p>Enter ID and Join</p>}
+          </div>
+          <div className={`${bg ? "" : ""} w3-hide-large`}>
+            {loading && loader}
+            {topbar && <TopBar txt="Test" click={props.click} bool={true} />}
+            {!join && <h2>Welcome to Game Mode</h2>}
 
-          {!join && <p className='w3-text-sand'>Join/Create Room</p>}
-          {!join && (
-            <input
-            className='w3-input'
-              type="text"
-              placeholder="Room ID"
-              value={id}
-              onChange={(e) => setID(e.target.value)}
-            ></input>
-          )}
-          {!join&&<br></br>}
-          {!join && <button className='w3-button w3-border' onClick={handleJoin}>Join</button>}
-          {!join&&<br></br>}
-          {!join&&<p></p>}
-          {!join && <button className='w3-button w3-border' onClick={createRoom}>Create Room</button>}
-          {join && (
-            <FetchRoom
-              setSub={setCloudSub}
-              setHost={setMeHost}
-              leave={leave}
-              start={startGame}
-              id={id}
-              back={back}
-              setLeval = {setTheLeval}
-            />
-          )}
-          {create && (
-            <div className="w3-panel w3-pale-green">
-              <b>Room Created Successfully</b>
-            </div>
-          )}
-          {create && <h3>Room ID = {id}</h3>}
-          {create && <p>Enter ID and Join</p>}
-          <div className="mbot"></div>
-        </div>
+            {!join && <p className="w3-text-sand">Join/Create Room</p>}
+            {!join && (
+              <input
+                className="w3-input"
+                type="text"
+                placeholder="Room ID"
+                value={id}
+                onChange={(e) => setID(e.target.value)}
+              ></input>
+            )}
+            {!join && <br></br>}
+            {!join && (
+              <button className="w3-button w3-border" onClick={handleJoin}>
+                Join
+              </button>
+            )}
+            {!join && <br></br>}
+            {!join && <p></p>}
+            {!join && (
+              <button className="w3-button w3-border" onClick={createRoom}>
+                Create Room
+              </button>
+            )}
+            {join && (
+              <FetchRoom
+                setSub={setCloudSub}
+                setHost={setMeHost}
+                leave={leave}
+                start={startGame}
+                id={id}
+                back={back}
+                setLeval={setTheLeval}
+              />
+            )}
+            {create && (
+              <div className="w3-panel w3-pale-green">
+                <b>Room Created Successfully</b>
+              </div>
+            )}
+            {create && <h3>Room ID = {id}</h3>}
+            {create && <p>Enter ID and Join</p>}
+          </div>
         </div>
       </>
     );

@@ -220,7 +220,6 @@ function FirebaseSearch(props) {
         )}
         <p></p>
       </div>
-      <div className="c-box-min"></div>
     </>
   );
 }

@@ -149,14 +149,13 @@ function Explore() {
   return (
     <>
       <Helmet>
-        <title>Students-mitra Explore feeds</title>
+        <title>StudentMitra Explore feeds</title>
         <meta
           name="description"
-          content="students-mitra explore feeds and posts by other user. education releated news and you can ask your questions"
+          content="studentmitra explore feeds and posts by other user. education releated news and you can ask your questions"
         />
       </Helmet>
       <TopBar txt="Explore" bool={false} />
-      <div className="mtop"></div>
       {firebase.getCurrentUsername() && (
         <div className="w3-padding">
           {!firebase.isUserVerified() && (
@@ -307,7 +306,7 @@ function Explore() {
                       <br></br>
                       <br></br>
                     </div>
-                    <div className="mbot"></div>
+
                     <div className="c-box-xmin"> </div>
                   </div>
                 )}
@@ -379,7 +378,6 @@ function Explore() {
         <div onClick={display} style={{ height: "50px", width: "300px" }}></div>
       )}
       {visible && <Schedule />}
-      <div className="mbot"></div>
     </>
   );
 }

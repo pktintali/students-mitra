@@ -17,7 +17,6 @@ const Settings = () => {
   return (
     <>
       <TopBar settings={true} bool={true} txt="Settings" />
-      <div className="mtop"></div>
       <div className='w3-display-middle'>
         <h3>Dark Mode</h3>
         <label class="switch">

@@ -19,7 +19,6 @@ function Questions1(props) {
     return (
       <>
         <TopBar bool={false} txt={subject.toUpperCase() + "  Test"} />
-        <div className="mtop"></div>
         <DataFetching
           game={props.game}
           click={props.click}
@@ -27,9 +26,8 @@ function Questions1(props) {
           sub={subject}
           config={props.config}
           leval={props.leval}
-          host = {props.host}
+          host={props.host}
         />
-        <div className="mbot"></div>
       </>
     );
   } else {

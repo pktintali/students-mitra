@@ -10,9 +10,7 @@ function Questions3(props) {
   return (
     <>
       <TopBar bool={false} txt="Active Subjects Test" />
-      <div className="mtop"></div>
       <DataFetching click={props.click} type="select" sub={subjectByContext} />
-      <div className="mbot"></div>
     </>
   );
 }

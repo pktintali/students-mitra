@@ -68,7 +68,7 @@ function LoginPage(props) {
             <input
               style={{
                 backgroundColor: dark ? "#313131" : "",
-                color: dark?"#f2f2f2":"black",
+                color: dark ? "#f2f2f2" : "black",
               }}
               className="w3-border w3-input"
               type="email"
@@ -110,10 +110,10 @@ function LoginPage(props) {
   return !loading ? (
     <>
       <Helmet>
-        <title>Login to Students-mitra</title>
+        <title>Login to Studentmitra</title>
         <meta
           name="description"
-          content="students-mitra login page. student mitra is online subject knowledge testing platform."
+          content="studentmitra login page. studentmitra is online subject knowledge testing platform."
         />
       </Helmet>
       {reset && resetModal}
@@ -138,7 +138,7 @@ function LoginPage(props) {
                 <input
                   style={{
                     backgroundColor: dark ? "#313131" : "",
-                    color: dark?"#f2f2f2":"black",
+                    color: dark ? "#f2f2f2" : "black",
                   }}
                   className="w3-input w3-border"
                   type="text"
@@ -154,7 +154,7 @@ function LoginPage(props) {
                 <input
                   style={{
                     backgroundColor: dark ? "#313131" : "",
-                    color: dark?"#f2f2f2":"black",
+                    color: dark ? "#f2f2f2" : "black",
                   }}
                   className="w3-border w3-input"
                   type="email"
@@ -170,7 +170,7 @@ function LoginPage(props) {
                 <input
                   style={{
                     backgroundColor: dark ? "#313131" : "",
-                    color: dark?"#f2f2f2":"black",
+                    color: dark ? "#f2f2f2" : "black",
                   }}
                   className="w3-input w3-border"
                   type="password"
@@ -178,7 +178,12 @@ function LoginPage(props) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 ></input>
-                <span onClick={() => setRest(true)} className="w3-right w3-hover-dark-gray w3-btn">
+                <span
+                  onClick={() => setRest(true)}
+                  className={`w3-right ${
+                    dark ? "w3-hover-dark-gray" : ""
+                  } w3-btn`}
+                >
                   Forgot Password ?
                 </span>
               </p>
@@ -196,7 +201,6 @@ function LoginPage(props) {
               <p></p>
             </form>
           </div>
-          <div className="c-box-min"></div>
           <div className="w3-half w3-hide-small">
             <div className="w3-center">
               <img
@@ -207,9 +211,7 @@ function LoginPage(props) {
             </div>
           </div>
         </div>
-        <div className="c-box-min"></div>
       </div>
-      <div className="c-box-min"></div>
     </>
   ) : (
     <>

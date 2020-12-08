@@ -9,11 +9,11 @@ const FeedBackPage = () => {
         <title>Send Feedback/ Ask Questions</title>
         <meta
           name="description"
-          content="students-mitra feedback form page. student mitra is online subject knowledge testing platform."
+          content="student-mitra feedback form page. studentmitra is online subject knowledge testing platform."
         />
       </Helmet>
       <TopBar bool={true} profile={true} txt="Send feedback" />
-      <div className="mtop">
+      <div>
         <iframe
           src="https://docs.google.com/forms/d/e/1FAIpQLSfpA1FcExK-v9SSloWjwzT1xnH07OJf1lE0wAOlp0VzmIsXzQ/viewform?embedded=true"
           width="100%"
@@ -31,7 +31,6 @@ const FeedBackPage = () => {
       >
         Back
       </button>
-      <div className="c-box-min"></div>
     </>
   );
 };

@@ -13,7 +13,7 @@ import { Helmet } from "react-helmet";
 import DataFetching from "./DataFetching";
 import DemoTest from "./DemoTest";
 import ReactPlayer from "react-player";
-import getDevice from "../getDevice";
+import getDevice from "../utils/getDevice";
 
 toast.configure();
 
@@ -74,17 +74,16 @@ function Quiz(props) {
     return (
       <>
         <Helmet>
-          <title>Students-mitra Test</title>
+          <title>StudentMitra Test</title>
           <meta
             name="description"
-            content="students-mitra testpage. give test for single subject, selected subjects and for all active subjects. there is also a game mode."
+            content="studentmitra testpage. give test for single subject, selected subjects and for all active subjects. there is also a game mode."
           />
         </Helmet>
         <div>
           <TopBar txt="Test" bool={false} />
-          <div className="mtop"></div>
           {firebase.getCurrentUsername() && (
-            <div className={`${animation}`}>
+            <div style={{ marginTop: 10 }} className={`${animation}`}>
               <div className="w3-row-padding ">
                 <div style={{ width: "33.3%" }} className="w3-col">
                   <RoundButton click={setSingleSubject} txt="Single Subject" />
@@ -172,7 +171,6 @@ function Quiz(props) {
               </div>
             </div>
           )}
-          <div className="c-box-min"></div>
         </div>
       </>
     );

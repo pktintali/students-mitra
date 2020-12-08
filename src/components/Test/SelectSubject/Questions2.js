@@ -10,9 +10,12 @@ function Questions2(props) {
   return (
     <>
       <TopBar bool={false} txt="Custom Test" />
-      <div className="mtop"></div>
-      <DataFetching config = {props.config} click={props.click} type="select" sub={subjectByContext} />
-      <div className="mbot"></div>
+      <DataFetching
+        config={props.config}
+        click={props.click}
+        type="select"
+        sub={subjectByContext}
+      />
     </>
   );
 }

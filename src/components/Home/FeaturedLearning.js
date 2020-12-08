@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import getDevice from "../getDevice";
+import getDevice from "../utils/getDevice";
 import DataFetching from "../Test/DataFetching";
 import SuggestionCard from "./SuggestionCard";
 

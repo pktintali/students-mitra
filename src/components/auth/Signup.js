@@ -15,7 +15,7 @@ toast.configure();
 function SignupPage(props) {
   const dark = useSelector((state) => state.theme.dark);
   const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState();
+  const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState();
   const [password2, setPassword2] = useState();
   const [loading, setLoading] = useState(false);
@@ -23,6 +23,13 @@ function SignupPage(props) {
   async function signup(e) {
     setLoading(true);
     e.preventDefault();
+    if (!userEmail.includes("@")) {
+      toast.error("Invalid E-Mail ID", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      setLoading(false);
+      return
+    }
     if (password !== password2) {
       toast.error("Password did not match with first", {
         position: toast.POSITION.BOTTOM_RIGHT,
@@ -65,10 +72,10 @@ function SignupPage(props) {
   return !loading ? (
     <>
       <Helmet>
-        <title>SignUp for Students-Mitra</title>
+        <title>SignUp for StudentMitra</title>
         <meta
           name="description"
-          content="students-mitra SignUp page. student mitra is online subject knowledge testing platform."
+          content="studentmitra SignUp page. studentmitra is online subject knowledge testing platform."
         />
       </Helmet>
       <div style={myFormStyle}>
@@ -90,7 +97,7 @@ function SignupPage(props) {
                 <input
                   style={{
                     backgroundColor: dark ? "#313131" : "",
-                    color: dark?"#f2f2f2":"black",
+                    color: dark ? "#f2f2f2" : "black",
                   }}
                   className="w3-input w3-border"
                   type="text"
@@ -106,7 +113,7 @@ function SignupPage(props) {
                 <input
                   style={{
                     backgroundColor: dark ? "#313131" : "",
-                    color: dark?"#f2f2f2":"black",
+                    color: dark ? "#f2f2f2" : "black",
                   }}
                   className="w3-border w3-input"
                   type="email"
@@ -122,7 +129,7 @@ function SignupPage(props) {
                 <input
                   style={{
                     backgroundColor: dark ? "#313131" : "",
-                    color: dark?"#f2f2f2":"black",
+                    color: dark ? "#f2f2f2" : "black",
                   }}
                   className="w3-input w3-border"
                   type="password"
@@ -130,14 +137,15 @@ function SignupPage(props) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 ></input>
-
+              </p>
+              <p>
                 <label className="w3-left">
                   <b>Confirmm Password</b>
                 </label>
                 <input
                   style={{
                     backgroundColor: dark ? "#313131" : "",
-                    color: dark?"#f2f2f2":"black",
+                    color: dark ? "#f2f2f2" : "black",
                   }}
                   className="w3-input w3-border"
                   type="password"
@@ -146,7 +154,7 @@ function SignupPage(props) {
                   onChange={(e) => setPassword2(e.target.value)}
                 ></input>
               </p>
-              <br></br>
+
               <button onClick={signup} className="w3-block w3-button w3-red">
                 Sign up
               </button>
@@ -156,15 +164,26 @@ function SignupPage(props) {
                   Already Account Login
                 </button>
               </Link>
+              <p className="w3-tiny">
+                By creating this account, you agree to our
+                <Link to="/privacy-policy" className="no-td w3-text-blue">
+                  {" "}
+                  Privacy Policy
+                </Link>
+                {" & "}
+                <Link to="/terms-of-uses" className="no-td w3-text-blue">
+                  Terms of Uses
+                </Link>
+              </p>
               <p></p>
             </form>
           </div>
-          <div className="c-box-min"></div>
+
           <div className="w3-half w3-hide-small">
             <div className="w3-center">
               <img
-                style={{ width: dark?"50%":"100%" }}
-                src={dark?logo5:signinLogo}
+                style={{ width: dark ? "50%" : "100%" }}
+                src={dark ? logo5 : signinLogo}
                 alt="Signin Logo"
               />
             </div>

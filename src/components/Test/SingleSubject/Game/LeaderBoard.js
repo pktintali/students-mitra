@@ -30,7 +30,9 @@ function LeaderBoard(props) {
     <div style={{ display: "block" }} className="w3-modal">
       <div
         style={{ maxWidth: "350px" }}
-        className={`w3-modal-content w3-padding w3-border ${dark?'w3-dark-gray':''} w3-border-red w3-animate-zoom w3-padding w3-card-4`}
+        className={`w3-modal-content w3-padding w3-border ${
+          dark ? "w3-dark-gray" : ""
+        } w3-border-red w3-animate-zoom w3-padding w3-card-4`}
       >
         <div style={{ height: "30px" }}></div>
         <h4>Please Wait...</h4>
@@ -41,11 +43,11 @@ function LeaderBoard(props) {
 
   return players ? (
     <>
-    <Helmet>
+      <Helmet>
         <title>LeaderBoard</title>
         <meta
           name="description"
-          content="students-mitra game leaderboard. View your and your friends game score here."
+          content="studentmitra game leaderboard. View your and your friends game score here."
         />
       </Helmet>
       {loading && loader}
@@ -60,10 +62,14 @@ function LeaderBoard(props) {
           <tbody>
             <tr className="w3-pale-green">
               <th>
-                <h4><b>Player</b></h4>
+                <h4>
+                  <b>Player</b>
+                </h4>
               </th>
               <th>
-                <h4><b>Score</b></h4>
+                <h4>
+                  <b>Score</b>
+                </h4>
               </th>
             </tr>
 
@@ -93,10 +99,7 @@ function LeaderBoard(props) {
         </div>
       </div>
 
-      <div className="w3-third">
-        <div className="c-box-min"></div>
-      </div>
-      <div className="c-box-min"></div>
+      <div className="w3-third"></div>
     </>
   ) : (
     <h3>Loading...</h3>

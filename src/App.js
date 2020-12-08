@@ -2,24 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import {
-  Profile,
-  firebase,
-  LoginPage,
-  Signup,
-  ScrollToTop,
-  Home,
-  Quiz,
-  Explore,
-  Nav,
-  LoadingScreen,
-  Game,
-  FeedBackPage,
-  Settings,
-} from "./components/index";
-import Test from "./Test";
-
+import { BrowserRouter as Router } from "react-router-dom";
+import { firebase, ScrollToTop, Nav, LoadingScreen } from "./components/index";
+import Routes from "./constants/routes";
+import BackOnTop from "./components/utils/BackOnTop";
 export const NavContext = React.createContext();
 
 function App() {
@@ -37,7 +23,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-   
     initLizedFire && firebase.getDpImage().then(setUserMini);
     usermini && window.sessionStorage.setItem("dpmin", usermini);
   }, [initLizedFire]);
@@ -51,19 +36,11 @@ function App() {
         <div className="App">
           <NavContext.Provider value={hide}>
             {visible && <Nav />}
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/explore" component={Explore} />
-              <Route path="/test" exact component={Quiz} />
-              <Route path="/login" component={LoginPage} />
-              <Route path="/signup" component={Signup} />
-              <Route path="/profile" component={Profile} />
-              <Route path="/game" component={Game} />
-              <Route path="/feedback" component={FeedBackPage} />
-              <Route path="/dev" component={Test} />
-              <Route path="/settings" component={Settings} />
-            </Switch>
+            <div id="topbox" className="c-box-min"></div>
+            <Routes />
+            <div id="botbox" className="c-box-min"></div>
           </NavContext.Provider>
+          <BackOnTop />
         </div>
       </Router>
     </Provider>
