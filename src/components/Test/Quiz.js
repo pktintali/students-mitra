@@ -168,6 +168,7 @@ function Quiz(props) {
                   controls
                   url="https://youtu.be/tsfKferlvRY"
                 />
+                <div className="c-box-min"></div>
               </div>
             </div>
           )}

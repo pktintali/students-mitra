@@ -78,15 +78,15 @@ const Privacy = () => {
         <p style={{ display: "inline-block", width: "100%" }}>
           <b>Information that you give us :</b>
           <br></br>
-          Typicallly the information you give us includes your contact details,
+          Typically the information you give us includes your contact details,
           address, name, email address, education, your posts and comments.
         </p>
 
         <p style={{ display: "inline-block", width: "100%" }}>
           <b>Information collected automatically :</b>
           <br></br>
-          Though we do do not use any information collected automatically
-          through site and browser settings, we have the access to them. This
+          Though we do not use any information collected automatically through
+          site and browser settings, we have the access to them. This
           information may include your browser type and version, your preferred
           language, location using IP address. We do not need these information
           for our application and are committed not to use them.
@@ -97,8 +97,8 @@ const Privacy = () => {
           <br></br>
           This Service may contain links to other sites. If you click on a
           third-party link, you will be directed to that site. Note that these
-          external sites are not operated by me. Therefore, I strongly advise
-          you to review the Privacy Policy of these websites. I have no control
+          external sites are not operated by us. Therefore, We strongly advise
+          you to review the Privacy Policy of these websites. We have no control
           over and assume no responsibility for the content, privacy policies,
           or practices of any third-party sites or services
         </p>
@@ -117,7 +117,7 @@ const Privacy = () => {
         </ul>
         <p>
           We neither use your information for purposes other than mentioned
-          above, nor we share any of the information to any other third party
+          above, nor we share any of the information to any other third-party
           application or service. All the information you provide is safely and
           securely stored in our Google’s FIREBASE database.
         </p>
@@ -165,11 +165,11 @@ const Privacy = () => {
           <p style={{ fontFamily: "Georgia, serif" }}>
             CONTACT US If you have any questions, comments, or concerns
             regarding this Policy, please contact TDevelopers at:<br></br>
-            <p style={{ fontSize: 18 }} className="w3-text-red">
+            <span style={{ fontSize: 18 }} className="w3-text-red">
               <a className="no-td" href="mailto:tdeveloperindia@gmail.com">
                 tdeveloperindia@gmail.com
               </a>
-            </p>
+            </span>
           </p>
         </div>
       </div>

@@ -202,6 +202,8 @@ function SingleSubject(props) {
           style={
             bg
               ? {
+                 marginTop:'-10px',
+                 marginBottom:'-70px',
                   color: "white",
                   width: "100%",
                   height: window.innerHeight,

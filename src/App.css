@@ -144,8 +144,8 @@
 .circular-mini-div {
   display: inline-block;
   position: relative;
-  width: 3vw;
-  height: 3vw;
+  width: 45px;
+  height: 45px;
   overflow: hidden;
   border-radius: 50%;
 }

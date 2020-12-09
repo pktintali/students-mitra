@@ -11,7 +11,7 @@ const Terms = () => {
           content="StudentMitra Terms and Conditions Page"
         />
       </Helmet>
-      <TopBar bool={true} settings={true} txt={"Privacy and Policy"} />
+      <TopBar bool={true} settings={true} txt={"Terms and Conditions"} />
       <div
         style={{
           textAlign: "left",
@@ -91,11 +91,11 @@ const Terms = () => {
             CONTACT US If you have any questions, comments, or concerns
             regarding this Terms and Conditions, please contact TDevelopers at:
             <br></br>
-            <p style={{ fontSize: 20 }} className="w3-text-red">
+            <span style={{ fontSize: 20 }} className="w3-text-red">
               <a className="no-td" href="mailto:tdeveloperindia@gmail.com">
                 tdeveloperindia@gmail.com
               </a>
-            </p>
+            </span>
           </p>
         </div>
       </div>

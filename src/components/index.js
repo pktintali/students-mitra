@@ -14,3 +14,4 @@ export { default as Settings } from "./settings/Settings";
 export { default as Test } from "../Test";
 export { default as Privacy } from "./auth/Privacy";
 export { default as Terms } from "./auth/Terms";
+export { default as Notifications } from "./Home/Notifications/Notifications";

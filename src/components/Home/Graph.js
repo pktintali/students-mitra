@@ -123,7 +123,8 @@ function Graph() {
           <h3 className={`${dark ? "" : "w3-text-grey"}`}>
             Active Subjects Analysis
           </h3>
-          {activeMarks.activeSubjects.length > 0 ? (
+          {activeMarks.activeSubjects &&
+          activeMarks.activeSubjects.length > 0 ? (
             <div>
               <div className="w3-half">
                 <div style={{ padding: 10 }}>

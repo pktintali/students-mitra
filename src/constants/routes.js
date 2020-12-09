@@ -6,6 +6,7 @@ import {
   Game,
   Home,
   LoginPage,
+  Notifications,
   Privacy,
   Profile,
   Quiz,
@@ -30,6 +31,7 @@ const Routes = () => {
       <Route path="/settings" component={Settings} />
       <Route path="/privacy-policy" component={Privacy} />
       <Route path="/terms-of-uses" component={Terms} />
+      <Route path="/notifications" component={Notifications} />
     </Switch>
   );
 };

@@ -28,7 +28,7 @@ function SignupPage(props) {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
       setLoading(false);
-      return
+      return;
     }
     if (password !== password2) {
       toast.error("Password did not match with first", {
@@ -83,7 +83,13 @@ function SignupPage(props) {
         <div className="mtop"></div>
         <div className="c-box-xmin"> </div>
 
-        <div className="w3-animate-zoom w3-row w3-card-4 w3-margin w3-round-large">
+        <div
+          className="w3-animate-zoom w3-row w3-card-4 w3-margin w3-round-large"
+          style={{
+            backgroundColor: dark ? "#1F1F1F" : "",
+            boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
+          }}
+        >
           <div className="w3-half">
             <div className="w3-text-red" style={{ marginTop: "-30px" }}>
               <FaUserGraduate size="60" />

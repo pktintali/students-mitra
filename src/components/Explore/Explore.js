@@ -12,6 +12,7 @@ import ReactPlayer from "react-player/youtube";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
+import LoadingScreen from "../LoadingScreen";
 
 toast.configure();
 function Explore() {
@@ -333,24 +334,30 @@ function Explore() {
         </div>
       )}
 
-      {!text && firebase.getCurrentUsername() && (
+      {!text && firebase.getCurrentUsername() && posts && posts.length > 0 ? (
         <div className="w3-row-padding">
           {posts &&
             posts.map((post) => {
               return <PostCard key={post.key} post={post} />;
             })}
         </div>
+      ) : (
+        !text && firebase.getCurrentUsername() && <LoadingScreen />
       )}
-      {!text && firebase.getCurrentUsername() && firebase.isUserVerified() && (
-        <div className="w3-padding-large w3-right">
-          <Link
-            to="/feedback"
-            className="w3-border-red w3-button w3-round-large w3-border"
-          >
-            Feedback/Report Bug
-          </Link>
-        </div>
-      )}
+      {!text &&
+        firebase.getCurrentUsername() &&
+        firebase.isUserVerified() &&
+        posts &&
+        posts.length > 0 && (
+          <div className="w3-padding-large w3-right">
+            <Link
+              to="/feedback"
+              className="w3-border-red w3-button w3-round-large w3-border"
+            >
+              Feedback/Report Bug
+            </Link>
+          </div>
+        )}
       {!firebase.getCurrentUsername() && !visible && (
         <div className="w3-hide-small w3-hide-medium w3-display-middle">
           <h1>Have a quick tour</h1>

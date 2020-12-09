@@ -1,15 +1,15 @@
 import React from "react";
 import "../App.css";
-import { FaArrowLeft, FaUser } from "react-icons/fa";
+import { FaArrowLeft, FaBell, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import firebase from "./firebase";
 import { useSelector } from "react-redux";
-import {MdSettings} from 'react-icons/md'
+import { MdSettings } from "react-icons/md";
 function TopBar(props) {
   const usermini = window.sessionStorage.getItem("dpmin");
   const dark = useSelector((state) => state.theme.dark);
   const doClick = () => {
-    if (props.profile||props.settings) {
+    if (props.profile || props.settings) {
       window.history.back();
     } else {
       props.click();
@@ -31,10 +31,24 @@ function TopBar(props) {
         )}
 
         <h3 className="w3-left">{props.txt}</h3>
-        {firebase.getCurrentUsername()&&!props.settings&&props.profile&& <Link style = {{marginRight:'-18px'}} to="/settings" className="w3-right w3-hover-white w3-button w3-small">
-          <MdSettings size = {30}/>
-          </Link>}
-        {!props.profile &&!props.settings&&firebase.getCurrentUsername() && (
+        {firebase.getCurrentUsername() && !props.settings && props.profile && (
+          <Link
+            style={{ marginRight: "-18px" }}
+            to="/settings"
+            className="w3-right w3-circle w3-hover-white w3-button w3-small"
+          >
+            <MdSettings size={30} />
+          </Link>
+        )}
+        {props.profile && (
+          <Link
+            to="/notifications"
+            className="w3-right w3-circle w3-hover-white w3-button w3-small"
+          >
+            <FaBell size={30} />
+          </Link>
+        )}
+        {!props.profile && !props.settings && firebase.getCurrentUsername() && (
           <Link
             style={{ marginRight: "-15px" }}
             to="./profile"

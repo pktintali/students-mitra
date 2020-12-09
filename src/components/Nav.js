@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import "./switchStyle.css";
 import { Link } from "react-router-dom";
-import { FaHome, FaBookReader, FaBong, FaUser } from "react-icons/fa";
+import { FaHome, FaBookReader, FaBong, FaUser, FaBell } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import firebase from "./firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -162,6 +162,16 @@ function Nav() {
             >
               {!usermini && <FaUser size={20} />}
               {usermini && <img src={usermini} className="mini-dpcircle" />}
+            </Link>
+          )}
+          {firebase.getCurrentUsername() && (
+            <Link
+              to="/notifications"
+              className={
+                "w3-right w3-hover-white w3-bar-item w3-circle w3-padding-large"
+              }
+            >
+              <FaBell size={20} />
             </Link>
           )}
           <div className={`w3-right w3-bar-item w3-hide-small w3-hide-medium`}>
