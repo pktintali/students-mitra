@@ -1,4 +1,7 @@
-## StudentMitra is Free and Online Study Analyzer tool .
+# students-mitra
+
+StudentMitra is Free and Online Study Analyzer tool.
+
 ### Website - [StudentMitra](https://www.studentmitra.in/)
 
 ## Some Key Features
