@@ -169,135 +169,139 @@ const Profile = (props) => {
         />
       </Helmet>
       <TopBar bool={true} profile={true} txt="Profile" />
-
-      {!firebase.isUserVerified() && (
-        <div>
-          <i>⚠️Your Email is Not Verified. Verify for full Access</i>
-          <button
-            className="w3-margin w3-button w3-small w3-round-xxlarge w3-green"
-            onClick={sendEmailVerificationLink}
-          >
-            Verify
-          </button>
-        </div>
-      )}
-      <h2 className="w3-hide-small">Your Profile Info</h2>
-      {profileInfo ? (
-        <div className="w3-animate-right">
-          <div className="w3-half">
-            {!usermini && <FaUserCircle className="w3-text-green" size={150} />}
-            {usermini && <img className="dpcircle" src={usermini} />}
-            <br></br>
-            <br></br>
-            <b>{firebase.getCurrentUsername()}</b>
-            <br></br>
-            <br></br>
-            <Link to="/login">
-              <button
-                onClick={doSignOut}
-                className="w3-hide-large w3-round w3-red w3-button"
-              >
-                LogOut
-              </button>
-            </Link>
+      <div className="w3-animate-right">
+        {!firebase.isUserVerified() && (
+          <div>
+            <i>⚠️Your Email is Not Verified. Verify for full Access</i>
             <button
-              onClick={toogleEdit}
-              className="w3-green w3-button w3-round w3-margin"
+              className="w3-margin w3-button w3-small w3-round-xxlarge w3-green"
+              onClick={sendEmailVerificationLink}
             >
-              Edit Profile
+              Verify
             </button>
           </div>
-          <div className="w3-half">
-            <table style={{ maxWidth: "500px" }} className="w3-table">
-              <tbody>
-                <tr className="w3-border">
-                  <td>
-                    <b>Name</b>
-                  </td>
-                  {<td>{profileInfo.name}</td>}
-                </tr>
-                <tr className="w3-border">
-                  <td>
-                    <b>Section</b>
-                  </td>
-                  {<td>{profileInfo.sec}</td>}
-                </tr>
-                <tr className="w3-border">
-                  <td>
-                    <b>Branch</b>
-                  </td>
-                  {<td>{profileInfo.branch}</td>}
-                </tr>
-                <tr className="w3-border">
-                  <td>
-                    <b>College</b>
-                  </td>
-                  {<td>{profileInfo.college}</td>}
-                </tr>
-                <tr className="w3-border">
-                  <td>
-                    <b>Mobile</b>
-                  </td>
-                  {<td>{profileInfo.mobile}</td>}
-                </tr>
-                <tr className="w3-border">
-                  <td>
-                    <b>Email</b>
-                  </td>
-                  {<td>{profileInfo.email}</td>}
-                </tr>
-                <tr className="w3-border">
-                  <td>
-                    <b>DOB</b>
-                  </td>
-                  {<td>{profileInfo.dob}</td>}
-                </tr>
-                <tr className="w3-border">
-                  <td>
-                    <b>Address</b>
-                  </td>
-                  {<td>{profileInfo.address}</td>}
-                </tr>
-                <tr className="w3-border">
-                  <td>
-                    <b>State</b>
-                  </td>
-                  {<td>{profileInfo.state}</td>}
-                </tr>
-                <tr className="w3-border">
-                  <td>
-                    <b>Country</b>
-                  </td>
-                  {<td>{profileInfo.country}</td>}
-                </tr>
-              </tbody>
-            </table>
+        )}
+        <h2 className="w3-hide-small">Your Profile Info</h2>
+
+        {profileInfo ? (
+          <div>
+            <div className="w3-half">
+              {!usermini && (
+                <FaUserCircle className="w3-text-green" size={150} />
+              )}
+              {usermini && <img className="dpcircle" src={usermini} />}
+              <br></br>
+              <br></br>
+              <b>{firebase.getCurrentUsername()}</b>
+              <br></br>
+              <br></br>
+              <Link to="/login">
+                <button
+                  onClick={doSignOut}
+                  className="w3-hide-large w3-round w3-red w3-button"
+                >
+                  LogOut
+                </button>
+              </Link>
+              <button
+                onClick={toogleEdit}
+                className="w3-green w3-button w3-round w3-margin"
+              >
+                Edit Profile
+              </button>
+            </div>
+            <div className="w3-half">
+              <table style={{ maxWidth: "500px" }} className="w3-table">
+                <tbody>
+                  <tr className="w3-border">
+                    <td>
+                      <b>Name</b>
+                    </td>
+                    {<td>{profileInfo.name}</td>}
+                  </tr>
+                  <tr className="w3-border">
+                    <td>
+                      <b>Section</b>
+                    </td>
+                    {<td>{profileInfo.sec}</td>}
+                  </tr>
+                  <tr className="w3-border">
+                    <td>
+                      <b>Branch</b>
+                    </td>
+                    {<td>{profileInfo.branch}</td>}
+                  </tr>
+                  <tr className="w3-border">
+                    <td>
+                      <b>College</b>
+                    </td>
+                    {<td>{profileInfo.college}</td>}
+                  </tr>
+                  <tr className="w3-border">
+                    <td>
+                      <b>Mobile</b>
+                    </td>
+                    {<td>{profileInfo.mobile}</td>}
+                  </tr>
+                  <tr className="w3-border">
+                    <td>
+                      <b>Email</b>
+                    </td>
+                    {<td>{profileInfo.email}</td>}
+                  </tr>
+                  <tr className="w3-border">
+                    <td>
+                      <b>DOB</b>
+                    </td>
+                    {<td>{profileInfo.dob}</td>}
+                  </tr>
+                  <tr className="w3-border">
+                    <td>
+                      <b>Address</b>
+                    </td>
+                    {<td>{profileInfo.address}</td>}
+                  </tr>
+                  <tr className="w3-border">
+                    <td>
+                      <b>State</b>
+                    </td>
+                    {<td>{profileInfo.state}</td>}
+                  </tr>
+                  <tr className="w3-border">
+                    <td>
+                      <b>Country</b>
+                    </td>
+                    {<td>{profileInfo.country}</td>}
+                  </tr>
+                </tbody>
+              </table>
+              <div className="c-box-min"></div>
+            </div>
+            <h2>Active Subjects</h2>
+
+            <ul className="w3-ul w3-padding-large w3-border">
+              {activeSubjects &&
+                activeSubjects.map((ac) => {
+                  return (
+                    <li key={ac}>
+                      {ac}
+                      <span
+                        style={{ marginLeft: "50%" }}
+                        onClick={() => removeSubject(ac)}
+                        className="w3-btn"
+                      >
+                        Remove
+                      </span>
+                    </li>
+                  );
+                })}
+            </ul>
             <div className="c-box-min"></div>
           </div>
-          <h2>Active Subjects</h2>
-
-          <ul className="w3-ul w3-padding-large w3-border">
-            {activeSubjects &&
-              activeSubjects.map((ac) => {
-                return (
-                  <li key={ac}>
-                    {ac}
-                    <span
-                      style={{ marginLeft: "50%" }}
-                      onClick={() => removeSubject(ac)}
-                      className="w3-btn"
-                    >
-                      Remove
-                    </span>
-                  </li>
-                );
-              })}
-          </ul>
-          <div className="c-box-min"></div>
-        </div>
-      ) : (
-        <LoadingScreen />
-      )}
+        ) : (
+          <LoadingScreen />
+        )}
+      </div>
     </>
   ) : (
     <>

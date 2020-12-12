@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 const Test = (props) => {
   const ice = useSelector((state) => state.iceCream.noOfCreams);
+  const logo = useSelector((state) => state.userLogo.logo);
   const dark = useSelector((state) => state.theme.dark);
   const [c, setC] = useState(1);
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ const Test = (props) => {
       <button onClick={props.buyCake}>Buy Cake</button>
       <button onClick={() => dispatch(buyCream(c))}>Add {c} IceCream</button>
       <button onClick={() => dispatch(setDark())}>Change Theme</button>
+      <hr></hr>
+      {logo && <img style={{ width: "50%" }} src={logo} />}
     </div>
   );
 };

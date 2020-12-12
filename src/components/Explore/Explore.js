@@ -8,11 +8,12 @@ import firebase from "../firebase";
 import cameraPlaceholder from "../../camera-placeholder.png";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ReactPlayer from "react-player/youtube";
+// import ReactPlayer from "react-player/youtube";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 import LoadingScreen from "../LoadingScreen";
+import FeaturedLearning from "../Home/FeaturedLearning";
 
 toast.configure();
 function Explore() {
@@ -359,17 +360,21 @@ function Explore() {
           </div>
         )}
       {!firebase.getCurrentUsername() && !visible && (
-        <div className="w3-hide-small w3-hide-medium w3-display-middle">
-          <h1>Have a quick tour</h1>
-          <ReactPlayer
-            height={400}
-            width={720}
-            controls
-            url="https://youtu.be/tsfKferlvRY"
-          />
-        </div>
+        <header>
+          {/* <h2>StudentMitra Study Material</h2> */}
+          <FeaturedLearning sub={"dll"} />
+        </header>
+        // <div className="w3-hide-small w3-hide-medium w3-display-middle">
+        //   <h1>StudentMitra | </h1>
+        //   <ReactPlayer
+        //     height={400}
+        //     width={720}
+        //     controls
+        //     url="https://youtu.be/tsfKferlvRY"
+        //   />
+        // </div>
       )}
-      {!firebase.getCurrentUsername() && !visible && (
+      {/* {!firebase.getCurrentUsername() && !visible && (
         <div className="w3-hide-large w3-display-middle">
           <h1>Have a quick tour</h1>
           <ReactPlayer
@@ -380,7 +385,7 @@ function Explore() {
             url="https://youtu.be/tsfKferlvRY"
           />
         </div>
-      )}
+      )} */}
       {!visible && (
         <div onClick={display} style={{ height: "50px", width: "300px" }}></div>
       )}

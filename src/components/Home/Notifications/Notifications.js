@@ -16,7 +16,7 @@ const Notifications = (props) => {
   }
   return (
     <>
-      <TopBar profile={true} bool={true} txt={"Notifications"} />
+      <TopBar notify={true} bool={true} txt={"Notifications"} />
       <h3>Notifications</h3>
       <div>
         {notifications && notifications.length > 0 ? (

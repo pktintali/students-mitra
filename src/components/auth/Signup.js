@@ -72,7 +72,9 @@ function SignupPage(props) {
   return !loading ? (
     <>
       <Helmet>
-        <title>SignUp for StudentMitra</title>
+        <title>
+          Signup for StudentMitra and Start Analyzing Your Subjects Knowledge
+        </title>
         <meta
           name="description"
           content="studentmitra SignUp page. studentmitra is online subject knowledge testing platform."
@@ -178,7 +180,7 @@ function SignupPage(props) {
                 </Link>
                 {" & "}
                 <Link to="/terms-of-uses" className="no-td w3-text-blue">
-                  Terms of Uses
+                  Terms of Use
                 </Link>
               </p>
               <p></p>

@@ -8,7 +8,7 @@ const Privacy = () => {
         <title>StudentMitra Privacy and Policy</title>
         <meta
           name="description"
-          content="StudentMitra Privacy and Policy Page"
+          content="StudentMitra Privacy and Policy"
         />
       </Helmet>
       <TopBar bool={true} settings={true} txt={"Privacy and Policy"} />

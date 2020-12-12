@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import DataFetching from "./DataFetching";
 import DemoTest from "./DemoTest";
 import ReactPlayer from "react-player";
 import getDevice from "../utils/getDevice";
@@ -74,10 +73,10 @@ function Quiz(props) {
     return (
       <>
         <Helmet>
-          <title>StudentMitra Test</title>
+          <title>StudentMitra Test | Take a Demo Test</title>
           <meta
             name="description"
-            content="studentmitra testpage. give test for single subject, selected subjects and for all active subjects. there is also a game mode."
+            content="StudentMitra test. give a demo test on studentmitra"
           />
         </Helmet>
         <div>
@@ -129,7 +128,7 @@ function Quiz(props) {
           )}
           {!firebase.getCurrentUsername() && (
             <div>
-              <h1>Demo Test</h1>
+              <h2>Demo Test</h2>
               <div
                 style={{ marginLeft: "33%", marginRight: "33%" }}
                 className="w3-padding"

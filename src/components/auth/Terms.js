@@ -5,10 +5,10 @@ const Terms = () => {
   return (
     <>
       <Helmet>
-        <title>StudentMitra Terms and Conditions</title>
+        <title>StudentMitra Terms of Use</title>
         <meta
           name="description"
-          content="StudentMitra Terms and Conditions Page"
+          content="StudentMitra Terms of uses"
         />
       </Helmet>
       <TopBar bool={true} settings={true} txt={"Terms and Conditions"} />

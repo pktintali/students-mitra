@@ -110,10 +110,10 @@ function LoginPage(props) {
   return !loading ? (
     <>
       <Helmet>
-        <title>Login to Studentmitra</title>
+        <title>StudentMitra | Online Study Analyzer</title>
         <meta
           name="description"
-          content="studentmitra login page. studentmitra is online subject knowledge testing platform."
+          content="studentmitra login page. Online subject knowledge testing and study analyzer. We are student mitra"
         />
       </Helmet>
       {reset && resetModal}
@@ -121,10 +121,10 @@ function LoginPage(props) {
         <TopBar txt="Login" />
         <div className="mtop"></div>
         <div className="c-box-xmin"> </div>
-
         <div
           className={`w3-animate-zoom w3-row w3-card-4 w3-margin w3-round-large`}
           style={{
+            marginTop: 5,
             backgroundColor: dark ? "#1F1F1F" : "",
             boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
           }}
@@ -205,7 +205,9 @@ function LoginPage(props) {
               <p></p>
             </form>
           </div>
+
           <div className="w3-half w3-hide-small">
+            <h1>StudentMitra</h1>
             <div className="w3-center">
               <img
                 style={{ width: dark ? "50%" : "100%" }}
@@ -215,6 +217,9 @@ function LoginPage(props) {
             </div>
           </div>
         </div>
+        <h1 className="w3-hide-large w3-hide-medium w3-hide-small">
+          Student Mitra
+        </h1>
       </div>
     </>
   ) : (
