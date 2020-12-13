@@ -10,12 +10,14 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet";
 import { FaArrowLeft } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 toast.configure();
 export const GameSubContext = React.createContext();
 
 function SingleSubject(props) {
   //const [play, setPlay] = useState();
+  const dark = useSelector((state) => state.theme.dark);
   const [topbar, setTopBar] = useState(true);
   const [join, setJoin] = useState(false);
   const [create, setCreate] = useState(false);
@@ -57,8 +59,12 @@ function SingleSubject(props) {
   const loader = (
     <div style={{ display: "block" }} className="w3-modal">
       <div
-        style={{ maxWidth: "350px" }}
-        className="w3-text-black w3-modal-content w3-padding w3-border w3-border-red w3-animate-zoom w3-padding w3-card-4"
+        style={{ maxWidth: "350px", zIndex: 999999 }}
+        className={` ${
+          dark ? "w3-black" : "w3-white"
+        } w3-modal-content w3-padding w3-border ${
+          dark ? "w3-border-brown" : "w3-border-red"
+        } w3-animate-zoom w3-padding w3-card-4`}
       >
         <div style={{ height: "30px" }}></div>
         <h4>Checking Room Info....</h4>
@@ -202,13 +208,13 @@ function SingleSubject(props) {
           style={
             bg
               ? {
-                 marginTop:'-10px',
-                 marginBottom:'-70px',
+                  marginTop: "-10px",
+                  marginBottom: "-70px",
                   color: "white",
                   width: "100%",
                   height: window.innerHeight,
                   backgroundImage:
-                    "url('https://wallpaperaccess.com/full/895258.jpg')",
+                    "url('https://i.pinimg.com/originals/57/ae/93/57ae93462971760386cadfe7195efef6.jpg')",
                   backgroundRepeat: "no-repeat",
                   backgroundAttachment: "fixed",
                   backgroundSize: "100% 100%",
@@ -217,21 +223,27 @@ function SingleSubject(props) {
           }
           className="w3-animate-zoom"
         >
+          {!join && (
+            <button
+              onClick={props.click}
+              className="w3-hide-small w3-hide-medium icon-bar  w3-left w3-button"
+            >
+              <FaArrowLeft size="20" />
+            </button>
+          )}
           <div
+            style={{
+              marginTop: !join ? "20px" : "",
+              marginLeft: !join ? "33%" : "",
+              marginRight: !join ? "33%" : "",
+            }}
             className={`${
               bg ? "w3-left w3-border" : ""
             } w3-hide-small w3-hide-medium w3-padding-large`}
           >
             {loading && loader}
             {topbar && <TopBar txt="Test" click={props.click} bool={true} />}
-            {!join && (
-              <button
-                onClick={props.click}
-                className="w3-hide-small w3-hide-medium icon-bar  w3-left w3-button"
-              >
-                <FaArrowLeft size="20" />
-              </button>
-            )}
+
             {!join && <h2>Welcome to Game Mode</h2>}
 
             {!join && <p className="w3-text-sand">Join/Create Room</p>}
@@ -274,6 +286,7 @@ function SingleSubject(props) {
               </div>
             )}
             {create && <h3>Room ID = {id}</h3>}
+            {create && <p>Share id with your friends</p>}
             {create && <p>Enter ID and Join</p>}
           </div>
           <div className={`${bg ? "" : ""} w3-hide-large`}>

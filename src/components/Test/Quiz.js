@@ -13,11 +13,13 @@ import { Helmet } from "react-helmet";
 import DemoTest from "./DemoTest";
 import ReactPlayer from "react-player";
 import getDevice from "../utils/getDevice";
+import { useSelector } from "react-redux";
 
 toast.configure();
 
 function Quiz(props) {
   const [id, setId] = useState(0);
+  const dark = useSelector((state) => state.theme.dark);
   const [selector, setSelector] = useState(true);
   const [game, setGame] = useState(false);
   const [animation, setAnimation] = useState("");
@@ -118,7 +120,9 @@ function Quiz(props) {
                 >
                   <Link
                     to="/feedback"
-                    className="w3-border-red w3-button w3-round-large w3-border"
+                    className={`${
+                      dark ? "w3-border-brown" : "w3-border-red"
+                    } w3-button w3-round-large w3-border`}
                   >
                     Feedback/Report Bug
                   </Link>
@@ -128,7 +132,6 @@ function Quiz(props) {
           )}
           {!firebase.getCurrentUsername() && (
             <div>
-              <h2>Demo Test</h2>
               <div
                 style={{ marginLeft: "33%", marginRight: "33%" }}
                 className="w3-padding"
@@ -138,9 +141,10 @@ function Quiz(props) {
                   txt="Start Demo Test"
                 />
               </div>
-              <h1>
+              <br></br>
+              <Link to="/signup" className="w3-button w3-green w3-round">
                 <i>Sign Up for Full Feature</i>
-              </h1>
+              </Link>
               <div
                 style={{
                   width: "50%",

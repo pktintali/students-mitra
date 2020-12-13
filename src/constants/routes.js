@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import {
+  Admins,
   Explore,
   FeedBackPage,
   Game,
@@ -32,6 +33,7 @@ const Routes = () => {
       <Route path="/privacy-policy" component={Privacy} />
       <Route path="/terms-of-uses" component={Terms} />
       <Route path="/notifications" component={Notifications} />
+      <Route path="/admins" component={Admins} />
     </Switch>
   );
 };

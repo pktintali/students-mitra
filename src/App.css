@@ -183,12 +183,12 @@
   cursor: pointer;
 }
 
-#top {
+/* #top {
   margin: auto;
   width: 100%;
   border: 0px solid white;
   max-width: 500px;
-}
+} */
 
 .vl {
   border-left: 4px solid black;
@@ -201,7 +201,7 @@
 
 @media (min-width: 480px) {
   /* smartphones, Android phones, landscape iPhone */
-  #top {
+  /* #top {
     border: 1px solid red;
-  }
+  } */
 }

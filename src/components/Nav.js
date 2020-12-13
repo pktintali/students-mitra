@@ -101,7 +101,7 @@ function Nav() {
               dark ? "w3-hover-dark-gray" : "w3-hover-white"
             }`}
           >
-            Dashboard
+            {firebase.getCurrentUsername() ? "Dashboard" : "Login"}
           </Link>
           <Link
             onClick={updateMenuE}

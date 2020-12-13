@@ -5,6 +5,7 @@ import ChatScreen from "./ChatScreen";
 import UsePlayers from "./UsePlayers";
 import AddRoom from "./AddRoom";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
 
 function UseGame(id) {
   const [game, setGames] = useState([]);
@@ -29,6 +30,7 @@ function UseGame(id) {
 
 function FirebaseSearch(props) {
   const [sub, setSub] = useState();
+  const dark = useSelector((state) => state.theme.dark);
   const [chat, setChat] = useState(false);
   const [defaultLeval, setDefaultLeval] = useState(null);
   const games = UseGame(props.id);
@@ -65,7 +67,6 @@ function FirebaseSearch(props) {
         />
       </Helmet>
       <div className="w3-third">
-        
         <div className="w3-hide-small">
           {games[0] && games[0].host == user && (
             <form className="w3-container">
@@ -110,7 +111,7 @@ function FirebaseSearch(props) {
           Room id = <i>{props.id}</i>
         </h3>
         <table className="w3-table w3-striped w3-border">
-          <tr className="w3-pale-green">
+          <tr className={`${dark ? "w3-brown" : "w3-pale-yellow"}`}>
             <th>
               <h2>
                 <center>Joined Players</center>
@@ -141,7 +142,7 @@ function FirebaseSearch(props) {
         <div className="w3-panel w3-padding">
           {games[0] && games[0].host == user && (
             <button
-              className="w3-right w3-button w3-green  w3-card"
+              className="w3-right w3-button w3-round w3-green  w3-card"
               onClick={hostStart}
             >
               Start
@@ -149,21 +150,21 @@ function FirebaseSearch(props) {
           )}
           <div
             onClick={toogleChat}
-            className=" w3-hide-large w3-button w3-circle w3-text-green"
+            className=" w3-hide-large w3-button w3-round w3-circle w3-text-green"
           >
             {!chat && <BsChatDots size={30} />}
             {chat && <BsFillChatDotsFill size={30} />}
           </div>
           {sub != undefined && (
             <button
-              className="w3-center w3-button w3-green"
+              className="w3-center w3-button w3-round w3-green"
               // onClick={autoStart()}
             >
               Ready
             </button>
           )}
           <button
-            className="w3-left w3-button w3-red  w3-card"
+            className="w3-left w3-button w3-round w3-red  w3-card"
             onClick={props.leaveGame}
           >
             Leave

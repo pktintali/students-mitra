@@ -18,7 +18,7 @@ function RoundButton(props) {
           style={{ paddingTop: 40, paddingBottom: 40 }}
           onClick={props.click}
         >
-          <h3>{props.txt}</h3>
+          <h2>{props.txt}</h2>
           {props.tag && <span className=" w3-tag w3-green">New!</span>}
         </div>
       </div>

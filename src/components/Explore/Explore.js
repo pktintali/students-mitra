@@ -148,6 +148,9 @@ function Explore() {
     // }
   };
 
+  const noAuthSubList = ["dbms", "ml", "daa", "cd", "da", "coi", "ds"];
+  const r = Math.floor(Math.random() * 7);
+
   return (
     <>
       <Helmet>
@@ -353,7 +356,9 @@ function Explore() {
           <div className="w3-padding-large w3-right">
             <Link
               to="/feedback"
-              className="w3-border-red w3-button w3-round-large w3-border"
+              className={`${
+                dark ? "w3-border-brown" : "w3-border-red"
+              } w3-button w3-round-large w3-border`}
             >
               Feedback/Report Bug
             </Link>
@@ -362,7 +367,7 @@ function Explore() {
       {!firebase.getCurrentUsername() && !visible && (
         <header>
           {/* <h2>StudentMitra Study Material</h2> */}
-          <FeaturedLearning sub={"dll"} />
+          <FeaturedLearning noAuth={true} sub={noAuthSubList[r]} />
         </header>
         // <div className="w3-hide-small w3-hide-medium w3-display-middle">
         //   <h1>StudentMitra | </h1>

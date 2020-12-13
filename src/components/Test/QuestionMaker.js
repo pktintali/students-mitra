@@ -7,6 +7,7 @@ import AddRoom from "./SingleSubject/Game/AddRoom";
 import firebase from "../firebase";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
+import getDevice from "../utils/getDevice";
 
 function QuestionMaker(props) {
   const navByContext = useContext(NavContext);
@@ -75,22 +76,24 @@ function QuestionMaker(props) {
     <div style={{ display: display, zIndex: 9999999 }} className="w3-modal">
       <div
         style={{ maxWidth: "500px" }}
-        className={`w3-modal-content w3-padding-large w3-border w3-border-red ${
-          dark ? "w3-black" : ""
-        } w3-animate-top w3-padding w3-card-4`}
+        className={`w3-modal-content w3-padding-large w3-border ${
+          dark ? "w3-border-brown" : "w3-border-red"
+        } ${dark ? "w3-black" : ""} w3-animate-top w3-padding w3-card-4`}
       >
         <h4>Marks Obtained : {marks}</h4>
         <div className="w3-bar">
           {!props.game && (
             <button
-              className="w3-left w3-button w3-red"
+              className="w3-left w3-round w3-button w3-red"
               onClick={closeAnsModal}
             >
               Close
             </button>
           )}
           <button
-            className={`${props.game ? "" : "w3-right"} w3-button w3-green`}
+            className={`${
+              props.game ? "" : "w3-right"
+            } w3-round w3-button w3-green`}
             onClick={toogleReview}
           >
             {props.game ? "View Leaderboard" : "Review"}
@@ -103,9 +106,9 @@ function QuestionMaker(props) {
     <div style={{ display: notice, zIndex: 9999999 }} className="w3-modal">
       <div
         style={{ maxWidth: 350 }}
-        className={`w3-border ${
-          dark ? "w3-black" : ""
-        } w3-border-red w3-modal-content w3-animate-top w3-padding w3-card-4`}
+        className={`w3-border ${dark ? "w3-black" : ""} ${
+          dark ? "w3-border-brown" : "w3-border-red"
+        } w3-modal-content w3-animate-top w3-padding w3-card-4`}
       >
         <ul className="w3-ul">
           <li>
@@ -123,7 +126,7 @@ function QuestionMaker(props) {
           </li>
         </ul>
         <button
-          className="w3-card w3-button w3-border w3-pale-green w3-small"
+          className="w3-card w3-round w3-button w3-border w3-pale-green w3-small"
           onClick={closeNoticeModal}
         >
           I Understand, Continue{" "}
@@ -368,9 +371,10 @@ function QuestionMaker(props) {
               />
             </Helmet>
             <div
-              style={{ maxWidth: "355px" }}
-              id="top"
-              className={`${animation} w3-container`}
+              style={{ maxWidth: "355px", margin: "auto", width: "100%" }}
+              className={`${animation} ${
+                dark ? "w3-border-brown" : "w3-border-red"
+              } ${getDevice() === "PC" ? "w3-border" : ""}  w3-container`}
             >
               <div className="preventSelection w3-display-container w3-center w3-card w3-round w3-padding-large w3-container">
                 <span className="pdr-xxsmall w3-small w3-display-topright">
@@ -400,7 +404,7 @@ function QuestionMaker(props) {
                   }
                   style={{
                     backgroundColor: dark ? "#1F1F1F" : "",
-                    boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
+                    boxShadow: dark ? "0.5px 0.5px 1px 0.5px #888888" : "",
                   }}
                   className={`pointer preventSelection w3-card w3-round opt w3-padding-large ${opt0Color}`}
                 >
@@ -414,7 +418,7 @@ function QuestionMaker(props) {
                   }
                   style={{
                     backgroundColor: dark ? "#1F1F1F" : "",
-                    boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
+                    boxShadow: dark ? "0.5px 0.5px 1px 0.5px #888888" : "",
                   }}
                   className={`pointer preventSelection w3-card w3-round opt w3-panel w3-padding-large ${opt1Color}`}
                 >
@@ -429,7 +433,7 @@ function QuestionMaker(props) {
                   }
                   style={{
                     backgroundColor: dark ? "#1F1F1F" : "",
-                    boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
+                    boxShadow: dark ? "0.5px 0.5px 1px 0.5px #888888" : "",
                   }}
                   className={`pointer preventSelection w3-card w3-round opt w3-padding-large ${opt2Color}`}
                 >
@@ -443,7 +447,7 @@ function QuestionMaker(props) {
                   }
                   style={{
                     backgroundColor: dark ? "#1F1F1F" : "",
-                    boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
+                    boxShadow: dark ? "0.5px 0.5px 1px 0.5px #888888" : "",
                   }}
                   className={`pointer preventSelection w3-card w3-round opt w3-panel w3-padding-large ${opt3Color}`}
                 >

@@ -57,7 +57,9 @@ function LoginPage(props) {
         style={{ maxWidth: "350px" }}
         className={`w3-modal-content ${
           dark ? "w3-dark-gray" : ""
-        } w3-padding w3-border w3-border-red w3-animate-zoom w3-padding w3-card-4"`}
+        } w3-padding w3-border ${
+          dark ? "w3-border-brown" : "w3-border-red"
+        } w3-animate-zoom w3-padding w3-card-4"`}
       >
         <h4>Reset Your Password</h4>
         {!resetSend && (
@@ -224,9 +226,6 @@ function LoginPage(props) {
     </>
   ) : (
     <>
-      <div className="w3-container w3-large w3-padding-large w3-red">
-        Please Wait
-      </div>
       <LoadingScreen />
     </>
   );

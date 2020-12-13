@@ -1,9 +1,11 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Helmet } from "react-helmet";
+import { useSelector } from "react-redux";
 
 function ResultPage(props) {
   const questions = props.qData;
+  const dark = useSelector((state) => state.theme.dark);
   const userAnswers = props.userAns;
   const tOrNot = [];
   var c = 0;
@@ -13,7 +15,7 @@ function ResultPage(props) {
 
   for (let q in userAnswers) {
     //alert(userAnswers[q])
-    if (questions[q][6] === userAnswers[q]) {
+    if (questions[q] && questions[q][6] === userAnswers[q]) {
       c++;
     } else if (userAnswers[q] === " ") {
       na++;
@@ -93,10 +95,15 @@ function ResultPage(props) {
           <div className="w3-container">
             <div
               className={`w3-padding w3-card ${
-                tOrNot[j] === "correct" && "w3-pale-green"
-              } ${tOrNot[j] === "incorrect" && "w3-pale-red"} ${
-                tOrNot[j] === "skip" && "w3-pale-blue"
-              } ${tOrNot[j] === "timeout" && "w3-pale-yellow"} `}
+                tOrNot[j] === "correct" && (dark ? "w3-teal" : "w3-pale-green")
+              } ${
+                tOrNot[j] === "incorrect" && (dark ? "w3-brown" : "w3-pale-red")
+              } ${
+                tOrNot[j] === "skip" && (dark ? "w3-blue-gray" : "w3-pale-blue")
+              } ${
+                tOrNot[j] === "timeout" &&
+                (dark ? "w3-deep-orange" : "w3-pale-yellow")
+              } `}
             >
               <h4 className="w3-left-align">
                 <b>{++i}- </b>
@@ -124,7 +131,9 @@ function ResultPage(props) {
               </h5>
               {q[7] && (
                 <a
-                  className="w3-text-blue w3-hover-white w3-btn"
+                  className={`${
+                    dark ? "w3-text-aqua" : "w3-text-blue"
+                  } w3-hover-white w3-btn`}
                   href={q[7]}
                   target="blank"
                 >
@@ -136,9 +145,10 @@ function ResultPage(props) {
             <span className="w3-hide">{j++}</span>
           </div>
         ))}
-        <button className="w3-button w3-red" onClick={handleProps}>
+        <button className="w3-button w3-round w3-red" onClick={handleProps}>
           Close
         </button>
+        <div className="c-box-min"></div>
       </div>
     </>
   );
