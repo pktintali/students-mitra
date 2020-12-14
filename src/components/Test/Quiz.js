@@ -111,7 +111,7 @@ function Quiz(props) {
               </div>
               {firebase.isUserVerified() && (
                 <div
-                  style={{ marginTop: window.innerHeight / 2 - 105 }}
+                  style={{ marginTop: window.innerHeight / 2 - 115 }}
                   className={`${
                     getDevice() === "Mobile"
                       ? "w3-hide-small w3-hide-medium"

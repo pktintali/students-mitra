@@ -334,6 +334,7 @@ function SingleSubject(props) {
               </div>
             )}
             {create && <h3>Room ID = {id}</h3>}
+            {create && <p>Share id with your friends</p>}
             {create && <p>Enter ID and Join</p>}
           </div>
         </div>

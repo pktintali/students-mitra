@@ -22,7 +22,7 @@ function Home(props) {
       </Helmet>
       <div className="">
         <TopBar txt={"Welcome"} />
-        <Graph />
+        <Graph virtual={false} />
       </div>
     </>
   );

@@ -5,8 +5,8 @@ import "firebase/auth";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-toast.configure();
 
+toast.configure();
 var firebaseConfig = {
   apiKey: "AIzaSyB1u4b-8sHBsoRqmAUf4Qhyet99goh9Q4c",
   authDomain: "students-mitra.firebaseapp.com",
@@ -46,7 +46,7 @@ class Firebase {
     return this.auth.sendPasswordResetEmail(email);
   }
 
-   isUserVerified(){
+  isUserVerified() {
     return this.auth.currentUser.emailVerified;
   }
 
@@ -100,6 +100,38 @@ class Firebase {
       );
   }
 
+  formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? "pm" : "am";
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    hours = hours < 10 ? "0" + hours : hours;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    var strTime = hours + ":" + minutes + " " + ampm;
+    return strTime;
+  }
+
+  async incrementCount() {
+    if (!this.auth.currentUser) {
+      return alert("Not authorized");
+    }
+    const profile = await this.getProfile();
+    const newCount = profile.visitCount + 1;
+    var date = new Date();
+    this.updateProfile({
+      visitCount: newCount,
+      lastVisit:
+        this.formatAMPM(date) +
+        "-" +
+        date.getDate() +
+        "/" +
+        date.getMonth() +
+        "/" +
+        date.getFullYear(),
+    });
+  }
+
   async getProfile() {
     const quote = await this.db
       .collection("usersData")
@@ -132,10 +164,10 @@ class Firebase {
       .doc(sub)
       .set(data, { merge: true });
   }
-  async getmarks(sub) {
+  async getmarks(sub, email) {
     const marks = await this.db
       .collection("usersData")
-      .doc(`${this.auth.currentUser.email}`)
+      .doc(`${email ? email : this.auth.currentUser.email}`)
       .collection("marks")
       .doc(sub)
       .get();
@@ -151,10 +183,10 @@ class Firebase {
       .set(data, { merge: true });
   }
 
-  async getField(name) {
+  async getField(name, email) {
     const marks = await this.db
       .collection("usersData")
-      .doc(`${this.auth.currentUser.email}`)
+      .doc(`${email ? email : this.auth.currentUser.email}`)
       .get();
     return marks.get(name);
   }
@@ -195,15 +227,29 @@ class Firebase {
     );
   }
 
-  addPost(post,key) {
+  addPost(post, key) {
     if (!this.auth.currentUser) {
       return alert("Not authorized");
     }
-    return this.db.collection("posts").doc(`${key}`).set(post,{merge:true});
+    return this.db.collection("posts").doc(`${key}`).set(post, { merge: true });
   }
 
-  deletePost(key){
+  addNotification(noti, key) {
+    if (!this.auth.currentUser) {
+      return alert("Not authorized");
+    }
+    return this.db
+      .collection("notify")
+      .doc(`${key}`)
+      .set(noti, { merge: true });
+  }
+
+  deletePost(key) {
     this.db.collection("posts").doc(`${key}`).delete();
+  }
+
+  deleteNotification(key) {
+    this.db.collection("notify").doc(`${key}`).delete();
   }
 
   async getDpImage() {
@@ -222,32 +268,28 @@ class Firebase {
     return url;
   }
 
-
   async getIsDp(user) {
-    const quote = await this.db
-      .collection("usersData")
-      .doc(`${user}`)
-      .get();
+    const quote = await this.db.collection("usersData").doc(`${user}`).get();
     return quote.get("dp");
   }
 
   async getAuthorDp(id) {
     const dp = await this.getIsDp(id);
-    if(dp){
-    try {
-      const dpurl = await this.store
-        .ref("images/dp/")
-        .child(`${id}`)
-        .getDownloadURL();
+    if (dp) {
+      try {
+        const dpurl = await this.store
+          .ref("images/dp/")
+          .child(`${id}`)
+          .getDownloadURL();
         return dpurl;
-    } catch (e) {
-      console.log(e.message);
+      } catch (e) {
+        console.log(e.message);
+      }
+    } else {
+      return null;
     }
-  }else{
-    return null;
   }
-  }
-  
+
   setImage(image) {
     const uploadTask = this.store.ref(`images/${image.name}`).put(image);
     uploadTask.on(

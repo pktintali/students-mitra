@@ -29,6 +29,7 @@ function LoginPage(props) {
       await firebase.login(userEmail, password);
       //await firebase.updateProfile(profileData)
       setLoading(false);
+      firebase.incrementCount();
       props.history.replace("/");
     } catch (e) {
       // alert(e.message);
@@ -219,9 +220,10 @@ function LoginPage(props) {
             </div>
           </div>
         </div>
-        <h1 className="w3-hide-large w3-hide-medium w3-hide-small">
+        <h2 className="w3-hide-large w3-hide-medium w3-hide-small">
           Student Mitra
-        </h1>
+        </h2>
+        <div style={{ height: 120 }}></div>
       </div>
     </>
   ) : (

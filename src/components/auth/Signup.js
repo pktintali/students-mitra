@@ -19,7 +19,7 @@ function SignupPage(props) {
   const [password, setPassword] = useState();
   const [password2, setPassword2] = useState();
   const [loading, setLoading] = useState(false);
-
+  var date = new Date();
   async function signup(e) {
     setLoading(true);
     e.preventDefault();
@@ -42,6 +42,13 @@ function SignupPage(props) {
       await firebase.updateProfile({
         name: userName,
         email: userEmail,
+        visitCount: 0,
+        createdOn:
+          date.getDate() +
+          "/" +
+          (date.getMonth() + 1) +
+          "/" +
+          date.getFullYear(),
       });
       setLoading(false);
       props.history.replace("/");

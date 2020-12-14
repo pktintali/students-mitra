@@ -20,6 +20,7 @@ const Profile = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [c, setC] = useState(0);
   const [name, setName] = useState("");
+  // const [isAdmin, setIsAdmin] = useState(false);
   const [mobile, setMobile] = useState("");
   const [dob, setDob] = useState("");
   const [state, setState] = useState("");
@@ -123,6 +124,7 @@ const Profile = (props) => {
       setBranch(profileInfo.branch);
       setCollege(profileInfo.college);
       setSec(profileInfo.sec);
+      // setIsAdmin(profileInfo.isAdmin);
     }
     // if(activeSubjects){
     //   setAc(activeSubjects);
@@ -209,6 +211,18 @@ const Profile = (props) => {
               >
                 Edit Profile
               </button>
+              <br></br>
+              {profileInfo.isAdmin && (
+                <div>
+                  <h2>You are Admin</h2>
+                  <Link to="/admins">
+                    <button className="w3-round w3-margin w3-yellow w3-button">
+                      Admin Dashboard
+                    </button>
+                  </Link>
+                  
+                </div>
+              )}
             </div>
             <div className="w3-half">
               <table style={{ maxWidth: "500px" }} className="w3-table">

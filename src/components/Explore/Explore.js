@@ -366,31 +366,11 @@ function Explore() {
         )}
       {!firebase.getCurrentUsername() && !visible && (
         <header>
-          {/* <h2>StudentMitra Study Material</h2> */}
           <FeaturedLearning noAuth={true} sub={noAuthSubList[r]} />
+          <div style={{ marginBottom: "40px" }}>...</div>
         </header>
-        // <div className="w3-hide-small w3-hide-medium w3-display-middle">
-        //   <h1>StudentMitra | </h1>
-        //   <ReactPlayer
-        //     height={400}
-        //     width={720}
-        //     controls
-        //     url="https://youtu.be/tsfKferlvRY"
-        //   />
-        // </div>
       )}
-      {/* {!firebase.getCurrentUsername() && !visible && (
-        <div className="w3-hide-large w3-display-middle">
-          <h1>Have a quick tour</h1>
-          <ReactPlayer
-            light
-            height={180}
-            width={350}
-            controls
-            url="https://youtu.be/tsfKferlvRY"
-          />
-        </div>
-      )} */}
+
       {!visible && (
         <div onClick={display} style={{ height: "50px", width: "300px" }}></div>
       )}

@@ -23,6 +23,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    initLizedFire && firebase.incrementCount();
     initLizedFire && firebase.getDpImage().then(setUserMini);
     usermini && window.sessionStorage.setItem("dpmin", usermini);
   }, [initLizedFire]);

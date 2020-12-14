@@ -9,12 +9,12 @@ import getDevice from "../utils/getDevice";
 import { useSelector } from "react-redux";
 import NoActiveSubUI from "./NoActiveSubUI";
 
-function Graph() {
+function Graph(props) {
   const dark = useSelector((state) => state.theme.dark);
   const [activeMarks, setActiveMarks] = useState();
   const [colorArray, setTheColorArray] = useState([]);
   async function getMarks() {
-    setActiveMarks(await GetAvgMarks());
+    setActiveMarks(await GetAvgMarks(props));
   }
 
   function getRandomColor() {

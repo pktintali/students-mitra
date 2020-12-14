@@ -19,7 +19,7 @@ function TopBar(props) {
   return (
     <>
       <header
-        style={{ zIndex: 999, backgroundColor: dark ? "#242526" : "" }}
+        style={{ zIndex: 99, backgroundColor: dark ? "#242526" : "" }}
         className={`preventSelection ${
           dark ? "" : "w3-red"
         } w3-hide-large w3-top w3-container w3-hide-large w3-card`}
