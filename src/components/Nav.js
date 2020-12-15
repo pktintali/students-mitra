@@ -174,7 +174,10 @@ function Nav() {
               <FaBell size={20} />
             </Link>
           )}
-          <div className={`w3-right w3-bar-item w3-hide-small w3-hide-medium`}>
+          <div
+            title="Dark Mode"
+            className={`w3-right w3-bar-item w3-hide-small w3-hide-medium`}
+          >
             <label className="switch">
               <input type="checkbox" onChange={setDarkTheme} checked={dark} />
               <span className="slider round"></span>

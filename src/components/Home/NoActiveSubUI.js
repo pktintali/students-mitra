@@ -1,7 +1,7 @@
 import React from "react";
 
-const NoActiveSubUI = () => {
-  return (
+const NoActiveSubUI = (props) => {
+  return !props.isSubject ? (
     <>
       <h3>
         <i>Your Active Subject list is Empty</i>
@@ -9,7 +9,7 @@ const NoActiveSubUI = () => {
       <h4>
         <b>Steps to follow</b>
       </h4>
-      <div className = 'w3-third'>
+      <div className="w3-third">
         <p></p>
       </div>
       <div className="w3-left-align w3-third w3-text-red">
@@ -25,9 +25,22 @@ const NoActiveSubUI = () => {
           subject
         </p>
       </div>
-      <div className = 'w3-third'>
+      <div className="w3-third">
         <p></p>
       </div>
+    </>
+  ) : (
+    <>
+    <br></br>
+      <h3>It Looks Like you haven't given any test</h3>
+      <p className="w3-text-red">
+        Give some test of your <strong>active subject</strong> in{" "}
+        <strong>Single Subject</strong> mode then your progress will display
+        here
+      </p>
+      <i>
+        <b>Note: </b>Only Active Subject Progress will show here.
+      </i>
     </>
   );
 };

@@ -3,6 +3,7 @@ import getDevice from "../utils/getDevice";
 import DataFetching from "../Test/DataFetching";
 import SuggestionCard from "./SuggestionCard";
 import LoadingScreen from "../LoadingScreen";
+import firebase from "../firebase";
 
 const FeaturedLearning = (props) => {
   const questions = DataFetching({ sub: props.sub, type: "FeaturedLearning" });
@@ -58,6 +59,8 @@ const FeaturedLearning = (props) => {
         </ul>
       )}
     </div>
+  ) : firebase.getCurrentUsername() ? (
+    <div></div>
   ) : (
     <LoadingScreen />
   );

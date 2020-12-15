@@ -105,10 +105,17 @@ function ResultPage(props) {
                 (dark ? "w3-deep-orange" : "w3-pale-yellow")
               } `}
             >
-              <h4 className="w3-left-align">
+              <p
+                style={{
+                  fontSize: 20,
+                  textAlign: "left",
+                  whiteSpace: "pre-line",
+                }}
+              >
                 <b>{++i}- </b>
                 {q[1]}
-              </h4>
+              </p>
+
               {tOrNot[j] === "skip" && (
                 <h5 className="w3-left-align">
                   <b>Not Attempted</b>

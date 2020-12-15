@@ -380,7 +380,9 @@ function QuestionMaker(props) {
                 <span className="pdr-xxsmall w3-small w3-display-topright">
                   {parseInt(q) + 1}/{questions.length}
                 </span>
-                <h4>{question[1]}</h4>
+                <h4 style={{ textAlign: "left", whiteSpace: "pre-line" }}>
+                  {question[1]}
+                </h4>
               </div>
               <div
                 className="w3-round w3-card"

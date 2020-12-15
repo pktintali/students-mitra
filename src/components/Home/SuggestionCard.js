@@ -13,7 +13,7 @@ function SuggestionCard(props) {
             ? 200
             : 100
           : props.video
-          ? 560
+          ? 570
           : 270,
       }}
       className={`${
@@ -22,10 +22,10 @@ function SuggestionCard(props) {
         dark ? "w3-border-blue-gray" : "w3-border-red"
       } w3-card-4`}
     >
-      <h4>
+      <p style={{ whiteSpace: "pre-line", textAlign: "left", fontSize: 20 }}>
         <b>Q. </b>
         {props.question}
-      </h4>
+      </p>
       <h5>
         <b>Ans -</b>
         {props.ans}

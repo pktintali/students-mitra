@@ -45,7 +45,7 @@ const Admins = (props) => {
         <label>Enter Admin Key</label>
         <br></br>
         <input
-          type="text"
+          type="password"
           value={key}
           onChange={(e) => setKey(e.target.value)}
         />

@@ -22,37 +22,75 @@ const Notifications = (props) => {
         {notifications && notifications.length > 0 ? (
           notifications.map((n) => {
             return (
-              <div
-                key={n.key}
-                style={{
-                  marginLeft: mobile ? "3%" : "28%",
-                  marginRight: mobile ? "3%" : "28%",
-                  backgroundColor: dark ? "#1F1F1F" : "",
-                  boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
-                }}
-                className="w3-panel w3-card w3-round"
-              >
-                {n.image && (
-                  <img
+              <div>
+                {!n.to && (
+                  <div
+                    key={n.key}
                     style={{
-                      marginTop: 15,
-                      maxHeight: mobile ? "200" : "300px",
-                      maxWidth: mobile ? window.innerWidth - 55 : "600px",
+                      marginLeft: mobile ? "3%" : "28%",
+                      marginRight: mobile ? "3%" : "28%",
+                      backgroundColor: dark ? "#1F1F1F" : "",
+                      boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
                     }}
-                    src={n.image}
-                  />
-                )}
-                <p>{n.text}</p>
-                {n.link && (
-                  <a
-                    className="w3-button w3-green w3-round no-td"
-                    href={n.link}
-                    target="_blank"
+                    className="w3-panel w3-card w3-round"
                   >
-                    {n.btnText}
-                  </a>
+                    {n.image && (
+                      <img
+                        style={{
+                          marginTop: 15,
+                          maxHeight: mobile ? "200" : "300px",
+                          maxWidth: mobile ? window.innerWidth - 55 : "600px",
+                        }}
+                        src={n.image}
+                      />
+                    )}
+                    <p>{n.text}</p>
+                    {n.link && (
+                      <a
+                        className="w3-button w3-green w3-round no-td"
+                        href={n.link}
+                        target="_blank"
+                      >
+                        {n.btnText}
+                      </a>
+                    )}
+                    <p></p>
+                  </div>
                 )}
-                <p></p>
+                {n.to === firebase.getCurrentUserEmail() && (
+                  <div
+                    key={n.key}
+                    style={{
+                      marginLeft: mobile ? "3%" : "28%",
+                      marginRight: mobile ? "3%" : "28%",
+                      backgroundColor: dark ? "#1F1F1F" : "",
+                      boxShadow: dark ? "1px 1px 3px 1px #888888" : "",
+                    }}
+                    className="w3-panel w3-card w3-round"
+                  >
+                    {n.image && (
+                      <img
+                        style={{
+                          marginTop: 15,
+                          maxHeight: mobile ? "200" : "300px",
+                          maxWidth: mobile ? window.innerWidth - 55 : "600px",
+                        }}
+                        src={n.image}
+                      />
+                    )}
+                    <p>{n.text}</p>
+                    {n.link && (
+                      <a
+                        className="w3-button w3-green w3-round no-td"
+                        href={n.link}
+                        target="_blank"
+                      >
+                        {n.btnText}
+                      </a>
+                    )}
+                    <p></p>
+                  </div>
+                )}
               </div>
             );
           })

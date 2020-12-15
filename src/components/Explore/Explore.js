@@ -291,7 +291,7 @@ function Explore() {
                           }}
                           className="w3-left-align"
                         >
-                          {text}
+                          f{text}
                         </p>
                         <img
                           alt="post image"
@@ -367,7 +367,8 @@ function Explore() {
       {!firebase.getCurrentUsername() && !visible && (
         <header>
           <FeaturedLearning noAuth={true} sub={noAuthSubList[r]} />
-          <div style={{ marginBottom: "40px" }}>...</div>
+          <br></br>
+          <p style={{ visibility: "hidden" }}>Hidden</p>
         </header>
       )}
 

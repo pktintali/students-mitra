@@ -8,6 +8,7 @@ const AllNoti = (props) => {
   const [key, setKey] = useState("");
   const [btnText, setBtnText] = useState("");
   const [link, setLink] = useState("");
+  const [to, setTo] = useState("");
   const [image, setImage] = useState("");
   var i = 1;
 
@@ -29,6 +30,7 @@ const AllNoti = (props) => {
     text: text,
     image: image,
     link: link,
+    to: to,
     btnText: btnText,
     date:
       date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear(),
@@ -52,10 +54,12 @@ const AllNoti = (props) => {
     setImage("");
     setLink("");
     setKey("");
+    setTo("");
   };
   const editNotification = (o) => {
     setModify(true);
     setKey(o.key);
+    setTo(o.to);
     setBtnText(o.btnText);
     setText(o.text);
     setImage(o.image);
@@ -116,6 +120,15 @@ const AllNoti = (props) => {
               onChange={(e) => setLink(e.target.value)}
             />
           </p>
+          <p>
+            <label>To:</label>
+            <br></br>
+            <input
+              type="text"
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
+            />
+          </p>
           <br></br>
           <button onClick={addNoti} className="w3-button w3-green w3-round">
             {modify ? "Save" : "ADD"}
@@ -151,7 +164,8 @@ const AllNoti = (props) => {
               <th>image</th>
               <th>Button Text</th>
               <th>Botton Link</th>
-              <th>Branch</th>
+              <th>To</th>
+              <th>Edit</th>
             </tr>
           </thead>
           <tbody>
@@ -168,10 +182,11 @@ const AllNoti = (props) => {
                     <td>{nf.key}</td>
                     <td>{nf.date}</td>
                     <td>{nf.time}</td>
-                    <td>{nf.text}</td>
-                    <td>{nf.image}</td>
+                    <td>{nf.text && nf.text.substring(0, 30)}</td>
+                    <td>{nf.image && nf.image.substring(0, 30)}</td>
                     <td>{nf.btnText}</td>
-                    <td>{nf.link}</td>
+                    <td>{nf.image && nf.link.substring(0, 30)}</td>
+                    <td>{nf.to}</td>
                     <td>
                       <span
                         onClick={() => {

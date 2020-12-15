@@ -140,6 +140,14 @@ class Firebase {
     return quote.get("profile");
   }
 
+  async getUserMarks(email) {
+    const quote = await this.db
+      .collection("usersData")
+      .doc(`${email ? email : this.auth.currentUser.email}`)
+      .get();
+    return quote.get("marks");
+  }
+
   updateActiveSubjects(sub) {
     if (!this.auth.currentUser) {
       return alert("Not authorized");

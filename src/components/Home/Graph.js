@@ -186,7 +186,7 @@ function Graph(props) {
               )}
             </div>
           ) : (
-            <NoActiveSubUI />
+            <NoActiveSubUI isSubject={activeMarks.isSubject} />
           )}
           {firebase.isUserVerified() && (
             <div
@@ -195,7 +195,9 @@ function Graph(props) {
             >
               <Link
                 to="/feedback"
-                className="w3-border-red w3-button w3-round-large w3-border"
+                className={`${
+                  dark ? "w3-border-brown" : "w3-border-red"
+                } w3-button w3-round-large w3-border`}
               >
                 Feedback/Report Bug
               </Link>
