@@ -75,10 +75,10 @@ function Quiz(props) {
     return (
       <>
         <Helmet>
-          <title>StudentMitra Test | Take a Demo Test</title>
+          <title>StudentMitra Test | Give test and analyze your subject knowledge</title>
           <meta
             name="description"
-            content="StudentMitra test. give a demo test on studentmitra"
+            content="Give test on studentmitra and analyze your subject knowledge"
           />
         </Helmet>
         <div>

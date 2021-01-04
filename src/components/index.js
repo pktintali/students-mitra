@@ -16,3 +16,6 @@ export { default as Privacy } from "./auth/Privacy";
 export { default as Terms } from "./auth/Terms";
 export { default as Notifications } from "./Home/Notifications/Notifications";
 export { default as Admins } from "./utils/Admins";
+export {default as Learning } from "./learning/Learning";
+export {default as Python} from "./learning/Python";
+export {default as SubjectPage} from "./learning/SubjectPage";

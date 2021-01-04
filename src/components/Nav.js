@@ -151,20 +151,21 @@ function Nav() {
               LogOut
             </Link>
           )}
-          {firebase.getCurrentUsername() && (
+          {firebase.getCurrentUsername() && !window.location.href.match("/profile")&&(
             <Link
+              style={{marginTop:usermini?5:0}}
               to="/profile"
               className={
                 usermini
-                  ? "w3-right w3-hover-white w3-bar-item w3-circle w3-padding"
+                  ? "w3-right w3-hover-white circular-mini-div"
                   : "w3-right w3-hover-white w3-bar-item w3-circle w3-padding-large"
               }
             >
               {!usermini && <FaUser size={20} />}
-              {usermini && <img src={usermini} className="mini-dpcircle" />}
+              {usermini && <img src={usermini} className="circular-mini-img" />}
             </Link>
           )}
-          {firebase.getCurrentUsername() && (
+          {firebase.getCurrentUsername() &&!window.location.href.match("/notifications")&& (
             <Link
               to="/notifications"
               className={
@@ -177,6 +178,7 @@ function Nav() {
           <div
             title="Dark Mode"
             className={`w3-right w3-bar-item w3-hide-small w3-hide-medium`}
+            style={{marginRight:window.location.href.match("/notifications")?2:-15}}
           >
             <label className="switch">
               <input type="checkbox" onChange={setDarkTheme} checked={dark} />

@@ -79,13 +79,19 @@ function SubjectCard(props) {
                   subList[j][2] == activeSub[0].activeSubject[i]
                 ) {
                   props.config({
+                    testType: subList[j][3],
                     randLimit: subList[j][4],
+                    speed: subList[j][5],
+                    noOfQue: subList[j][6],
                   });
                 }
               }
             } else {
               props.config({
+                testType: subList[i][3],
                 randLimit: subList[i][4],
+                speed: subList[i][5],
+                noOfQue: subList[i][6],
               });
             }
           }
@@ -151,8 +157,14 @@ function SubjectCard(props) {
           </span>
         )}
         {!active && subList[i][3] && (
-          <span className="w3-display-topright w3-padding-small w3-green w3-small">
-            New!
+          <span
+            className={`w3-display-topright w3-padding-small ${
+              subList[i][3] === "Hosted" ? "w3-red" : "w3-green"
+            } w3-small`}
+            s
+          >
+            {/* //New */}
+            {subList[i][3]}
           </span>
         )}
 

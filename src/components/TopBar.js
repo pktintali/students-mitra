@@ -57,16 +57,16 @@ function TopBar(props) {
           !props.notify &&
           firebase.getCurrentUsername() && (
             <Link
-              style={{ marginRight: "-15px" }}
+              style={{ marginRight: "-13px",marginTop:5 }}
               to="./profile"
               className={
                 usermini
-                  ? "w3-right w3-hover-white w3-button w3-circle w3-padding"
+                  ? "w3-right w3-hover-white circular-mini-div"
                   : "w3-right w3-hover-white w3-button w3-circle w3-padding-large"
               }
             >
               {!usermini && <FaUser size={25} />}
-              {usermini && <img src={usermini} className="mini-dpcircle" />}
+              {usermini && <img src={usermini} className="circular-mini-img" />}
             </Link>
           )}
       </header>

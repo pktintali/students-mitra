@@ -77,6 +77,18 @@ class Firebase {
     });
   }
 
+  saveHostedTestMarks(sub, marksObj) {
+    if (!this.auth.currentUser) {
+      return alert("Not authorized");
+    }
+    return this.db.collection("hostedTestResults").doc(`${sub}`).set(
+      {
+        marksObj,
+      },
+      { merge: true }
+    );
+  }
+
   async getCurrentUserQuote() {
     const quote = await this.db
       .doc(`usersData/${this.auth.currentUser.uid}`)
@@ -138,6 +150,14 @@ class Firebase {
       .doc(`${this.auth.currentUser.email}`)
       .get();
     return quote.get("profile");
+  }
+
+  async getHostedTestResult(sub) {
+    const quote = await this.db
+      .collection("hostedTestResults")
+      .doc(`${sub}`)
+      .get();
+    return quote.get("marksObj");
   }
 
   async getUserMarks(email) {
@@ -242,6 +262,13 @@ class Firebase {
     return this.db.collection("posts").doc(`${key}`).set(post, { merge: true });
   }
 
+  addRequestedSub(post) {
+    if (!this.auth.currentUser) {
+      return alert("Not authorized");
+    }
+    return this.db.collection("subRequest").doc().set(post, { merge: true });
+  }
+
   addNotification(noti, key) {
     if (!this.auth.currentUser) {
       return alert("Not authorized");
@@ -312,7 +339,7 @@ class Firebase {
           .child(image.name)
           .getDownloadURL()
           .then((url) => {
-            console.log(url);
+            // console.log(url);
           });
       }
     );

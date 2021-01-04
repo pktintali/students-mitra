@@ -16,6 +16,7 @@ function QuestionMaker(props) {
   //Skip ans goNext Buttons Functionalaty only difference is that
   //skip goes next without saving ans and goNext goes next by saving ans
   const questions = props.data;
+  const base = props.speed ? props.speed : 2;
   const [q, setQ] = useState(0);
   const [marks, setMarks] = useState(0);
   const [count, setCount] = useState(654);
@@ -209,13 +210,23 @@ function QuestionMaker(props) {
       setTimeColor("green");
       setAnimation("w3-animate-right");
       setQ(q + 1);
+      // setUserAns();
     }
   };
 
   async function submit() {
     setLoader(true);
-    !props.game &&
-      SaveResult({ mark: marks, sub: props.sub, type: props.type });
+    const email = firebase.getCurrentUserEmail();
+    if (!props.game) {
+      if (props.testType == "Hosted") {
+        const marksObj = {
+          [email]: [firebase.getCurrentUsername(), marks],
+        };
+        firebase.saveHostedTestMarks(props.sub, marksObj);
+      } else {
+        SaveResult({ mark: marks, sub: props.sub, type: props.type });
+      }
+    }
     props.game &&
       (await AddRoom(id, firebase.getCurrentUserEmail(), "marks", marks));
     //!timeout&&userAns!=undefined&&alert(userAns)
@@ -227,7 +238,7 @@ function QuestionMaker(props) {
 
   useEffect(() => {
     // !timeout&&userAns!=undefined&&alert(userAns)
-    !timeout && userAns != undefined && allUserAns.push(userAns);
+    userAns != undefined && allUserAns.push(userAns);
     window.scrollTo(0, 0);
     if (
       questions[q][2] != null &&
@@ -305,36 +316,36 @@ function QuestionMaker(props) {
             }
             default: {
               if (totalLength < 100) {
-                !end && setCount(count - 6);
+                !end && setCount(count - (base + 4));
               } else if (totalLength < 160) {
-                !end && setCount(count - 5);
+                !end && setCount(count - (base + 3));
               } else if (totalLength < 250) {
-                !end && setCount(count - 3);
+                !end && setCount(count - (base + 1));
               } else {
-                !end && setCount(count - 2);
+                !end && setCount(count - base);
               }
             }
           }
         } else {
           if (totalLength < 100) {
-            !end && setCount(count - 6);
+            !end && setCount(count - (base + 4));
           } else if (totalLength < 160) {
-            !end && setCount(count - 5);
+            !end && setCount(count - (base + 3));
           } else if (totalLength < 250) {
-            !end && setCount(count - 3);
+            !end && setCount(count - (base + 1));
           } else {
-            !end && setCount(count - 2);
+            !end && setCount(count - base);
           }
         }
       }
 
       if (count < 1) {
         //count>-10&&!answered&&alert('timeout')
-        count > -12 && !answered && allUserAns.push("timeout");
-        count > -12 && !answered && setTimeOut(true);
+        count > -(base * 6) && !answered && setUserAns("timeout");
+        count > -(base * 6) && !answered && setTimeOut(true);
         if (q === questions.length - 1) {
           setEnd(true);
-          setCount(-12);
+          setCount(-(base * 6));
         }
         !end && goNext();
       }

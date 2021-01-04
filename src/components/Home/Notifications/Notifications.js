@@ -5,6 +5,7 @@ import LoadingScreen from "../../LoadingScreen";
 import getDevice from "../../utils/getDevice";
 import firebase from "../../firebase";
 import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
 const Notifications = (props) => {
   const notifications = UseNotifications();
   const mobile = getDevice() === "Mobile";
@@ -16,6 +17,10 @@ const Notifications = (props) => {
   }
   return (
     <>
+      <Helmet>
+        <title>{"Notifications"}</title>
+        <meta name="description" content="StudentMitra Notifications page" />
+      </Helmet>
       <TopBar notify={true} bool={true} txt={"Notifications"} />
       <h3>Notifications</h3>
       <div>

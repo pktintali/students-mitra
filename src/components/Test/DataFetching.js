@@ -9,11 +9,19 @@ function DataFetching(props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  //if NoOfQue is Given
+
+  const noOfQue = props.config
+    ? props.config.noOfQue
+      ? props.config.noOfQue
+      : 10
+    : 10;
+  console.log(noOfQue);
   //Generating 10 Unique Random No
   var arr = [];
   const get10 = () => {
-    while (arr.length < 10) {
-      var r = Math.floor(Math.random() * 10);
+    while (arr.length < noOfQue) {
+      var r = Math.floor(Math.random() * noOfQue);
       if (arr.indexOf(r) === -1) arr.push(r);
     }
   };
@@ -23,6 +31,7 @@ function DataFetching(props) {
     const r = props.config
       ? Math.floor(Math.random() * props.config.randLimit)
       : Math.floor(Math.random() * 23);
+
     if (props.type === "select") {
       for (let i in subject) {
         axios
@@ -51,10 +60,10 @@ function DataFetching(props) {
         .get(
           `https://sheets.googleapis.com/v4/spreadsheets/1nKZxQH1nAVPPhpSLH1tPlYcW31-ZRM9qi7KoGvpLroc/values/${subject}!A${
             r + 2
-          }:M${r + 11}?key=AIzaSyBHa8gIZFiDDGmSUKiDPBn6I-aDt6e0IHc`
+          }:M${r + (noOfQue + 1)}?key=AIzaSyBHa8gIZFiDDGmSUKiDPBn6I-aDt6e0IHc`
         )
         .then((res) => {
-          for (let i = 0; i < 10; i++) {
+          for (let i = 0; i < noOfQue; i++) {
             res.data.values &&
               questions.push(...res.data.values.slice(arr[i], arr[i] + 1));
           }
@@ -80,13 +89,15 @@ function DataFetching(props) {
     if (questions[0] !== undefined) {
       return (
         <QuestionMaker
+          testType={props.config.testType}
           game={props.game}
           sub={subject}
           click={props.click}
           data={questions}
           type={props.type}
           leval={props.leval}
-          host = {props.host}
+          host={props.host}
+          speed={props.config ? props.config.speed : undefined}
         />
       );
     }

@@ -18,6 +18,76 @@ function SubjectList(props) {
   const [sel, setSel] = useState(true);
   const [disabled, enable] = useState("w3-disabled");
   const [typeConfig, setTypeConfig] = useState();
+  const [rQSub,setRQSub] = useState();
+  const [requestSend, setResetSend] = useState(false);
+  const [rest,setRest] = useState(false);
+
+  const resetPopUP = () => {
+    setRest(false);
+    setResetSend(false);
+  };
+
+  async function sendRequest() {
+    try {
+      await firebase.addRequestedSub(
+        {
+          user:firebase.getCurrentUserEmail(),
+          reqSubject:rQSub,
+        }
+      )
+      setResetSend(true);
+    } catch (e) {
+      setRQSub("");
+      alert(e.message);
+    }
+  }
+
+  const resetModal = (
+    <div style={{ display: "block" ,zIndex:99999999999}} className="w3-modal">
+      <div
+        style={{ maxWidth: "350px",zIndex:99999999999}}
+        className={`w3-modal-content ${
+          dark ? "w3-dark-gray" : ""
+        } w3-padding w3-border ${
+          dark ? "w3-border-brown" : "w3-border-red"
+        } w3-animate-zoom w3-padding w3-card-4"`}
+      >
+        <h4>Request a Subject</h4>
+        {!requestSend && (
+          <p>
+            <label className="w3-left">
+              <b>Enter Subject</b>
+            </label>
+            <input
+              style={{
+                backgroundColor: dark ? "#313131" : "",
+                color: dark ? "#f2f2f2" : "black",
+              }}
+              className="w3-border w3-input"
+              type="email"
+              placeholder="Subject Name Separated with ( , )"
+              value={rQSub}
+              onChange={(e) => setRQSub(e.target.value)}
+            ></input>
+          </p>
+        )}
+        {requestSend && (
+          <p>
+            Request Submitted for <b>{rQSub}</b>
+          </p>
+        )}
+        {!requestSend && (
+          <button onClick={sendRequest} className="w3-block w3-button w3-red">
+            Submit
+          </button>
+        )}
+        <br></br>
+        <button onClick={resetPopUP} className="w3-block w3-button w3-red">
+          Close
+        </button>
+      </div>
+    </div>
+  );
 
   const activeSub =
     props.id === 3 ? UseActiveSub(firebase.getCurrentUserEmail()) : null;
@@ -49,6 +119,7 @@ function SubjectList(props) {
     if ((props.game && props.host) || !props.game) {
       return (
         <div className="w3-animate-left">
+          {rest&&resetModal}
           <button
             onClick={props.click}
             className="w3-hide-small w3-hide-medium icon-bar  w3-left w3-button"
@@ -123,6 +194,16 @@ function SubjectList(props) {
           )}
           <br />
           <br />
+          {props.id != 3 && (
+            <p>
+              Couldn't find your subject Don't worry new subjects is going to be
+              added very soon<br></br>
+              <i>
+                Tell us which subject you want -{" "}
+                <button onClick ={()=>setRest(true)} className="w3-button w3-border w3-small w3-round">Request a Subject</button>
+              </i>
+            </p>
+          )}
           {props.id !== 3 && (
             <button
               onClick={startQuiz}

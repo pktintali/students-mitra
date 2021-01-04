@@ -15,6 +15,8 @@ import {
   Signup,
   Terms,
   Test,
+  Learning,
+  SubjectPage,
 } from "../components";
 
 const Routes = () => {
@@ -34,6 +36,8 @@ const Routes = () => {
       <Route path="/terms-of-uses" component={Terms} />
       <Route path="/notifications" component={Notifications} />
       <Route path="/admins" component={Admins} />
+      <Route path="/learning" exact component={Learning} />
+      <Route path="/learning/:subject" component={SubjectPage} />
     </Switch>
   );
 };

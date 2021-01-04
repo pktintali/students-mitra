@@ -99,6 +99,7 @@ const Profile = (props) => {
         autoClose: 4000,
       });
       setEditMode(false);
+      window.location.reload();
     } catch (e) {
       toast.error("Something Went Wrong", {
         position: toast.POSITION.BOTTOM_RIGHT,
@@ -191,7 +192,12 @@ const Profile = (props) => {
               {!usermini && (
                 <FaUserCircle className="w3-text-green" size={150} />
               )}
-              {usermini && <img className="dpcircle" src={usermini} />}
+              {usermini && (
+                <div className="circular-xl-div">
+                  {" "}
+                  <img className="circular-mini-img" src={usermini} />
+                </div>
+              )}
               <br></br>
               <br></br>
               <b>{firebase.getCurrentUsername()}</b>
@@ -220,7 +226,6 @@ const Profile = (props) => {
                       Admin Dashboard
                     </button>
                   </Link>
-                  
                 </div>
               )}
             </div>
@@ -310,7 +315,18 @@ const Profile = (props) => {
                   );
                 })}
             </ul>
+            
             <div className="c-box-min"></div>
+            <p className="w3-tiny">
+              <Link to="/privacy-policy" className="no-td w3-text-blue">
+                {" "}
+                Privacy Policy
+              </Link>
+              {" & "}
+              <Link to="/terms-of-uses" className="no-td w3-text-blue">
+                Terms of Use
+              </Link>
+            </p>
           </div>
         ) : (
           <LoadingScreen />

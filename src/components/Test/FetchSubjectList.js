@@ -13,7 +13,7 @@ const FetchSubjectList = () => {
         .then((res) => {
           setSubList(res.data.values);
           //setIsLoaded(true);
-          console.log(subList);
+          // console.log(subList);
         })
         .catch((error) => {
           // setIsLoaded(true);

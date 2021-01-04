@@ -14,7 +14,7 @@ function DataFetchingSub() {
       )
       .then((res) => {
         questions.push(...res.data.values);
-        console.log(questions)
+        // console.log(questions)
       })
       .catch((error) => {
         setError(error);

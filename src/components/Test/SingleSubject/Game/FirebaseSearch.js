@@ -35,7 +35,7 @@ function FirebaseSearch(props) {
   const [defaultLeval, setDefaultLeval] = useState(null);
   const games = UseGame(props.id);
   const players = UsePlayers(props.id);
-  console.log(players);
+  // console.log(players);
   if (games[0] !== undefined && games[0].subject !== undefined) {
     props.userReady();
   }

@@ -14,7 +14,7 @@ function ResultPage(props) {
   var to = 0;
 
   for (let q in userAnswers) {
-    //alert(userAnswers[q])
+    // console.log(userAnswers[q]);
     if (questions[q] && questions[q][6] === userAnswers[q]) {
       c++;
     } else if (userAnswers[q] === " ") {

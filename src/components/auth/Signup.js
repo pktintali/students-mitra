@@ -155,7 +155,7 @@ function SignupPage(props) {
               </p>
               <p>
                 <label className="w3-left">
-                  <b>Confirmm Password</b>
+                  <b>Confirm Password</b>
                 </label>
                 <input
                   style={{

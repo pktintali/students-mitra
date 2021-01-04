@@ -7,7 +7,7 @@
   color: #f5f6f7;
 }
 
-.blue{
+.blue {
   background-color: #010048;
   color: #f6f6f6;
 }
@@ -33,7 +33,7 @@
   height: 180px;
   border: #02c002 0.2rem solid;
 }
-
+/* ToDo */
 .mini-dpcircle {
   background-size: cover;
   border-radius: 50% 50% 50% 50%;
@@ -149,10 +149,19 @@
 .circular-mini-div {
   display: inline-block;
   position: relative;
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   overflow: hidden;
   border-radius: 50%;
+}
+.circular-xl-div {
+  display: inline-block;
+  position: relative;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: #02c002 0.2rem solid;
 }
 
 .circular-mini-img {
