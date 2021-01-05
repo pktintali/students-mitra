@@ -89,7 +89,7 @@ function DataFetching(props) {
     if (questions[0] !== undefined) {
       return (
         <QuestionMaker
-          testType={props.config.testType}
+          testType={props.config ? props.config.testType : undefined}
           game={props.game}
           sub={subject}
           click={props.click}
