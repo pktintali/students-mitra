@@ -17,6 +17,8 @@ import {
   Test,
   Learning,
   SubjectPage,
+  Blogs,
+  PostHandler,
 } from "../components";
 
 const Routes = () => {
@@ -36,6 +38,8 @@ const Routes = () => {
       <Route path="/terms-of-uses" component={Terms} />
       <Route path="/notifications" component={Notifications} />
       <Route path="/admins" component={Admins} />
+      <Route path="/blogs" exact component={Blogs} />
+      <Route path="/blogs/:topic" component={PostHandler} />
       <Route path="/learning" exact component={Learning} />
       <Route path="/learning/:subject" component={SubjectPage} />
     </Switch>
