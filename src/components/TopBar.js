@@ -66,7 +66,7 @@ function TopBar(props) {
               }
             >
               {!usermini && <FaUser size={25} />}
-              {usermini && <img src={usermini} className="circular-mini-img" />}
+              {usermini && <img alt = "user logo" src={usermini} className="circular-mini-img" />}
             </Link>
           )}
       </header>

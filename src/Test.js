@@ -19,7 +19,7 @@ const Test = (props) => {
       <button onClick={() => dispatch(buyCream(c))}>Add {c} IceCream</button>
       <button onClick={() => dispatch(setDark())}>Change Theme</button>
       <hr></hr>
-      {logo && <img style={{ width: "50%" }} src={logo} />}
+      {logo && <img alt = "logo" style={{ width: "50%" }} src={logo} />}
     </div>
   );
 };

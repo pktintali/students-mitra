@@ -25,7 +25,7 @@ const AllPosts = (props) => {
           X
         </span>
         {url ? (
-          <img src={url} width="60%" />
+          <img alt = "image" src={url} width="60%" />
         ) : (
           <span>
             <h2>Really Delete</h2>

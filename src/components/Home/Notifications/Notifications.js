@@ -47,6 +47,7 @@ const Notifications = (props) => {
                           maxWidth: mobile ? window.innerWidth - 55 : "600px",
                         }}
                         src={n.image}
+                        alt = "image"
                       />
                     )}
                     <p>{n.text}</p>
@@ -75,6 +76,7 @@ const Notifications = (props) => {
                   >
                     {n.image && (
                       <img
+                      alt = "image"
                         style={{
                           marginTop: 15,
                           maxHeight: mobile ? "200" : "300px",

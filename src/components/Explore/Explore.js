@@ -204,6 +204,7 @@ function Explore() {
                   onClick={() => imageUploader.current.click()}
                 >
                   <img
+                  alt = "camera image"
                     src={
                       dark
                         ? "https://www.heavydutydirect.ca/wp-content/uploads/2019/02/camera-placeholder.jpg"

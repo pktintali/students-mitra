@@ -61,6 +61,7 @@ function PostCard(props) {
         }}
         className="w3-modal-content"
         src={props.post.image}
+        alt = "image"
       ></img>
     </div>
   );

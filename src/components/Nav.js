@@ -162,7 +162,7 @@ function Nav() {
               }
             >
               {!usermini && <FaUser size={20} />}
-              {usermini && <img src={usermini} className="circular-mini-img" />}
+              {usermini && <img alt ="user logo" src={usermini} className="circular-mini-img" />}
             </Link>
           )}
           {firebase.getCurrentUsername() &&!window.location.href.match("/notifications")&& (

@@ -195,7 +195,7 @@ const Profile = (props) => {
               {usermini && (
                 <div className="circular-xl-div">
                   {" "}
-                  <img className="circular-mini-img" src={usermini} />
+                  <img alt = "user logo" className="circular-mini-img" src={usermini} />
                 </div>
               )}
               <br></br>
@@ -368,6 +368,7 @@ const Profile = (props) => {
                 onClick={() => imageUploader.current.click()}
               >
                 <img
+                alt = "background image"
                   src={
                     dark
                       ? "https://www.heavydutydirect.ca/wp-content/uploads/2019/02/camera-placeholder.jpg"
