@@ -26,3 +26,7 @@ StudentMitra is Free and Online Study Analyzer tool.
 
 ## Explore Tab Where You Can Ask Your Doubt
 <img src= "https://raw.githubusercontent.com/pktintali/students-mitra/master/screenshots/screenshot6.png" width = "50%"/>
+<!-- <meta
+      name="description"
+      content="StudentMitra | Online Subject knowledge testing and study analyzer. Track your subjects knowledge and progress with studentmitra. We are student mitra."
+    /> -->

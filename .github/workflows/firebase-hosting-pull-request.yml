@@ -16,4 +16,3 @@ jobs:
           projectId: students-mitra
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
-          CI: ""

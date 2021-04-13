@@ -10,6 +10,7 @@
 
 # production
 /build
+/local
 /src/components/Test/DataFetching.js
 # misc
 .DS_Store

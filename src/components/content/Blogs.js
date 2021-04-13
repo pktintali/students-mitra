@@ -32,7 +32,7 @@ const Blogs = () => {
            You can download it by entering your roll no university Roll No."
           url={PostURLs.aktuAdmitCard}
         />
-        {/* <PostCard /> */}
+
         <div></div>
       </section>
       <footer></footer>

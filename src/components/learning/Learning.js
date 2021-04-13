@@ -18,6 +18,7 @@ const Learning = () => {
       <h1>Welcome to StudentMitra Learning</h1>
       <p>Learn in brief and with example</p>
       <SubjectCard sub={"python"} />
+      <SubjectCard sub = {"machine-learning"}/>
       <SubjectCard sub={"dart"} />
       <SubjectCard sub={"javascript"} />
     </>
