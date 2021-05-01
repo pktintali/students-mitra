@@ -19,6 +19,7 @@ import {
   SubjectPage,
   Blogs,
   PostHandler,
+  Dashboard,
 } from "../components";
 
 const Routes = () => {
@@ -42,6 +43,7 @@ const Routes = () => {
       <Route path="/blogs/:topic" component={PostHandler} />
       <Route path="/learning" exact component={Learning} />
       <Route path="/learning/:subject" component={SubjectPage} />
+      <Route path="/learnpk" component={Dashboard} />
     </Switch>
   );
 };

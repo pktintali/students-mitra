@@ -21,3 +21,4 @@ export { default as Python } from "./learning/Python";
 export { default as SubjectPage } from "./learning/SubjectPage";
 export { default as Blogs } from "./content/Blogs";
 export { default as PostHandler } from "./content/PostHandler";
+export { default as Dashboard } from "./utils/pro_learning/Dashboard";
