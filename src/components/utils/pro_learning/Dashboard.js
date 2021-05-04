@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BarLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import firebase from "../../firebase";
 toast.configure();
 const Dashboard = () => {
   // const [result, setResult] = useState();
@@ -16,10 +19,10 @@ const Dashboard = () => {
   // const [content, setContent] = useState("");
   // const [menu, setMenu] = useState("Select Element ↆ");
   // const [c, setC] = useState([1]);
-  var i = 1;
-  var help = `h1.Heading h1.#green
+
+  var help = `h1.Heading h1.#green b.yellow
   #>h2.Heading h2
-  #>h3.Heading h3
+  #>h3.Heading h3.#b.blue
   #>h4.Heading h4
   #>h5.Heading h5
   #>p0.This is sample paragraph
@@ -36,7 +39,7 @@ const Dashboard = () => {
   }
   const customLoader = (
     <div>
-      <h3>Exporting...</h3>
+      <h3>Adding...</h3>
       <center>
         <BarLoader height="8" width="150" color="green" />
       </center>
@@ -45,30 +48,28 @@ const Dashboard = () => {
   );
 
   const clear = () => {
-    setTopic();
-    setMainIMG();
-    setBody();
-    setRes1();
-    setRes2();
-    setRes3();
-    setSubject();
-    setUnit();
+    setTopic("");
+    setMainIMG("");
+    setBody("");
+    setRes1("");
+    setRes2("");
+    setRes3("");
   };
 
   const validate = () => {
-    if (subject == undefined) {
+    if (subject == undefined || subject == "") {
       toast.error("Error: Subject is required", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
       return false;
     }
-    if (unit == undefined) {
+    if (unit == undefined || unit == "") {
       toast.error("Error: Unit is required", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
       return false;
     }
-    if (topic == undefined) {
+    if (topic == undefined || topic == "") {
       toast.error("Error: Topic is required", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
@@ -95,7 +96,16 @@ const Dashboard = () => {
       await doc.loadInfo();
       console.log(doc.title);
       var sName = subject + "-" + unit;
-      const headerRow = ["topic", "mainIMG", "body", "res1", "res2", "res3"];
+      const headerRow = [
+        "topic",
+        "mainIMG",
+        "body",
+        "res1",
+        "res2",
+        "res3",
+        "Author",
+        "Date",
+      ];
 
       try {
         var sheet = doc.sheetsByTitle[sName];
@@ -121,12 +131,20 @@ const Dashboard = () => {
         //   await sheet.addRow(dataRow);
         //   sleep(1500);
         // }
-        const dataRow = [topic, mainIMG, body, res1, res2, res3];
+        const dataRow = [
+          topic,
+          mainIMG,
+          body,
+          res1,
+          res2,
+          res3,
+          firebase.getCurrentUsername(),
+        ];
         await sheet.addRow(dataRow);
-        clear();
         toast.success("Added Successfully", {
           position: toast.POSITION.BOTTOM_RIGHT,
         });
+        clear();
       } catch (e) {
         toast.error("Error: Something went wrong", {
           position: toast.POSITION.BOTTOM_RIGHT,
@@ -140,115 +158,6 @@ const Dashboard = () => {
     }
     setLoader(false);
   }
-
-  // function getDropDown(current) {
-  //   var unlocked = (current == i);
-  //   return (
-  //     <div>
-  //       <div class="w3-dropdown-hover">
-  //         <button onClick={(e) => e.preventDefault()} class="w3-button">
-  //           {menu}
-  //         </button>
-  //         <div class="w3-dropdown-content w3-bar-block w3-card-4">
-  //           <button
-  //             onClick={(e) => unlocked?addBody("h1", "Heading 1", e):console.log(unlocked)}
-  //             class="w3-bar-item w3-button"
-  //           >
-  //             h1
-  //           </button>
-  //           <button
-  //             onClick={(e) => unlocked && addBody("h2", "Heading 2", e)}
-  //             class="w3-bar-item w3-button"
-  //           >
-  //             h2
-  //           </button>
-  //           <button
-  //             onClick={(e) => unlocked && addBody("h3", "Heading 3", e)}
-  //             class="w3-bar-item w3-button"
-  //           >
-  //             h3
-  //           </button>
-  //           <button
-  //             onClick={(e) => unlocked && addBody("h4", "Heading 4", e)}
-  //             class="w3-bar-item w3-button"
-  //           >
-  //             h4
-  //           </button>
-  //           <button
-  //             onClick={(e) => unlocked && addBody("h5", "Heading 5", e)}
-  //             class="w3-bar-item w3-button"
-  //           >
-  //             h5
-  //           </button>
-  //           <button
-  //             onClick={(e) => unlocked && addBody("p0", "Paragraph", e)}
-  //             class="w3-bar-item w3-button"
-  //           >
-  //             p
-  //           </button>
-  //           <button
-  //             onClick={(e) => unlocked && addBody("s0", "Single Line Space", e)}
-  //             class="w3-bar-item w3-button"
-  //           >
-  //             /n
-  //           </button>
-  //           <button
-  //             onClick={(e) =>
-  //               unlocked && addBody("cb", "Bullet Check Point", e)
-  //             }
-  //             class="w3-bar-item w3-button"
-  //           >
-  //             Checkbox point
-  //           </button>
-  //           <button
-  //             onClick={(e) =>
-  //               unlocked && addBody("ob", "Bullet Circle Point", e)
-  //             }
-  //             class="w3-bar-item w3-button"
-  //           >
-  //             Circle point
-  //           </button>
-  //           <button
-  //             onClick={(e) => unlocked && addBody("im", "Image URL", e)}
-  //             class="w3-bar-item w3-button"
-  //           >
-  //             Image
-  //           </button>
-  //           <button
-  //             onClick={(e) => unlocked && addBody("hr", "Horizontal Line", e)}
-  //             class="w3-bar-item w3-button"
-  //           >
-  //             Hr
-  //           </button>
-  //           <button
-  //             onClick={(e) =>
-  //               unlocked && addBody("t0", "Table Header [Left | Right]", e)
-  //             }
-  //             class="w3-bar-item w3-button"
-  //           >
-  //             Table Header
-  //           </button>
-  //           <button
-  //             onClick={(e) =>
-  //               unlocked && addBody("tx", "Table Row [Left | Right]", e)
-  //             }
-  //             class="w3-bar-item w3-button"
-  //           >
-  //             Table Row
-  //           </button>
-  //         </div>
-  //       </div>
-  //       <p>
-  //         <input
-  //           type="text"
-  //           onChange={(e) => {
-  //             unlocked && setContent(e.target.value);
-  //           }}
-  //         />
-  //       </p>
-  //     </div>
-  //   );
-  // }
 
   return (
     <>
@@ -419,6 +328,118 @@ const Dashboard = () => {
           >
             ADD
           </button>
+        </div>
+        <div className="c-box-min"></div>
+        <div className="w3-card-4 ">
+          <table className="w3-table w3-bordered">
+            <tbody>
+              <tr>
+                <th>Tag</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>{"#>"}</td>
+                <td>For Braking/Separating elements</td>
+              </tr>
+              <tr>
+                <td>{"something."}</td>
+                <td>Use at the starting of elements</td>
+              </tr>
+
+              <tr>
+                <td>{"h1."}</td>
+                <td>For Heading 1</td>
+              </tr>
+              <tr>
+                <td>{"h2."}</td>
+                <td>For Heading 2</td>
+              </tr>
+              <tr>
+                <td>{"Similarly h3. h4. h5."}</td>
+                <td>Heading 3,Heading 4,Heading 5</td>
+              </tr>
+              <tr>
+                <td>{"p0."}</td>
+                <td>For Normal paragraph</td>
+              </tr>
+              <tr>
+                <td>{"s0."}</td>
+                <td>For Single Line Break/Space</td>
+              </tr>
+              <tr>
+                <td>{"cb."}</td>
+                <td>For checkBox point</td>
+              </tr>
+              <tr>
+                <td>{"ob."}</td>
+                <td>For circle point</td>
+              </tr>
+              <tr>
+                <td>{"im."}</td>
+                <td>After this write image URL</td>
+              </tr>
+              <tr>
+                <td>{"hr."}</td>
+                <td>For Horizontal Line</td>
+              </tr>
+              <tr>
+                <td>{"t0."}</td>
+                <td>Header of Table [Left Side | Right Side]</td>
+              </tr>
+              <tr>
+                <td>{"NOTE"}</td>
+                <td>Don't Forgot | Between Two Sides of Table</td>
+              </tr>
+              <tr>
+                <td>{"tx."}</td>
+                <td>Row Of Table [Left Side | Right Side]</td>
+              </tr>
+              <tr>
+                <td>{"tx."}</td>
+                <td>Row Of Table [Left Side | Right Side]</td>
+              </tr>
+              <tr>
+                <td>{".#something"}</td>
+                <td>Use at the end of element </td>
+              </tr>
+              <tr>
+                <td>{".#red"}</td>
+                <td>For Making Text red Ex: h1.Heading.#red</td>
+              </tr>
+              <tr>
+                <td>{".#green"}</td>
+                <td>For Making Text green</td>
+              </tr>
+              <tr>
+                <td>{".#yellow"}</td>
+                <td>For Making Text yellow</td>
+              </tr>
+              <tr>
+                <td>{".#blue"}</td>
+                <td>For Making Text blue</td>
+              </tr>
+              <tr>
+                <td>{".#purple"}</td>
+                <td>For Making Text purple</td>
+              </tr>
+              <tr>
+                <td>{".#b.color"}</td>
+                <td> for background color of text</td>
+              </tr>
+              <tr>
+                <td>{"h1.Something.#red b.yellow"}</td>
+                <td>This will make red text and yellow background</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2>A Good Example</h2>
+          <SyntaxHighlighter
+            language="dart"
+            style={materialDark}
+            showLineNumbers
+          >
+            {help}
+          </SyntaxHighlighter>
         </div>
       </div>
     </>

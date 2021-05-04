@@ -1,0 +1,22 @@
+[
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "in.studentmitra.www.twa",
+        "sha256_cert_fingerprints": [
+          "AE:93:FC:72:85:C8:62:18:67:36:2F:E8:25:57:5D:28:08:FD:00:7C:FF:EE:3A:F4:39:3D:EC:A8:12:21:81:D3"
+        ]
+      }
+    },
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "in.studentmitra.www.twa",
+        "sha256_cert_fingerprints": [
+          "78:8B:0B:EC:1A:32:73:AE:BA:F2:EF:F0:B3:F5:03:27:96:69:32:34:5D:40:7B:CD:A3:5E:F0:38:5E:51:53:FB"
+        ]
+      }
+    }
+  ]

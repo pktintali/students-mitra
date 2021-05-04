@@ -326,6 +326,12 @@ const Profile = (props) => {
               <Link to="/terms-of-uses" className="no-td w3-text-blue">
                 Terms of Use
               </Link>
+              
+            </p>
+            <p>
+            <Link to="/learnpk" className="no-td w3-text-blue">
+                Add Resources
+              </Link>
             </p>
           </div>
         ) : (
